@@ -13,7 +13,7 @@ class RoutineAdapter(val routines: List<Routine>) : RecyclerView.Adapter<Routine
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(routine: Routine) {
             itemView.routineName.text = routine.name
-            itemView.routineCount.text = "${routine.exercises.size.toString()} exercises"
+            itemView.routineCount.text = "${routine.exercises.size} exercises"
         }
     }
 

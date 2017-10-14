@@ -17,7 +17,7 @@
 
     <style name="BlackText" parent="@android:style/TextAppearance">
         <item name="android:color">@color/pastelBlack</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

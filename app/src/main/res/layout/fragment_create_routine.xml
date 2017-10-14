@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="16dp"
     tools:context="com.kaplanbora.stick2exercise.CreateRoutineFragment">
 
     <TextView
@@ -11,15 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:text="Routine Name:" />
+        android:textSize="22sp"
+        android:gravity="left"
+        android:textColor="@color/pastelBlack"
+        android:text="@string/routine_name" />
 
     <EditText
         android:id="@+id/createRoutineInput"
-        android:layout_width="200dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="26dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:inputType="text" />
@@ -27,21 +26,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="right"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/createRoutineCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
+            android:textColor="@color/pastelBlack"
+            style="?android:attr/borderlessButtonStyle"
             android:text="Cancel" />
 
         <Button
             android:id="@+id/createRoutineOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
+            android:textColor="@color/pastelBlack"
+            style="?android:attr/borderlessButtonStyle"
             android:text="OK" />
     </LinearLayout>
 </LinearLayout>

@@ -16,7 +16,7 @@ class CreateRoutineFragment : DialogFragment() {
         view.createRoutineCancel.setOnClickListener{ _ -> dismiss() }
         view.createRoutineOk.setOnClickListener{ _ ->
             val input = view.createRoutineInput.text.toString()
-            Data.routines.add(Routine(input, mutableListOf()))
+            Data.routines.add(Routine(input.length.toLong(), input, mutableListOf()))
             dismiss()
         }
         dialog.setTitle("Create a new routine.")

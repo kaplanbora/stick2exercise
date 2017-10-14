@@ -1,15 +1,13 @@
 package com.kaplanbora.stick2exercise
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_entrance.*
 import kotlinx.android.synthetic.main.app_bar_entrance.*
 import kotlinx.android.synthetic.main.content_entrance.*
@@ -21,13 +19,17 @@ class EntranceActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.activity_entrance)
         setSupportActionBar(toolbar)
 
-        routines.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        routines.adapter = RoutineAdapter(Data.routines)
+        routinesListView.adapter = RoutineListAdapter(applicationContext, Data.routines)
+        routinesListView.setOnItemClickListener { adapterView, view, i, l ->
+            val intent = Intent(applicationContext, ExerciseListActivity::class.java)
+            intent.putExtra("routineId", l)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            applicationContext.startActivity(intent)
+        }
+
 
         fab.setOnClickListener { view ->
             CreateRoutineFragment().show(supportFragmentManager, "create_routine")
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
         }
 
         val toggle = ActionBarDrawerToggle(

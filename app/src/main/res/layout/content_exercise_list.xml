@@ -5,18 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.kaplanbora.stick2exercise.EntranceActivity"
-    tools:showIn="@layout/app_bar_entrance">
-
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/routines"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:clickable="true"-->
-        <!--android:focusable="true" />-->
+    tools:context="com.kaplanbora.stick2exercise.ExerciseListActivity"
+    tools:showIn="@layout/activity_exercise_list">
 
     <ListView
-        android:id="@+id/routinesListView"
+        android:id="@+id/exerciseListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

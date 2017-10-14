@@ -10,21 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        tools:text="Routine Name"
+        android:textColor="@color/pastelBlack"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Routine Name" />
 
 
     <TextView
         android:id="@+id/routineCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        tools:text="Exercise Count"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="16dp"
+        android:textColor="@color/pastelBlack"
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/routineName" />
+        app:layout_constraintTop_toBottomOf="@id/routineName"
+        tools:text="Exercise Count" />
 
 </android.support.constraint.ConstraintLayout>

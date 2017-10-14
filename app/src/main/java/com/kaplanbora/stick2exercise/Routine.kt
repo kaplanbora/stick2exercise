@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.routine_row.view.*
 
-data class Routine(var name: String, val exercises: MutableList<Exercise>)
+
+
+data class Routine(val id: Long, var name: String, val exercises: MutableList<Exercise>)
 
 class RoutineAdapter(val routines: List<Routine>) : RecyclerView.Adapter<RoutineAdapter.ViewHolder>() {
 
@@ -14,6 +16,10 @@ class RoutineAdapter(val routines: List<Routine>) : RecyclerView.Adapter<Routine
         fun bindItems(routine: Routine) {
             itemView.routineName.text = routine.name
             itemView.routineCount.text = "${routine.exercises.size} exercises"
+//            itemView.setOnClickListener { _ ->
+//                val exercises = Intent(getIntent(), ExerciseListActivity::class.java)
+//                exercises.putExtra("routineIndex", Data.exerciseList.indexOf(routine))
+//            }
         }
     }
 
@@ -29,5 +35,6 @@ class RoutineAdapter(val routines: List<Routine>) : RecyclerView.Adapter<Routine
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.routine_row, parent, false)
         return ViewHolder(view)
     }
-
 }
+
+

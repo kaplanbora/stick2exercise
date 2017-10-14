@@ -268,7 +268,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
             if (success!!) {
                 finish()
-                val intent = Intent(this@LoginActivity, EntranceActivity::class.java)
+                val intent = Intent(this@LoginActivity, RoutineListActivity::class.java)
                 this@LoginActivity.startActivity(intent)
 
             } else {

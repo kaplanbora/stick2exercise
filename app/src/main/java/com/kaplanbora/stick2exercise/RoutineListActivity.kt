@@ -8,15 +8,14 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_entrance.*
-import kotlinx.android.synthetic.main.app_bar_entrance.*
-import kotlinx.android.synthetic.main.content_entrance.*
+import kotlinx.android.synthetic.main.activity_routine_list.*
+import kotlinx.android.synthetic.main.content_routine_list.*
 
-class EntranceActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_entrance)
+        setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
         routinesListView.adapter = RoutineListAdapter(applicationContext, Data.routines)
@@ -28,7 +27,7 @@ class EntranceActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
 
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { _ ->
             CreateRoutineFragment().show(supportFragmentManager, "create_routine")
         }
 

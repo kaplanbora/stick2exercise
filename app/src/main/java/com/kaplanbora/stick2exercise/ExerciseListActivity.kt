@@ -13,11 +13,6 @@ class ExerciseListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_exercise_list)
         setSupportActionBar(toolbar)
 
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
-
         val routine = Data.getRoutine(intent.getLongExtra("routineId", 0))
         exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
 

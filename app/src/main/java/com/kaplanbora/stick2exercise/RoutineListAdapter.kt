@@ -9,12 +9,6 @@ import android.widget.TextView
 
 
 class RoutineListAdapter(val context: Context, val routineList: List<Routine>) : BaseAdapter() {
-
-//    class ViewHolder(name: TextView, count: TextView) {
-//        var routineName = name
-//        var exerciseCount = count
-//    }
-
     override fun getCount(): Int {
         return routineList.size
     }
@@ -30,7 +24,6 @@ class RoutineListAdapter(val context: Context, val routineList: List<Routine>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val row = inflater.inflate(R.layout.routine_row, parent, false)
-//        convertView.tag = ViewHolder(routineName, routineCount)
         val name = row.findViewById<TextView>(R.id.routineName)
         val count = row.findViewById<TextView>(R.id.routineCount)
         val routine = getItem(position) as Routine

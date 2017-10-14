@@ -1,5 +1,6 @@
 package com.kaplanbora.stick2exercise
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
@@ -15,8 +16,11 @@ class CreateRoutineFragment : DialogFragment() {
         view.createRoutineCancel.setOnClickListener{ _ -> dismiss() }
         view.createRoutineOk.setOnClickListener{ _ ->
             val input = view.createRoutineInput.text.toString()
-            Data.routines.add(Routine(input.length.toLong(), input, mutableListOf()))
-            dismiss()
+            val routine = Routine(input.length.toLong(), input, mutableListOf())
+            Data.routines.add(routine)
+            val intent = Intent(context, ExerciseListActivity::class.java)
+            intent.putExtra("routineId", routine.id)
+            startActivity(intent)
         }
         dialog.setTitle("Create a new routine.")
         view.createRoutineInput.requestFocus()

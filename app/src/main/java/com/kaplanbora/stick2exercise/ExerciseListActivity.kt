@@ -1,10 +1,12 @@
 package com.kaplanbora.stick2exercise
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 
@@ -19,9 +21,12 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         setSupportActionBar(toolbar)
 
         val routine = Data.getRoutine(intent.getLongExtra("routineId", 0))
+        title = routine.name
         exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
-
         fab.setOnClickListener { _ ->
+            val intent = Intent(applicationContext, CreateExerciseActivity::class.java)
+            intent.putExtra("routineId", routine.id)
+            startActivity(intent)
         }
 
         val toggle = ActionBarDrawerToggle(

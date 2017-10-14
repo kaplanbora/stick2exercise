@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context="com.kaplanbora.stick2exercise.CreateExerciseActivity">
+
+    <TextView
+        android:id="@+id/exerciseNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_name"
+        android:textAppearance="@style/BlackText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/exerciseNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/exerciseNameLabel" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/exerciseTempoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BlackText"
+        android:text="@string/tempo"
+        app:layout_constraintTop_toBottomOf="@id/exerciseNameEdit" />
+
+    <EditText
+        android:id="@+id/exerciseTempoEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/exerciseTempoLabel" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/exerciseMinuteLabel"
+        android:textAppearance="@style/BlackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minute"
+        app:layout_constraintTop_toBottomOf="@id/exerciseTempoEdit" />
+
+    <NumberPicker
+        android:id="@+id/exerciseMinute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/exerciseMinuteLabel" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:id="@+id/exerciseSecondLabel"
+        android:textAppearance="@style/BlackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seconds"
+        app:layout_constraintLeft_toRightOf="@id/exerciseMinuteLabel"
+        app:layout_constraintTop_toBottomOf="@id/exerciseTempoEdit" />
+
+    <NumberPicker
+        android:id="@+id/exerciseSecond"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/exerciseMinute"
+        app:layout_constraintTop_toBottomOf="@id/exerciseMinuteLabel" />
+
+    <Button
+        android:id="@+id/exerciseCreateButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/create"
+        android:background="@color/pastelOrange"
+        android:textColor="@color/pastelWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</android.support.constraint.ConstraintLayout>

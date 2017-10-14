@@ -23,4 +23,8 @@
     <string name="routine_name">Routine Name</string>
     <string name="exercise_name">Exercise Name</string>
     <string name="title_activity_exercise_list">ExerciseList</string>
+    <string name="minute">Minutes</string>
+    <string name="tempo">Tempo</string>
+    <string name="seconds">Seconds</string>
+    <string name="create">Create</string>
 </resources>

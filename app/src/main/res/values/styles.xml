@@ -15,6 +15,11 @@
         <item name="colorAccent">@color/pastelRed</item>
     </style>
 
+    <style name="BlackText" parent="@android:style/TextAppearance">
+        <item name="android:color">@color/pastelBlack</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

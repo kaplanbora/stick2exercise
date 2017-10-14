@@ -28,9 +28,9 @@ class ExerciseListAdapter(val context: Context, val exerciseList: List<Exercise>
         val duration = row.findViewById<TextView>(R.id.exerciseDuration)
         val tempo = row.findViewById<TextView>(R.id.exerciseTempo)
         val exercise = getItem(position) as Exercise
-        name.text = "$position. ${exercise.name}"
+        name.text = "${position + 1}. ${exercise.name}"
         duration.text = "${exercise.duration}"
-        tempo.text = "${exercise.tempo}"
+        tempo.text = "${exercise.tempo} BPM"
         return row
     }
 }

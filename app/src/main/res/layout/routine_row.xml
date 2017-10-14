@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="16dp"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/routineName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:textColor="@color/pastelBlack"
-        android:textSize="20sp"
+        android:textAppearance="@style/BlackText"
+        android:paddingBottom="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Routine Name" />
@@ -21,11 +22,8 @@
         android:id="@+id/routineCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:paddingBottom="16dp"
         android:textColor="@color/pastelBlack"
-        android:textSize="16sp"
+        android:textAppearance="@style/BlackTextSmall"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/routineName"
         tools:text="Exercise Count" />

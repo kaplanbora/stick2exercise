@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,36 +11,32 @@
         android:id="@+id/exerciseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         tools:text="#. Exercise Name"
-        android:textSize="20sp"
+        android:textAppearance="@style/BlackText"
+        android:paddingBottom="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:textColor="@color/pastelBlack"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:paddingBottom="16dp"
+        android:layout_marginEnd="36dp"
         android:id="@+id/exerciseDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="5m 30s"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textAppearance="@style/BlackTextSmall"
+        app:layout_constraintRight_toLeftOf="@id/exerciseTempo"
         app:layout_constraintTop_toBottomOf="@id/exerciseName" />
 
     <TextView
         android:textColor="@color/pastelBlack"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="120dp"
-        android:paddingBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:id="@+id/exerciseTempo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="170 BPM"
-        android:textSize="14sp"
+        android:textAppearance="@style/BlackTextSmall"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exerciseName" />
 

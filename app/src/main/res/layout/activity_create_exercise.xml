@@ -34,9 +34,10 @@
 
     <EditText
         android:id="@+id/exerciseTempoEdit"
-        android:layout_width="40dp"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:gravity="center_horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exerciseTempoLabel" />
 
@@ -47,7 +48,7 @@
         android:paddingBottom="12dp"
         android:paddingStart="4dp"
         android:text="@string/bpm"
-        android:textAppearance="@style/BlackText"
+        android:textAppearance="@style/BlackTextSmall"
         app:layout_constraintBottom_toBottomOf="@id/exerciseTempoEdit"
         app:layout_constraintLeft_toRightOf="@id/exerciseTempoEdit" />
 
@@ -64,7 +65,7 @@
         android:id="@+id/lay1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -75,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/minute"
-            android:textAppearance="@style/BlackText" />
+            android:textAppearance="@style/BlackTextSmall" />
 
         <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/exerciseMinute"
@@ -92,7 +93,7 @@
         android:id="@+id/lay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintRight_toRightOf="parent"
@@ -103,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/seconds"
-            android:textAppearance="@style/BlackText" />
+            android:textAppearance="@style/BlackTextSmall" />
 
         <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/exerciseSecond"
@@ -127,7 +128,7 @@
         android:id="@+id/lay3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -137,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/minute"
-            android:textAppearance="@style/BlackText" />
+            android:textAppearance="@style/BlackTextSmall" />
 
         <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/breakMinute"
@@ -154,7 +155,7 @@
         android:id="@+id/lay4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintRight_toRightOf="parent"
@@ -164,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/seconds"
-            android:textAppearance="@style/BlackText" />
+            android:textAppearance="@style/BlackTextSmall" />
 
         <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/breakSecond"

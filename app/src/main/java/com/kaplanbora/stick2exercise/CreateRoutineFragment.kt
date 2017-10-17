@@ -22,7 +22,6 @@ class CreateRoutineFragment : DialogFragment() {
             intent.putExtra("routineId", routine.id)
             startActivity(intent)
         }
-        dialog.setTitle("Create a new routine.")
         view.createRoutineInput.requestFocus()
         dialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         return view

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         tools:text="#. Exercise Name"
         android:textAppearance="@style/BlackText"
-        android:paddingBottom="4dp"
+        android:paddingBottom="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

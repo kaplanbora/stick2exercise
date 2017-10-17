@@ -22,6 +22,7 @@ class CreateExerciseActivity : AppCompatActivity() {
         exerciseSecond.maxValue = seconds.size - 1
         exerciseSecond.wrapSelectorWheel = true
         exerciseSecond.displayedValues = seconds
+        exerciseSecond.value = 0
 
         exerciseNameEdit.requestFocus()
 

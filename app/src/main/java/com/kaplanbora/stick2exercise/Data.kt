@@ -15,6 +15,7 @@ data class Routine(val id: Long, var name: String, val exercises: MutableList<Ex
 
 object ExerciseRepo {
     private var exerciseId: Long = 1
+
     fun generateId(): Long {
         val id = exerciseId
         exerciseId += 1

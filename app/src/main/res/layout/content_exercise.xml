@@ -8,4 +8,10 @@
     tools:context="com.kaplanbora.stick2exercise.ExerciseActivity"
     tools:showIn="@layout/activity_exercise">
 
+    <include layout="@layout/fragment_exercise" />
+
+    <include layout="@layout/timer_bar" />
+
+
+
 </android.support.constraint.ConstraintLayout>

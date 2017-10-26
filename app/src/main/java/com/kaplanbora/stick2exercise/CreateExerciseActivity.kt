@@ -49,9 +49,9 @@ class CreateExerciseActivity : AppCompatActivity() {
                         4,
                         4,
                         playMinute.value.toString().toInt(),
-                        playSecond.value.toString().toInt(),
+                        playSecond.value.toString().toInt() * 10,
                         breakMinute.value.toString().toInt(),
-                        breakMinute.value.toString().toInt()
+                        breakSecond.value.toString().toInt() * 10
                 )
                 routine.exercises.add(exercise)
                 finish()

@@ -1,7 +1,8 @@
 package com.kaplanbora.stick2exercise
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.os.CountDownTimer
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_exercise.*
+import kotlinx.android.synthetic.main.content_exercise.*
+import kotlinx.android.synthetic.main.fragment_exercise.*
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -17,10 +20,39 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        val index = intent.extras.getInt("exerciseIndex")
+        val exercise = RoutineRepo.get(intent.extras.getLong("routineId")).exercises[index]
+
+        title = "Exercise ${index + 1}"
+
+        name.text = exercise.name
+        tempo.text = "${exercise.tempo} BPM"
+        subdiv.text = "${exercise.subdivUp} / ${exercise.subdivDown}"
+        timerMinute.text = String.format("%02d", exercise.playMin)
+        timerSecond.text = String.format("%02d", exercise.playSec)
+
+        val imgStream = assets.open("single-stroke-roll.png")
+        image.setImageDrawable(Drawable.createFromStream(imgStream, null))
+
+        val durationSeconds = ((exercise.playMin * 60) + exercise.playSec).toLong()
+
+        val timer = object : CountDownTimer(durationSeconds + 1000 * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val minutes = (millisUntilFinished / 1000) / 60
+                val seconds = (millisUntilFinished / 1000) % 60
+                timerMinute.text = String.format("%02d", minutes)
+                timerSecond.text = String.format("%02d", seconds)
+            }
+            override fun onFinish() {
+                timerMinute.text = "00"
+                timerSecond.text = "00"
+            }
         }
+
+        timerButton.setOnClickListener{_ ->
+            timer.start()
+        }
+
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)

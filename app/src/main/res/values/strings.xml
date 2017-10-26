@@ -24,11 +24,17 @@
     <string name="exercise_name">Exercise Name</string>
     <string name="title_activity_exercise_list">ExerciseList</string>
     <string name="minute">Minutes</string>
-    <string name="tempo">Tempo</string>
     <string name="seconds">Seconds</string>
     <string name="create">Create</string>
     <string name="bpm">BPM</string>
     <string name="exerciseDuration">Exercise Duration</string>
     <string name="break_duration">Break Duration</string>
     <string name="title_activity_exercise">Exercise</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exercise_image">Exercise Image</string>
+    <string name="time_signature">Time Signature</string>
+    <string name="tempo">Tempo</string>
+    <string name="time_left">Time Left: </string>
 </resources>

@@ -21,7 +21,16 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
         val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
         title = routine.name
+
         exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
+        exerciseListView.setOnItemClickListener{adapterView, view, i, l ->
+            val intent = Intent(applicationContext, ExerciseActivity::class.java)
+            intent.putExtra("exerciseId", l)
+            intent.putExtra("exerciseIndex", i)
+            intent.putExtra("routineId", routine.id)
+            startActivity(intent)
+        }
+
         fab.setOnClickListener { _ ->
             val intent = Intent(applicationContext, CreateExerciseActivity::class.java)
             intent.putExtra("routineId", routine.id)

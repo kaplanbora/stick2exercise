@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/exerciseNameEdit"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -30,10 +30,10 @@
         android:text="@string/tempo"
         android:textAppearance="@style/BlackText"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exerciseNameEdit" />
+        app:layout_constraintTop_toBottomOf="@id/name" />
 
     <EditText
-        android:id="@+id/exerciseTempoEdit"
+        android:id="@+id/tempo"
         android:layout_width="36dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -49,12 +49,8 @@
         android:paddingStart="4dp"
         android:text="@string/bpm"
         android:textAppearance="@style/BlackTextSmall"
-        app:layout_constraintBottom_toBottomOf="@id/exerciseTempoEdit"
-        app:layout_constraintLeft_toRightOf="@id/exerciseTempoEdit" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintBottom_toBottomOf="@id/tempo"
+        app:layout_constraintLeft_toRightOf="@id/tempo" />
 
     <TextView
         android:id="@+id/durationPlay"
@@ -63,7 +59,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/exerciseDuration"
         android:textAppearance="@style/BlackText"
-        app:layout_constraintTop_toBottomOf="@id/exerciseTempoEdit" />
+        app:layout_constraintTop_toBottomOf="@id/tempo" />
 
     <LinearLayout
         android:id="@+id/lay1"

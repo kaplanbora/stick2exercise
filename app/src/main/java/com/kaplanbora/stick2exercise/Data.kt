@@ -1,7 +1,5 @@
 package com.kaplanbora.stick2exercise
 
-import com.kaplanbora.stick2exercise.ExerciseRepo.generateExerciseId
-
 data class Exercise(
         val id: Long,
         var name: String,
@@ -17,7 +15,7 @@ data class Routine(val id: Long, var name: String, val exercises: MutableList<Ex
 
 object ExerciseRepo {
     private var exerciseId: Long = 1
-    fun generateExerciseId(): Long {
+    fun generateId(): Long {
         val id = exerciseId
         exerciseId += 1
         return id
@@ -28,7 +26,7 @@ object RoutineRepo {
     private var routineId: Long = 1
     private val routines: MutableList<Routine> = mutableListOf()
 
-    fun generateRoutineId(): Long {
+    fun generateId(): Long {
         val id = routineId
         routineId += 1
         return id
@@ -40,8 +38,8 @@ object RoutineRepo {
 
     fun populate() {
         routines.add(
-                Routine(generateRoutineId(), "Example Routine", mutableListOf(
-                        Exercise(generateExerciseId(), "Example Exercise 1", 120, 4, 4, 5, 0, 0, 0))
+                Routine(generateId(), "Example Routine", mutableListOf(
+                        Exercise(ExerciseRepo.generateId(), "Example Exercise 1", 120, 4, 4, 5, 0, 0, 0))
                 )
         )
     }
@@ -53,6 +51,5 @@ object RoutineRepo {
     fun getList(): MutableList<Routine> {
         return routines
     }
-
 }
 

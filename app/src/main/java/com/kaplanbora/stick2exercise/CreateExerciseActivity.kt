@@ -27,6 +27,7 @@ class CreateExerciseActivity : AppCompatActivity() {
         breakMinute.maxValue = minutes.size - 1
         breakMinute.wrapSelectorWheel = true
         breakMinute.displayedValues = minutes
+        breakMinute.value = 0
 
         breakSecond.minValue = 0
         breakSecond.maxValue = seconds.size - 1
@@ -34,23 +35,27 @@ class CreateExerciseActivity : AppCompatActivity() {
         breakSecond.displayedValues = seconds
         breakSecond.value = 0
 
-        exerciseNameEdit.requestFocus()
+        name.requestFocus()
 
         exerciseCreateButton.setOnClickListener { _ ->
-            val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
-            val exercise = Exercise(
-                    ExerciseRepo.generateExerciseId(),
-                    exerciseNameEdit.text.toString(),
-                    exerciseTempoEdit.text.toString().toInt(),
-                    4,
-                    4,
-                    playMinute.value.toString().toInt(),
-                    playSecond.value.toString().toInt(),
-                    breakMinute.value.toString().toInt(),
-                    breakMinute.value.toString().toInt()
-            )
-            routine.exercises.add(exercise)
-            finish()
+            if (tempo.text.isEmpty()) {
+                tempo.error = "Tempo cannot be empty."
+            } else {
+                val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
+                val exercise = Exercise(
+                        ExerciseRepo.generateId(),
+                        name.text.toString().take(100),
+                        tempo.text.toString().toInt(),
+                        4,
+                        4,
+                        playMinute.value.toString().toInt(),
+                        playSecond.value.toString().toInt(),
+                        breakMinute.value.toString().toInt(),
+                        breakMinute.value.toString().toInt()
+                )
+                routine.exercises.add(exercise)
+                finish()
+            }
         }
     }
 }

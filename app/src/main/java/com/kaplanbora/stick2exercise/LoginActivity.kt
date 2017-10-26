@@ -247,7 +247,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
             try {
                 // Simulate network access.
-                Thread.sleep(2000)
+                Thread.sleep(800)
             } catch (e: InterruptedException) {
                 return false
             }
@@ -268,6 +268,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
             if (success!!) {
                 finish()
+                RoutineRepo.populate()
                 val intent = Intent(this@LoginActivity, RoutineListActivity::class.java)
                 this@LoginActivity.startActivity(intent)
 

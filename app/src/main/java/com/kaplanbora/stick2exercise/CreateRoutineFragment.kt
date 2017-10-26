@@ -15,8 +15,8 @@ class CreateRoutineFragment : DialogFragment() {
         val view = inflater!!.inflate(R.layout.fragment_create_routine, container, false)
         view.createRoutineCancel.setOnClickListener{ _ -> dismiss() }
         view.createRoutineOk.setOnClickListener{ _ ->
-            val input = view.createRoutineInput.text.toString()
-            val routine = Routine(RoutineRepo.generateRoutineId(), input, mutableListOf())
+            val input = view.createRoutineInput.text.toString().take(100)
+            val routine = Routine(RoutineRepo.generateId(), input, mutableListOf())
             RoutineRepo.addRoutine(routine)
             val intent = Intent(context, ExerciseListActivity::class.java)
             intent.putExtra("routineId", routine.id)

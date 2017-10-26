@@ -18,13 +18,10 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        RoutineRepo.populate()
         routinesListView.adapter = RoutineListAdapter(applicationContext, RoutineRepo.getList())
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
             intent.putExtra("routineId", l)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            applicationContext.startActivity(intent)
             startActivity(intent)
         }
 

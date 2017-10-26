@@ -16,10 +16,11 @@ class CreateRoutineFragment : DialogFragment() {
         view.createRoutineCancel.setOnClickListener{ _ -> dismiss() }
         view.createRoutineOk.setOnClickListener{ _ ->
             val input = view.createRoutineInput.text.toString()
-            val routine = Routine(input.length.toLong(), input, mutableListOf())
-            Data.routines.add(routine)
+            val routine = Routine(RoutineRepo.generateRoutineId(), input, mutableListOf())
+            RoutineRepo.addRoutine(routine)
             val intent = Intent(context, ExerciseListActivity::class.java)
             intent.putExtra("routineId", routine.id)
+            dismiss()
             startActivity(intent)
         }
         view.createRoutineInput.requestFocus()

@@ -1,6 +1,5 @@
 package com.kaplanbora.stick2exercise
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_create_exercise.*
@@ -13,31 +12,45 @@ class CreateExerciseActivity : AppCompatActivity() {
         title = "Create Exercise"
         val minutes = (0..60).map { it.toString() }.toTypedArray()
         val seconds = (0..50 step 10).map { it.toString() }.toTypedArray()
-        exerciseMinute.minValue = 0
-        exerciseMinute.maxValue = minutes.size - 1
-        exerciseMinute.wrapSelectorWheel = true
-        exerciseMinute.displayedValues = minutes
+        playMinute.minValue = 0
+        playMinute.maxValue = minutes.size - 1
+        playMinute.wrapSelectorWheel = true
+        playMinute.displayedValues = minutes
 
-        exerciseSecond.minValue = 0
-        exerciseSecond.maxValue = seconds.size - 1
-        exerciseSecond.wrapSelectorWheel = true
-        exerciseSecond.displayedValues = seconds
-        exerciseSecond.value = 0
+        playSecond.minValue = 0
+        playSecond.maxValue = seconds.size - 1
+        playSecond.wrapSelectorWheel = true
+        playSecond.displayedValues = seconds
+        playSecond.value = 0
+
+        breakMinute.minValue = 0
+        breakMinute.maxValue = minutes.size - 1
+        breakMinute.wrapSelectorWheel = true
+        breakMinute.displayedValues = minutes
+
+        breakSecond.minValue = 0
+        breakSecond.maxValue = seconds.size - 1
+        breakSecond.wrapSelectorWheel = true
+        breakSecond.displayedValues = seconds
+        breakSecond.value = 0
 
         exerciseNameEdit.requestFocus()
 
         exerciseCreateButton.setOnClickListener { _ ->
-            val routine = Data.getRoutine(intent.getLongExtra("routineId", 0))
+            val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
             val exercise = Exercise(
-                    515,
+                    ExerciseRepo.generateExerciseId(),
                     exerciseNameEdit.text.toString(),
                     exerciseTempoEdit.text.toString().toInt(),
-                    exerciseMinute.value.toString().toInt(),
-                    exerciseSecond.value.toString().toInt())
+                    4,
+                    4,
+                    playMinute.value.toString().toInt(),
+                    playSecond.value.toString().toInt(),
+                    breakMinute.value.toString().toInt(),
+                    breakMinute.value.toString().toInt()
+            )
             routine.exercises.add(exercise)
-            val intent = Intent(applicationContext, ExerciseListActivity::class.java)
-            intent.putExtra("routineId", routine.id)
-            startActivity(intent)
+            finish()
         }
     }
 }

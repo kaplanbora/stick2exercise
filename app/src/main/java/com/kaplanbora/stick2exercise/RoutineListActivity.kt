@@ -18,12 +18,14 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        routinesListView.adapter = RoutineListAdapter(applicationContext, Data.routines)
+        RoutineRepo.populate()
+        routinesListView.adapter = RoutineListAdapter(applicationContext, RoutineRepo.getList())
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
             intent.putExtra("routineId", l)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            applicationContext.startActivity(intent)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            applicationContext.startActivity(intent)
+            startActivity(intent)
         }
 
 
@@ -37,6 +39,11 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        routinesListView.adapter = RoutineListAdapter(applicationContext, RoutineRepo.getList())
     }
 
     override fun onBackPressed() {

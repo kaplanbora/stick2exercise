@@ -6,7 +6,6 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 
@@ -20,7 +19,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         setContentView(R.layout.activity_exercise_list)
         setSupportActionBar(toolbar)
 
-        val routine = Data.getRoutine(intent.getLongExtra("routineId", 0))
+        val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
         title = routine.name
         exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
         fab.setOnClickListener { _ ->
@@ -35,6 +34,12 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
+        exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
     }
 
     override fun onBackPressed() {

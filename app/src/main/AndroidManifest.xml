@@ -28,7 +28,11 @@
             android:name=".ExerciseListActivity"
             android:label="@string/title_activity_exercise_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateExerciseActivity"></activity>
+        <activity android:name=".CreateExerciseActivity" />
+        <activity
+            android:name=".ExerciseActivity"
+            android:label="@string/title_activity_exercise"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

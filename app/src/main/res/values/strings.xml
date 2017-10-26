@@ -30,4 +30,5 @@
     <string name="bpm">BPM</string>
     <string name="exerciseDuration">Exercise Duration</string>
     <string name="break_duration">Break Duration</string>
+    <string name="title_activity_exercise">Exercise</string>
 </resources>

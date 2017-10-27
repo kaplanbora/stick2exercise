@@ -7,13 +7,16 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_exercise.*
-import kotlinx.android.synthetic.main.content_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var timerOn = false
+    var timerTick = 0L
+    var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,26 +34,24 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         timerMinute.text = String.format("%02d", exercise.playMin)
         timerSecond.text = String.format("%02d", exercise.playSec)
 
-        val imgStream = assets.open("single-stroke-roll.png")
-        image.setImageDrawable(Drawable.createFromStream(imgStream, null))
+        val msDuration = ((exercise.playMin * 60) + exercise.playSec + 1).toLong() * 1000
 
-        val durationSeconds = ((exercise.playMin * 60) + exercise.playSec).toLong()
-
-        val timer = object : CountDownTimer(durationSeconds + 1000 * 1000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val minutes = (millisUntilFinished / 1000) / 60
-                val seconds = (millisUntilFinished / 1000) % 60
-                timerMinute.text = String.format("%02d", minutes)
-                timerSecond.text = String.format("%02d", seconds)
+        timerButton.setOnClickListener { _ ->
+            if (timer == null) {
+                timerOn = true
+                timer = createTimer(msDuration)
+                timer!!.start()
+                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause))
+            } else if (timerOn) {
+                timerOn = false
+                timer!!.cancel()
+                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play))
+            } else {
+                timerOn = true
+                timer = createTimer(timerTick)
+                timer!!.start()
+                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause))
             }
-            override fun onFinish() {
-                timerMinute.text = "00"
-                timerSecond.text = "00"
-            }
-        }
-
-        timerButton.setOnClickListener{_ ->
-            timer.start()
         }
 
 
@@ -60,6 +61,35 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    private fun createTimer(duration: Long): CountDownTimer {
+        return object : CountDownTimer(duration, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timerTick = millisUntilFinished
+                timerMinute.text = String.format("%02d", msToMin(timerTick))
+                timerSecond.text = String.format("%02d", msToSec(timerTick))
+            }
+
+            override fun onFinish() {
+                timerMinute.text = "00"
+                timerSecond.text = "00"
+            }
+        }
+
+    }
+
+    private fun msToMin(ms: Long): Long {
+        return (ms / 1000) / 60
+    }
+
+    private fun msToSec(ms: Long): Long {
+        return (ms / 1000) % 60
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
     }
 
     override fun onBackPressed() {

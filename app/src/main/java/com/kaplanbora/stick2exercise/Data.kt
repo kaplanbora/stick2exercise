@@ -49,11 +49,10 @@ object RoutineRepo {
         )
     }
 
-    fun get(id: Long): Routine {
-        return routines.first { it.id == id }
-    }
+    fun get(id: Long): Routine = routines.first { it.id == id }
 
     fun getList(): MutableList<Routine> {
+        routines.sortBy { it.id }
         return routines
     }
 }

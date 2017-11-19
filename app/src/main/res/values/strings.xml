@@ -40,4 +40,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="routine_menu">Routine Menu</string>
+    <string name="empty_routine_message">You don\'t have any routines.\nClick \'+\' button below
+        to create a new exercise routine.</string>
+    <string name="routine_delete_message">Routine has been deleted.</string>
 </resources>

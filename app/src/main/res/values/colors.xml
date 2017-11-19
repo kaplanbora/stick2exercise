@@ -9,5 +9,6 @@
     <color name="pastelWhite">#e0e2e4</color>
     <color name="pastelRed">#C78D9B</color>
     <color name="pastelBlack">#1F2223</color>
+    <color name="blackHint">#AAAAAA</color>
     <color name="blackLight">#383838</color>
 </resources>

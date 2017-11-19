@@ -3,12 +3,14 @@ package com.kaplanbora.stick2exercise
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_routine_list.*
 import kotlinx.android.synthetic.main.content_routine_list.*
 
@@ -19,9 +21,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        val adapter = RoutineListAdapter(this, applicationContext, RoutineRepo.getList())
-        routinesListView.adapter = adapter
-        (routinesListView.adapter as RoutineListAdapter).notifyDataSetChanged()
+        refreshRoutines()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
             intent.putExtra("routineId", l)
@@ -42,9 +42,12 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun deleteRoutine(routine: Routine) {
-        Log.d("Is in deleteRoutine?", "Yes")
         RoutineRepo.delete(routine)
         refreshRoutines()
+        Snackbar
+                .make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
+                .setAction("UNDO", RestoreRoutine(this, routine))
+                .show()
     }
 
     override fun editRoutine(routine: Routine) {
@@ -61,6 +64,11 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun refreshRoutines() {
+        if (RoutineRepo.getList().isEmpty()) {
+            emptyMessage.visibility = TextView.VISIBLE
+        } else {
+            emptyMessage.visibility = TextView.INVISIBLE
+        }
         routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepo.getList())
     }
 

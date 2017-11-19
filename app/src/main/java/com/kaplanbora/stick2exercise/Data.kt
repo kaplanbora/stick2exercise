@@ -33,6 +33,10 @@ object RoutineRepo {
         return id
     }
 
+    fun delete(routine: Routine) {
+        routines.remove(routine)
+    }
+
     fun addRoutine(routine: Routine) {
         routines.add(routine)
     }

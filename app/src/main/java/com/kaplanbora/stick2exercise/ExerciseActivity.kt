@@ -1,6 +1,5 @@
 package com.kaplanbora.stick2exercise
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.design.widget.NavigationView
@@ -67,6 +66,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return object : CountDownTimer(duration, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timerTick = millisUntilFinished
+                Log.d("Tick", timerTick.toString())
                 timerMinute.text = String.format("%02d", msToMin(timerTick))
                 timerSecond.text = String.format("%02d", msToSec(timerTick))
             }
@@ -74,6 +74,11 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             override fun onFinish() {
                 timerMinute.text = "00"
                 timerSecond.text = "00"
+                timer!!.cancel()
+                timerTick = 0
+                timerOn = false
+                timer = null
+                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play))
             }
         }
 

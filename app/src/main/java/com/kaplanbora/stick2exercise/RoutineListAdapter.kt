@@ -3,32 +3,35 @@ package com.kaplanbora.stick2exercise
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.view.LayoutInflater
-import android.widget.TextView
+import android.widget.*
+import kotlinx.android.synthetic.main.routine_row.view.*
 
+class RoutineListAdapter(private val listener: RoutineActionListener, val context: Context, private val routineList: List<Routine>) : BaseAdapter() {
+    override fun getCount(): Int = routineList.size
 
-class RoutineListAdapter(val context: Context, val routineList: List<Routine>) : BaseAdapter() {
-    override fun getCount(): Int {
-        return routineList.size
-    }
+    override fun getItem(position: Int): Any = routineList[position]
 
-    override fun getItem(position: Int): Any {
-        return routineList[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return routineList[position].id
-    }
+    override fun getItemId(position: Int): Long = routineList[position].id
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val row = inflater.inflate(R.layout.routine_row, parent, false)
-        val name = row.findViewById<TextView>(R.id.routineName)
-        val count = row.findViewById<TextView>(R.id.routineCount)
         val routine = getItem(position) as Routine
-        name.text = routine.name
-        count.text = "${routine.exercises.size} exercises"
+        val popup = PopupMenu(context, row.routineMenu)
+        popup.menuInflater.inflate(R.menu.routine_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.routineMenuDelete -> listener.deleteRoutine(routine)
+                R.id.routineMenuEdit -> listener.editRoutine(routine)
+            }
+            true
+        }
+        row.routineMenu.setOnClickListener { _ ->
+            popup.show()
+        }
+        row.routineName.text = routine.name
+        row.routineCount.text = "${routine.exercises.size} exercises"
         return row
     }
 }

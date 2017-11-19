@@ -6,29 +6,32 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_routine_list.*
 import kotlinx.android.synthetic.main.content_routine_list.*
 
-class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RoutineActionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        routinesListView.adapter = RoutineListAdapter(applicationContext, RoutineRepo.getList())
+        val adapter = RoutineListAdapter(this, applicationContext, RoutineRepo.getList())
+        routinesListView.adapter = adapter
+        (routinesListView.adapter as RoutineListAdapter).notifyDataSetChanged()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
             intent.putExtra("routineId", l)
             startActivity(intent)
         }
 
-
         fab.setOnClickListener { _ ->
             CreateRoutineFragment().show(supportFragmentManager, "create_routine")
         }
+
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -38,9 +41,27 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         nav_view.setNavigationItemSelectedListener(this)
     }
 
+    override fun deleteRoutine(routine: Routine) {
+        Log.d("Is in deleteRoutine?", "Yes")
+        RoutineRepo.delete(routine)
+        refreshRoutines()
+    }
+
+    override fun editRoutine(routine: Routine) {
+        val fragment = EditRoutineFragment()
+        val bundle = Bundle()
+        bundle.putLong("routineId", routine.id)
+        fragment.arguments = bundle
+        fragment.show(supportFragmentManager, "edit_routine")
+    }
+
     override fun onResume() {
         super.onResume()
-        routinesListView.adapter = RoutineListAdapter(applicationContext, RoutineRepo.getList())
+        refreshRoutines()
+    }
+
+    override fun refreshRoutines() {
+        routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepo.getList())
     }
 
     override fun onBackPressed() {

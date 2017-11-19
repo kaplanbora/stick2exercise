@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.content_exercise_list.*
 
 class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_list)
@@ -31,6 +30,9 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             startActivity(intent)
         }
 
+//        val adapter: ExerciseListAdapter = exerciseListView.adapter as ExerciseListAdapter
+//        adapter.notifyDataSetChanged()
+
         fab.setOnClickListener { _ ->
             val intent = Intent(applicationContext, CreateExerciseActivity::class.java)
             intent.putExtra("routineId", routine.id)
@@ -47,8 +49,6 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onResume() {
         super.onResume()
-        val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
-        exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
     }
 
     override fun onBackPressed() {

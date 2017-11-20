@@ -24,6 +24,7 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import com.kaplanbora.stick2exercise.repository.RoutineRepo
 
 import kotlinx.android.synthetic.main.activity_login.*
 

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.*
+import com.kaplanbora.stick2exercise.repository.Routine
 import kotlinx.android.synthetic.main.routine_row.view.*
 
 class RoutineListAdapter(private val listener: RoutineActionListener, val context: Context, private val routineList: List<Routine>) : BaseAdapter() {

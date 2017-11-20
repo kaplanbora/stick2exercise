@@ -2,7 +2,9 @@ package com.kaplanbora.stick2exercise
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.kaplanbora.stick2exercise.repository.*
 import kotlinx.android.synthetic.main.activity_create_exercise.*
+import kotlinx.android.synthetic.main.exercise_row.*
 
 class CreateExerciseActivity : AppCompatActivity() {
 
@@ -44,15 +46,23 @@ class CreateExerciseActivity : AppCompatActivity() {
                 val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
                 val exercise = Exercise(
                         ExerciseRepo.generateId(),
+                        routine.exercises.size + 1,
                         name.text.toString().take(100),
-                        tempo.text.toString().toInt(),
-                        4,
-                        4,
-                        playMinute.value.toString().toInt(),
-                        playSecond.value.toString().toInt() * 10,
-                        breakMinute.value.toString().toInt(),
-                        breakSecond.value.toString().toInt() * 10
+                        Metronome(
+                                tempo.text.toString().toInt(),
+                                4,
+                                4
+                        ),
+                        PlayDuration(
+                                playMinute.value.toString().toInt(),
+                                playSecond.value.toString().toInt() * 10
+                        ),
+                        BreakDuration(
+                                breakMinute.value.toString().toInt(),
+                                breakSecond.value.toString().toInt() * 10
+                        )
                 )
+                // Add to database
                 routine.exercises.add(exercise)
                 finish()
             }

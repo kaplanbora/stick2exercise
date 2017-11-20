@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import com.kaplanbora.stick2exercise.repository.Routine
+import com.kaplanbora.stick2exercise.repository.RoutineRepo
 import kotlinx.android.synthetic.main.fragment_create_routine.view.*
 
 class CreateRoutineFragment : DialogFragment() {
@@ -16,7 +18,7 @@ class CreateRoutineFragment : DialogFragment() {
         view.createRoutineCancel.setOnClickListener{ _ -> dismiss() }
         view.createRoutineOk.setOnClickListener{ _ ->
             val input = view.createRoutineInput.text.toString().take(100)
-            val routine = Routine(RoutineRepo.generateId(), input, mutableListOf())
+            val routine = Routine(RoutineRepo.generateId(), 0, input, mutableListOf())
             RoutineRepo.addRoutine(routine)
             val intent = Intent(context, ExerciseListActivity::class.java)
             intent.putExtra("routineId", routine.id)

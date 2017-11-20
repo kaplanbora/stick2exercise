@@ -1,17 +1,4 @@
-package com.kaplanbora.stick2exercise
-
-data class Exercise(
-        val id: Long,
-        var name: String,
-        var tempo: Int,
-        var subdivUp: Int,
-        var subdivDown: Int,
-        var playMin: Int,
-        var playSec: Int,
-        var breakMin: Int,
-        var breakSec: Int)
-
-data class Routine(val id: Long, var name: String, val exercises: MutableList<Exercise> = mutableListOf())
+package com.kaplanbora.stick2exercise.repository
 
 object ExerciseRepo {
     private var exerciseId: Long = 1
@@ -43,8 +30,8 @@ object RoutineRepo {
 
     fun populate() {
         routines.add(
-                Routine(generateId(), "Example Routine", mutableListOf(
-                        Exercise(ExerciseRepo.generateId(), "Example Exercise 1", 120, 4, 4, 5, 0, 0, 0))
+                Routine(generateId(), 1, "Example Routine", mutableListOf(
+                        Exercise(ExerciseRepo.generateId(), 1, "Example Exercise", Metronome(120, 4, 4), PlayDuration(5, 0), BreakDuration(1, 0)))
                 )
         )
     }
@@ -52,7 +39,7 @@ object RoutineRepo {
     fun get(id: Long): Routine = routines.first { it.id == id }
 
     fun getList(): MutableList<Routine> {
-        routines.sortBy { it.id }
+        routines.sortBy { it.order }
         return routines
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.kaplanbora.stick2exercise.repository.RoutineRepo
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
@@ -22,18 +23,19 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
 
+        // TODO: Why index?
         val index = intent.extras.getInt("exerciseIndex")
         val exercise = RoutineRepo.get(intent.extras.getLong("routineId")).exercises[index]
 
-        title = "Exercise ${index + 1}"
+        title = "Exercise ${exercise.order}"
 
         name.text = exercise.name
-        tempo.text = "${exercise.tempo} BPM"
-        subdiv.text = "${exercise.subdivUp} / ${exercise.subdivDown}"
-        timerMinute.text = String.format("%02d", exercise.playMin)
-        timerSecond.text = String.format("%02d", exercise.playSec)
+        tempo.text = "${exercise.metronome.tempo} BPM"
+        subdiv.text = "${exercise.metronome.subdivUp} / ${exercise.metronome.subdivDown}"
+        timerMinute.text = String.format("%02d", exercise.playDuration.minutes)
+        timerSecond.text = String.format("%02d", exercise.playDuration.seconds)
 
-        val msDuration = ((exercise.playMin * 60) + exercise.playSec + 1).toLong() * 1000
+        val msDuration = ((exercise.playDuration.minutes * 60) + exercise.playDuration.seconds).toLong() * 1000
 
         timerButton.setOnClickListener { _ ->
             if (timer == null) {

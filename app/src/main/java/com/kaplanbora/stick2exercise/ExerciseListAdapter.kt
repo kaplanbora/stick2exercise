@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.view.LayoutInflater
 import android.widget.TextView
+import com.kaplanbora.stick2exercise.repository.Exercise
 
 
 class ExerciseListAdapter(val context: Context, val exerciseList: List<Exercise>) : BaseAdapter() {
@@ -29,12 +30,12 @@ class ExerciseListAdapter(val context: Context, val exerciseList: List<Exercise>
         val tempo = row.findViewById<TextView>(R.id.exerciseTempo)
         val exercise = getItem(position) as Exercise
         name.text = "${position + 1}. ${exercise.name}"
-        if (exercise.playSec == 0) {
-            duration.text = "${exercise.playMin} Minutes"
+        if (exercise.playDuration.seconds == 0) {
+            duration.text = "${exercise.playDuration.minutes} Minutes"
         } else {
-            duration.text = "${exercise.playMin} Minutes ${exercise.playSec} Seconds"
+            duration.text = "${exercise.playDuration.minutes} Minutes ${exercise.playDuration.seconds} Seconds"
         }
-        tempo.text = "${exercise.tempo} BPM"
+        tempo.text = "${exercise.metronome.tempo} BPM"
         return row
     }
 }

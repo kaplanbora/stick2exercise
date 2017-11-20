@@ -30,6 +30,7 @@
 
     <Button
         android:id="@+id/routineMenu"
+        android:focusable="false"
         android:layout_width="36dp"
         android:layout_height="46dp"
         android:textSize="24sp"

@@ -7,6 +7,6 @@ import com.kaplanbora.stick2exercise.repository.RoutineRepo
 class RestoreRoutine(val listener: RoutineActionListener, val routine: Routine) : View.OnClickListener {
     override fun onClick(v: View) {
         RoutineRepo.addRoutine(routine)
-        listener.refreshRoutines()
+        listener.refreshListView()
     }
 }

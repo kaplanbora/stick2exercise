@@ -12,19 +12,23 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.kaplanbora.stick2exercise.exercise.ExerciseListActivity
 import com.kaplanbora.stick2exercise.R
+import com.kaplanbora.stick2exercise.repository.DbHelper
 import com.kaplanbora.stick2exercise.repository.Routine
 import com.kaplanbora.stick2exercise.repository.RoutineRepo
+import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_routine_list.*
 import kotlinx.android.synthetic.main.content_routine_list.*
 
 class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RoutineActionListener {
+    private val dbHelper: DbHelper = DbHelper(applicationContext)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        refreshRoutines()
+        RoutineRepository.loadRoutines(dbHelper)
+        refreshListView()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
             intent.putExtra("routineId", l)
@@ -46,9 +50,8 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun deleteRoutine(routine: Routine) {
         RoutineRepo.delete(routine)
-        refreshRoutines()
-        Snackbar
-                .make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
+        refreshListView()
+        Snackbar.make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
                 .setAction("UNDO", RestoreRoutine(this, routine))
                 .show()
     }
@@ -56,23 +59,43 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     override fun editRoutine(routine: Routine) {
         val fragment = EditRoutineFragment()
         val bundle = Bundle()
+        bundle.putString("routineName", routine.name)
         bundle.putLong("routineId", routine.id)
         fragment.arguments = bundle
         fragment.show(supportFragmentManager, "edit_routine")
     }
 
-    override fun onResume() {
-        super.onResume()
-        refreshRoutines()
+    override fun applyEdit(name: String, id: Long) {
+        val routine = RoutineRepository.get(id)
+        routine.name = name
     }
 
-    override fun refreshRoutines() {
+    override fun createRoutine(name: String) {
+        val routine = Routine(-1, RoutineRepository.routineList.size + 1, name, mutableListOf())
+        RoutineRepository.add(routine)
+        RoutineRepository.insert(dbHelper, routine)
+        val intent = Intent(applicationContext, ExerciseListActivity::class.java)
+        intent.putExtra("routineId", routine.id)
+        startActivity(intent)
+    }
+
+    override fun refreshListView() {
         if (RoutineRepo.getList().isEmpty()) {
             emptyMessage.visibility = TextView.VISIBLE
         } else {
             emptyMessage.visibility = TextView.INVISIBLE
         }
         routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepo.getList())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshListView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dbHelper.close()
     }
 
     override fun onBackPressed() {

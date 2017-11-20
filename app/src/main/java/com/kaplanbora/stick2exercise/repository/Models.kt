@@ -1,7 +1,7 @@
 package com.kaplanbora.stick2exercise.repository
 
 data class Exercise(
-        val id: Long,
+        var id: Long,
         var order: Int,
         var name: String,
         val metronome: Metronome,
@@ -9,7 +9,7 @@ data class Exercise(
         val breakDuration: BreakDuration)
 
 data class Routine(
-        val id: Long,
+        var id: Long,
         var order: Int,
         var name: String,
         val exercises: MutableList<Exercise> = mutableListOf())

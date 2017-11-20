@@ -21,7 +21,14 @@ object RoutineRepo {
     }
 
     fun delete(routine: Routine) {
+        routines.filter { it.order > routine.order }.forEach { it.order -= 1 }
         routines.remove(routine)
+    }
+
+    fun addRoutine(routine: Routine, order: Int) {
+        // TODO: This should be called from snackbar todo
+        routines.filter { it.order > routine.order }.forEach { it.order += 1 }
+        routines.add(routine)
     }
 
     fun addRoutine(routine: Routine) {

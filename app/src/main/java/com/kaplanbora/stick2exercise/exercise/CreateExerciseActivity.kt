@@ -45,7 +45,7 @@ class CreateExerciseActivity : AppCompatActivity() {
             } else {
                 val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
                 val exercise = Exercise(
-                        ExerciseRepo.generateId(),
+                        -1,
                         routine.exercises.size + 1,
                         name.text.toString().take(100),
                         Metronome(

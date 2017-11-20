@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/routinesListRoot"
-        tools:context="com.kaplanbora.stick2exercise.RoutineListActivity">
+        tools:context="com.kaplanbora.stick2exercise.routine.RoutineListActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"

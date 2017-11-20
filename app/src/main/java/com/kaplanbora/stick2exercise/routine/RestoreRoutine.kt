@@ -1,4 +1,4 @@
-package com.kaplanbora.stick2exercise
+package com.kaplanbora.stick2exercise.routine
 
 import android.view.View
 import com.kaplanbora.stick2exercise.repository.Routine

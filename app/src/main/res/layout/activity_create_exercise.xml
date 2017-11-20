@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context="com.kaplanbora.stick2exercise.CreateExerciseActivity">
+    tools:context="com.kaplanbora.stick2exercise.exercise.CreateExerciseActivity">
 
     <TextView
         android:id="@+id/exerciseNameLabel"

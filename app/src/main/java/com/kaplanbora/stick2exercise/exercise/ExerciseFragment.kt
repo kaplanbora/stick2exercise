@@ -1,4 +1,4 @@
-package com.kaplanbora.stick2exercise
+package com.kaplanbora.stick2exercise.exercise
 
 import android.content.Context
 import android.net.Uri
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kaplanbora.stick2exercise.R
 
 
 /**

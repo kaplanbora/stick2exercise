@@ -1,10 +1,10 @@
-package com.kaplanbora.stick2exercise
+package com.kaplanbora.stick2exercise.exercise
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.*
 import kotlinx.android.synthetic.main.activity_create_exercise.*
-import kotlinx.android.synthetic.main.exercise_row.*
 
 class CreateExerciseActivity : AppCompatActivity() {
 

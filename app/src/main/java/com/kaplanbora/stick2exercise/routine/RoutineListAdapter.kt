@@ -1,10 +1,11 @@
-package com.kaplanbora.stick2exercise
+package com.kaplanbora.stick2exercise.routine
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.widget.*
+import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.Routine
 import kotlinx.android.synthetic.main.routine_row.view.*
 

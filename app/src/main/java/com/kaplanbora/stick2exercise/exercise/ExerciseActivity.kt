@@ -1,4 +1,4 @@
-package com.kaplanbora.stick2exercise
+package com.kaplanbora.stick2exercise.exercise
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.RoutineRepo
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*

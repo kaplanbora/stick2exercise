@@ -1,4 +1,4 @@
-package com.kaplanbora.stick2exercise
+package com.kaplanbora.stick2exercise.exercise
 
 import android.content.Context
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.view.LayoutInflater
 import android.widget.TextView
+import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.Exercise
 
 

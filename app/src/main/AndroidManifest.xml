@@ -21,16 +21,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RoutineListActivity"
+            android:name=".routine.RoutineListActivity"
             android:label="@string/title_activity_entrance"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ExerciseListActivity"
+            android:name=".exercise.ExerciseListActivity"
             android:label="@string/title_activity_exercise_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateExerciseActivity" />
+        <activity android:name=".exercise.CreateExerciseActivity" />
         <activity
-            android:name=".ExerciseActivity"
+            android:name=".exercise.ExerciseActivity"
             android:label="@string/title_activity_exercise"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

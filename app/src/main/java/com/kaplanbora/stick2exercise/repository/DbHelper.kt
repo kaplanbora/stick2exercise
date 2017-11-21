@@ -9,14 +9,14 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
         val routineTable = """
             CREATE TABLE routine(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                order INTEGER NOT NULL,
+                position INTEGER NOT NULL,
                 name TEXT);""".trimIndent()
 
         val exerciseTable = """
             CREATE TABLE exercise(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 routine_id INTEGER NOT NULL,
-                order INTEGER NOT NULL,
+                position INTEGER NOT NULL,
                 name TEXT,
                 tempo INTEGER NOT NULL,
                 subdiv_up INTEGER NOT NULL,

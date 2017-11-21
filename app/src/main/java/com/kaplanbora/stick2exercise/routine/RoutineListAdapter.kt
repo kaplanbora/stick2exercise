@@ -12,9 +12,9 @@ import kotlinx.android.synthetic.main.routine_row.view.*
 class RoutineListAdapter(private val listener: RoutineActionListener, val context: Context, private val routineList: List<Routine>) : BaseAdapter() {
     override fun getCount(): Int = routineList.size
 
-    override fun getItem(position: Int): Any = routineList[position]
+    override fun getItem(position: Int): Any = routineList.first { it.position == position + 1 }
 
-    override fun getItemId(position: Int): Long = routineList[position].id
+    override fun getItemId(position: Int): Long = routineList.first { it.position == position + 1 }.id
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

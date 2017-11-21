@@ -5,8 +5,10 @@ object RoutineRepository {
 
     fun get(id: Long): Routine = routineList.first { it.id == id }
 
+    fun get(order: Int): Routine = routineList.first { it.position == order}
+
     fun getList(): MutableList<Routine> {
-        routineList.sortBy { it.order }
+        routineList.sortBy { it.position }
         return routineList
     }
 
@@ -18,7 +20,7 @@ object RoutineRepository {
     }
 
     fun addRestore(dbHelper: DbHelper, routine: Routine) {
-        routineList.filter { it.order >= routine.order }.forEach { it.order += 1 }
+        routineList.filter { it.position >= routine.position }.forEach { it.position += 1 }
         add(dbHelper, routine)
     }
 
@@ -29,7 +31,7 @@ object RoutineRepository {
     fun remove(dbHelper: DbHelper, routine: Routine) {
         RoutineDatabase.delete(dbHelper, routine.id)
         routineList.remove(routine)
-        routineList.filter { it.order > routine.order }.forEach { it.order -= 1 }
+        routineList.filter { it.position > routine.position }.forEach { it.position -= 1 }
         routineList.forEach { RoutineDatabase.update(dbHelper, it) }
     }
 }

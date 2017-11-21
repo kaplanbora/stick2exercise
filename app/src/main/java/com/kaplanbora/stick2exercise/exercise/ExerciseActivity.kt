@@ -28,7 +28,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         val index = intent.extras.getInt("exerciseIndex")
         val exercise = RoutineRepository.get(intent.extras.getLong("routineId")).exercises[index]
 
-        title = "Exercise ${exercise.order}"
+        title = "Exercise ${exercise.position}"
 
         name.text = exercise.name
         tempo.text = "${exercise.metronome.tempo} BPM"

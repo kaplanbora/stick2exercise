@@ -19,14 +19,15 @@ import kotlinx.android.synthetic.main.activity_routine_list.*
 import kotlinx.android.synthetic.main.content_routine_list.*
 
 class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RoutineActionListener {
-    private val dbHelper: DbHelper = DbHelper(applicationContext)
+    private var dbHelper: DbHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        RoutineRepository.loadRoutines(dbHelper)
+        dbHelper = DbHelper(applicationContext)
+        RoutineRepository.loadRoutines(dbHelper!!)
         refreshListView()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
@@ -48,10 +49,10 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun deleteRoutine(routine: Routine) {
-        RoutineRepository.remove(dbHelper, routine)
+        RoutineRepository.remove(dbHelper!!, routine)
         refreshListView()
         Snackbar.make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
-                .setAction("UNDO", RestoreRoutine(this, routine, dbHelper))
+                .setAction("UNDO", RestoreRoutine(this, routine, dbHelper!!))
                 .show()
     }
 
@@ -71,7 +72,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun createRoutine(name: String) {
         val routine = Routine(-1, RoutineRepository.routineList.size + 1, name, mutableListOf())
-        val id = RoutineRepository.add(dbHelper, routine)
+        val id = RoutineRepository.add(dbHelper!!, routine)
         val intent = Intent(applicationContext, ExerciseListActivity::class.java)
         intent.putExtra("routineId", id)
         startActivity(intent)
@@ -92,7 +93,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun onDestroy() {
-        dbHelper.close()
+        dbHelper?.close()
         super.onDestroy()
     }
 

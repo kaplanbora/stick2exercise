@@ -10,18 +10,12 @@ import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.Exercise
 
 
-class ExerciseListAdapter(val context: Context, val exerciseList: List<Exercise>) : BaseAdapter() {
-    override fun getCount(): Int {
-        return exerciseList.size
-    }
+class ExerciseListAdapter(val context: Context, private val exerciseList: List<Exercise>) : BaseAdapter() {
+    override fun getCount(): Int = exerciseList.size
 
-    override fun getItem(position: Int): Any {
-        return exerciseList[position]
-    }
+    override fun getItem(position: Int): Any = exerciseList.first { it.position == position + 1 }
 
-    override fun getItemId(position: Int): Long {
-        return exerciseList[position].id
-    }
+    override fun getItemId(position: Int): Long = exerciseList.first { it.position == position + 1 }.id
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

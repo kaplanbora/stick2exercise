@@ -5,12 +5,12 @@ import android.util.Log
 
 object RoutineDatabase {
     private val TABLE = "routine"
-    private val TABLE_COLUMNS = arrayOf("id", "order", "name")
+    private val TABLE_COLUMNS = arrayOf("id", "position", "name")
 
     fun insert(helper: DbHelper, routine: Routine): Long {
         val db = helper.writableDatabase
         val content = ContentValues()
-        content.put("order", routine.order)
+        content.put("position", routine.position)
         content.put("name", routine.name)
         val id = db.insert(TABLE, null, content)
         Log.d("DB_INSERT_OPERATION", "Routine: $routine \t Returned Id: $id")
@@ -23,7 +23,7 @@ object RoutineDatabase {
         val routines: MutableList<Routine> = mutableListOf()
         while (cursor.moveToNext()) {
             var id = cursor.getLong(cursor.getColumnIndex("id"))
-            var order = cursor.getInt(cursor.getColumnIndex("order"))
+            var order = cursor.getInt(cursor.getColumnIndex("position"))
             var name = cursor.getString(cursor.getColumnIndex("name"))
             routines.add(Routine(id, order, name))
         }
@@ -40,7 +40,7 @@ object RoutineDatabase {
     fun update(helper: DbHelper, routine: Routine) {
         val db = helper.writableDatabase
         val content = ContentValues()
-        content.put("order", routine.order)
+        content.put("position", routine.position)
         content.put("name", routine.name)
         val count = db.update(TABLE, content, "id = ?", arrayOf("${routine.id}"))
         Log.d("DB_UPDATE_OPERATION", "Routine Id: ${routine.id} \t Affected Rows: $count")
@@ -59,10 +59,10 @@ object RoutineDatabase {
 //        )
 //        while (cursor.moveToNext()) {
 //            var id = cursor.getLong(cursor.getColumnIndex("id"))
-//            var order = cursor.getInt(cursor.getColumnIndex("order"))
+//            var position = cursor.getInt(cursor.getColumnIndex("position"))
 //            var name = cursor.getString(cursor.getColumnIndex("name"))
 //        }
 //        cursor.close()
-//        return Routine(id, order, name)
+//        return Routine(id, position, name)
 //    }
 }

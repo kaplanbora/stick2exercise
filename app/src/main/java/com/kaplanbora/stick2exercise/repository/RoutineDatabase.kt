@@ -45,24 +45,4 @@ object RoutineDatabase {
         val count = db.update(TABLE, content, "id = ?", arrayOf("${routine.id}"))
         Log.d("DB_UPDATE_OPERATION", "Routine Id: ${routine.id} \t Affected Rows: $count")
     }
-
-//    fun select(helper: DbHelper, id: Long): Routine {
-//        val db = helper.readableDatabase
-//        val cursor = db.query(
-//                TABLE,
-//                TABLE_COLUMNS,
-//                "id = ?",
-//                arrayOf("$id"),
-//                null,
-//                null,
-//                null
-//        )
-//        while (cursor.moveToNext()) {
-//            var id = cursor.getLong(cursor.getColumnIndex("id"))
-//            var position = cursor.getInt(cursor.getColumnIndex("position"))
-//            var name = cursor.getString(cursor.getColumnIndex("name"))
-//        }
-//        cursor.close()
-//        return Routine(id, position, name)
-//    }
 }

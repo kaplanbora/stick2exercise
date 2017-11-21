@@ -5,8 +5,6 @@ object RoutineRepository {
 
     fun get(id: Long): Routine = routineList.first { it.id == id }
 
-    fun get(order: Int): Routine = routineList.first { it.position == order}
-
     fun getList(): MutableList<Routine> {
         routineList.sortBy { it.position }
         return routineList

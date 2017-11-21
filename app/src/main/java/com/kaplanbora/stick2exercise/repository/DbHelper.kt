@@ -28,6 +28,7 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
                     FOREIGN KEY (routine_id) REFERENCES routine(id)
                         ON DELETE CASCADE);""".trimIndent()
 
+        // TODO: Add example routine and exercises.
         db?.execSQL(routineTable)
         db?.execSQL(exerciseTable)
     }

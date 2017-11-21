@@ -24,7 +24,6 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
-import com.kaplanbora.stick2exercise.repository.RoutineRepo
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 import kotlinx.android.synthetic.main.activity_login.*
@@ -270,7 +269,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
             if (success!!) {
                 finish()
-                RoutineRepo.populate()
                 val intent = Intent(this@LoginActivity, RoutineListActivity::class.java)
                 this@LoginActivity.startActivity(intent)
 

@@ -17,7 +17,19 @@ object RoutineRepository {
         return id
     }
 
+    fun addRestore(dbHelper: DbHelper, routine: Routine) {
+        routineList.filter { it.order >= routine.order }.forEach { it.order += 1 }
+        add(dbHelper, routine)
+    }
+
     fun loadRoutines(helper: DbHelper) {
         routineList = RoutineDatabase.selectAll(helper)
+    }
+
+    fun remove(dbHelper: DbHelper, routine: Routine) {
+        RoutineDatabase.delete(dbHelper, routine.id)
+        routineList.remove(routine)
+        routineList.filter { it.order > routine.order }.forEach { it.order -= 1 }
+        routineList.forEach { RoutineDatabase.update(dbHelper, it) }
     }
 }

@@ -10,7 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.kaplanbora.stick2exercise.R
-import com.kaplanbora.stick2exercise.repository.RoutineRepo
+import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
@@ -26,7 +26,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         // TODO: Why index?
         val index = intent.extras.getInt("exerciseIndex")
-        val exercise = RoutineRepo.get(intent.extras.getLong("routineId")).exercises[index]
+        val exercise = RoutineRepository.get(intent.extras.getLong("routineId")).exercises[index]
 
         title = "Exercise ${exercise.order}"
 

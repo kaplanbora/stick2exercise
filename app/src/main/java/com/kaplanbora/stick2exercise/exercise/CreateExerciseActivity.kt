@@ -43,7 +43,7 @@ class CreateExerciseActivity : AppCompatActivity() {
             if (tempo.text.isEmpty()) {
                 tempo.error = "Tempo cannot be empty."
             } else {
-                val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
+                val routine = RoutineRepository.get(intent.extras.getLong("routineId"))
                 val exercise = Exercise(
                         -1,
                         routine.exercises.size + 1,

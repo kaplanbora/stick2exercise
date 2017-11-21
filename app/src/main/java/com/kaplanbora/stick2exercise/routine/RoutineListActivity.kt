@@ -14,7 +14,6 @@ import com.kaplanbora.stick2exercise.exercise.ExerciseListActivity
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.DbHelper
 import com.kaplanbora.stick2exercise.repository.Routine
-import com.kaplanbora.stick2exercise.repository.RoutineRepo
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_routine_list.*
 import kotlinx.android.synthetic.main.content_routine_list.*
@@ -49,10 +48,10 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun deleteRoutine(routine: Routine) {
-        RoutineRepo.delete(routine)
+        RoutineRepository.remove(dbHelper, routine)
         refreshListView()
         Snackbar.make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
-                .setAction("UNDO", RestoreRoutine(this, routine))
+                .setAction("UNDO", RestoreRoutine(this, routine, dbHelper))
                 .show()
     }
 
@@ -79,7 +78,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun refreshListView() {
-        if (RoutineRepo.getList().isEmpty()) {
+        if (RoutineRepository.getList().isEmpty()) {
             emptyMessage.visibility = TextView.VISIBLE
         } else {
             emptyMessage.visibility = TextView.INVISIBLE

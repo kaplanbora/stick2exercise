@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.kaplanbora.stick2exercise.R
-import com.kaplanbora.stick2exercise.repository.RoutineRepo
+import com.kaplanbora.stick2exercise.repository.RoutineRepository
 
 import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.content_exercise_list.*
@@ -20,7 +20,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         setContentView(R.layout.activity_exercise_list)
         setSupportActionBar(toolbar)
 
-        val routine = RoutineRepo.get(intent.extras.getLong("routineId"))
+        val routine = RoutineRepository.get(intent.extras.getLong("routineId"))
         title = routine.name
 
         exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)

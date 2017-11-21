@@ -72,10 +72,9 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun createRoutine(name: String) {
         val routine = Routine(-1, RoutineRepository.routineList.size + 1, name, mutableListOf())
-        RoutineRepository.add(routine)
-        RoutineRepository.insert(dbHelper, routine)
+        val id = RoutineRepository.add(dbHelper, routine)
         val intent = Intent(applicationContext, ExerciseListActivity::class.java)
-        intent.putExtra("routineId", routine.id)
+        intent.putExtra("routineId", id)
         startActivity(intent)
     }
 
@@ -85,17 +84,17 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         } else {
             emptyMessage.visibility = TextView.INVISIBLE
         }
-        routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepo.getList())
+        routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepository.getList())
     }
 
     override fun onResume() {
-        super.onResume()
         refreshListView()
+        super.onResume()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         dbHelper.close()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {

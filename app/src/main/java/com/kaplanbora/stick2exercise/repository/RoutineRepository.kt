@@ -1,35 +1,44 @@
 package com.kaplanbora.stick2exercise.repository
 
 object RoutineRepository {
-    var routineList: MutableList<Routine> = mutableListOf()
+    private var routines: MutableList<Routine> = mutableListOf()
 
-    fun get(id: Long): Routine = routineList.first { it.id == id }
+    fun get(id: Long): Routine = routines.first { it.id == id }
 
-    fun getList(): MutableList<Routine> {
-        routineList.sortBy { it.position }
-        return routineList
+    fun all(): MutableList<Routine> {
+        routines.sortBy { it.position }
+        return routines
     }
+
+    fun nextPosition(): Int = routines.size + 1
 
     fun add(dbHelper: DbHelper, routine: Routine): Long {
         val id = RoutineDatabase.insert(dbHelper, routine)
         routine.id = id
-        routineList.add(routine)
+        routines.add(routine)
         return id
     }
 
-    fun addRestore(dbHelper: DbHelper, routine: Routine) {
-        routineList.filter { it.position >= routine.position }.forEach { it.position += 1 }
+    fun restore(dbHelper: DbHelper, routine: Routine) {
+        val shiftedRoutines = routines.filter { it.position >= routine.position }
         add(dbHelper, routine)
+        shiftedRoutines.forEach { it.position += 1 }
+        shiftedRoutines.forEach { RoutineDatabase.update(dbHelper, it) }
     }
 
-    fun loadRoutines(helper: DbHelper) {
-        routineList = RoutineDatabase.selectAll(helper)
+    fun load(dbHelper: DbHelper) {
+        routines = RoutineDatabase.selectAll(dbHelper)
     }
 
     fun remove(dbHelper: DbHelper, routine: Routine) {
         RoutineDatabase.delete(dbHelper, routine.id)
-        routineList.remove(routine)
-        routineList.filter { it.position > routine.position }.forEach { it.position -= 1 }
-        routineList.forEach { RoutineDatabase.update(dbHelper, it) }
+        routines.remove(routine)
+        val shiftedRoutines = routines.filter { it.position > routine.position }
+        shiftedRoutines.forEach { it.position -= 1 }
+        shiftedRoutines.forEach { RoutineDatabase.update(dbHelper, it) }
+    }
+
+    fun update(dbHelper: DbHelper, routine: Routine) {
+        RoutineDatabase.update(dbHelper, routine)
     }
 }

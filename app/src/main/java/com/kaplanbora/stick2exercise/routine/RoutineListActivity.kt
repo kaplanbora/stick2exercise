@@ -27,7 +27,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setSupportActionBar(toolbar)
 
         dbHelper = DbHelper(applicationContext)
-        RoutineRepository.loadRoutines(dbHelper!!)
+        RoutineRepository.load(dbHelper!!)
         refreshListView()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
@@ -68,10 +68,11 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     override fun applyEdit(name: String, id: Long) {
         val routine = RoutineRepository.get(id)
         routine.name = name
+        RoutineRepository.update(dbHelper!!, routine)
     }
 
     override fun createRoutine(name: String) {
-        val routine = Routine(-1, RoutineRepository.routineList.size + 1, name, mutableListOf())
+        val routine = Routine(-1, RoutineRepository.nextPosition() + 1, name, mutableListOf())
         val id = RoutineRepository.add(dbHelper!!, routine)
         val intent = Intent(applicationContext, ExerciseListActivity::class.java)
         intent.putExtra("routineId", id)
@@ -79,12 +80,12 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun refreshListView() {
-        if (RoutineRepository.getList().isEmpty()) {
+        if (RoutineRepository.all().isEmpty()) {
             emptyMessage.visibility = TextView.VISIBLE
         } else {
             emptyMessage.visibility = TextView.INVISIBLE
         }
-        routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepository.getList())
+        routinesListView.adapter = RoutineListAdapter(this, applicationContext, RoutineRepository.all())
     }
 
     override fun onResume() {

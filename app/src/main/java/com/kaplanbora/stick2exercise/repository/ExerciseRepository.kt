@@ -21,6 +21,7 @@ class ExerciseRepository(val routine: Routine) {
     fun restore(dbHelper: DbHelper, exercise: Exercise) {
         val shiftedExercises = exercises.filter { it.position >= exercise.position }
         add(dbHelper, exercise)
+        exercises.add(exercise)
         shiftedExercises.forEach { it.position += 1 }
         shiftedExercises.forEach { ExerciseDatabase.update(dbHelper, it, routine.id) }
     }

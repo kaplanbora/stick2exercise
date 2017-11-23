@@ -29,6 +29,7 @@
             android:label="@string/title_activity_exercise_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".exercise.CreateExerciseActivity" />
+        <activity android:name=".exercise.EditExerciseActivity" />
         <activity
             android:name=".exercise.ExerciseActivity"
             android:label="@string/title_activity_exercise"

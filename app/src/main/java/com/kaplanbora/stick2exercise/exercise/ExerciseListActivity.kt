@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -11,13 +12,14 @@ import android.view.Menu
 import android.view.MenuItem
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.DbHelper
+import com.kaplanbora.stick2exercise.repository.Exercise
 import com.kaplanbora.stick2exercise.repository.ExerciseRepository
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 
 import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.content_exercise_list.*
 
-class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ExerciseActionListener {
     var exerciseRepository: ExerciseRepository? = null
     var dbHelper: DbHelper? = null
     private val CREATE_EXERCISE = 1000
@@ -33,7 +35,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         dbHelper = DbHelper(applicationContext)
         title = routine.name
 
-        exerciseListView.adapter = ExerciseListAdapter(applicationContext, routine.exercises)
+        exerciseListView.adapter = ExerciseListAdapter(this, applicationContext, routine.exercises)
         exerciseListView.setOnItemClickListener{adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseActivity::class.java)
             intent.putExtra("exerciseId", l)
@@ -56,6 +58,30 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         nav_view.setNavigationItemSelectedListener(this)
     }
 
+    override fun editExercise(exercise: Exercise) {
+        val intent = Intent(applicationContext, EditExerciseActivity::class.java)
+        intent.putExtra("exerciseId", exercise.id)
+        intent.putExtra("routineId", exerciseRepository!!.routine.id)
+        startActivity(intent)
+    }
+
+    override fun deleteExercise(exercise: Exercise) {
+        exerciseRepository!!.remove(dbHelper!!, exercise)
+        refreshListView()
+        Snackbar.make(exerciseListRoot, R.string.exercise_delete_message, Snackbar.LENGTH_LONG)
+                .setAction("UNDO", RestoreExercise(this, exercise, dbHelper!!, exerciseRepository!!))
+                .show()
+    }
+
+    override fun refreshListView() {
+//        if (RoutineRepository.all().isEmpty()) {
+//            emptyMessage.visibility = TextView.VISIBLE
+//        } else {
+//            emptyMessage.visibility = TextView.INVISIBLE
+//        }
+        exerciseListView.adapter = ExerciseListAdapter(this, applicationContext, exerciseRepository!!.all())
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CREATE_EXERCISE && resultCode == Activity.RESULT_OK) {
             val newExercise = exerciseRepository!!.all().first{ it.id == -1L }
@@ -64,7 +90,13 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     }
 
     override fun onResume() {
+        refreshListView()
         super.onResume()
+    }
+
+    override fun onDestroy() {
+        dbHelper?.close()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {

@@ -32,9 +32,6 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             startActivity(intent)
         }
 
-//        val adapter: ExerciseListAdapter = exerciseListView.adapter as ExerciseListAdapter
-//        adapter.notifyDataSetChanged()
-
         fab.setOnClickListener { _ ->
             val intent = Intent(applicationContext, CreateExerciseActivity::class.java)
             intent.putExtra("routineId", routine.id)

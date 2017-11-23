@@ -72,7 +72,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun createRoutine(name: String) {
-        val routine = Routine(-1, RoutineRepository.nextPosition() + 1, name, mutableListOf())
+        val routine = Routine(-1, RoutineRepository.nextPosition(), name, mutableListOf())
         val id = RoutineRepository.add(dbHelper!!, routine)
         val intent = Intent(applicationContext, ExerciseListActivity::class.java)
         intent.putExtra("routineId", id)

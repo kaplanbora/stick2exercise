@@ -1,5 +1,7 @@
 package com.kaplanbora.stick2exercise.repository
 
+import android.util.Log
+
 object RoutineRepository {
     private var routines: MutableList<Routine> = mutableListOf()
 

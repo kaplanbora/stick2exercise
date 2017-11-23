@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.DbHelper
 import com.kaplanbora.stick2exercise.repository.Exercise
@@ -74,11 +75,11 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     }
 
     override fun refreshListView() {
-//        if (RoutineRepository.all().isEmpty()) {
-//            emptyMessage.visibility = TextView.VISIBLE
-//        } else {
-//            emptyMessage.visibility = TextView.INVISIBLE
-//        }
+        if (exerciseRepository!!.all().isEmpty()) {
+            emptyMessage.visibility = TextView.VISIBLE
+        } else {
+            emptyMessage.visibility = TextView.INVISIBLE
+        }
         exerciseListView.adapter = ExerciseListAdapter(this, applicationContext, exerciseRepository!!.all())
     }
 

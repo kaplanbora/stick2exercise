@@ -31,7 +31,6 @@ object RoutineRepository {
     fun load(dbHelper: DbHelper) {
         routines = RoutineDatabase.selectAll(dbHelper)
         routines.forEach { ExerciseDatabase.selectAll(dbHelper, it) }
-        Log.d("DB_VALUES", routines.map { it.name + "\n" + it.exercises.toString() }.reduce { acc, s -> acc + "\n" + s })
     }
 
     fun remove(dbHelper: DbHelper, routine: Routine) {

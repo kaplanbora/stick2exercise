@@ -22,7 +22,7 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
                 subdiv_up INTEGER NOT NULL,
                 subdiv_down INTEGER NOT NULL,
                 play_minutes INTEGER NOT NULL,
-                play_second INTEGER NOT NULL,
+                play_seconds INTEGER NOT NULL,
                 break_minutes INTEGER NOT NULL,
                 break_seconds INTEGER NOT NULL,
                     FOREIGN KEY (routine_id) REFERENCES routine(id)

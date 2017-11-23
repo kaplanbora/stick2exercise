@@ -30,6 +30,7 @@ object RoutineRepository {
 
     fun load(dbHelper: DbHelper) {
         routines = RoutineDatabase.selectAll(dbHelper)
+        routines.forEach { ExerciseDatabase.selectAll(dbHelper, it) }
     }
 
     fun remove(dbHelper: DbHelper, routine: Routine) {

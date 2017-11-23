@@ -1,5 +1,6 @@
 package com.kaplanbora.stick2exercise.exercise
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.kaplanbora.stick2exercise.R
@@ -62,8 +63,8 @@ class CreateExerciseActivity : AppCompatActivity() {
                                 breakSecond.value.toString().toInt() * 10
                         )
                 )
-                // Add to database
                 routine.exercises.add(exercise)
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

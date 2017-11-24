@@ -1,9 +1,8 @@
 package com.kaplanbora.stick2exercise.repository
 
-import android.util.Log
-
 object RoutineRepository {
-    private var routines: MutableList<Routine> = mutableListOf()
+    // Public to use easily with firebase. Change back to private when done.
+    var routines: MutableList<Routine> = mutableListOf()
 
     fun get(id: Long): Routine = routines.first { it.id == id }
 

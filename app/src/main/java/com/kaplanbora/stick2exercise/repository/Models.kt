@@ -1,5 +1,11 @@
 package com.kaplanbora.stick2exercise.repository
 
+data class User(
+        var id: Long,
+        var email: String,
+        var password: String
+)
+
 data class Exercise(
         var id: Long,
         var position: Int,

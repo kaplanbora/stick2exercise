@@ -27,7 +27,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setSupportActionBar(toolbar)
 
         dbHelper = DbHelper(applicationContext)
-        RoutineRepository.load(dbHelper!!)
+//        RoutineRepository.load(dbHelper!!)
         refreshListView()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)

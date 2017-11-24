@@ -33,7 +33,8 @@
         <activity
             android:name=".exercise.ExerciseActivity"
             android:label="@string/title_activity_exercise"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
     </application>
 
 </manifest>

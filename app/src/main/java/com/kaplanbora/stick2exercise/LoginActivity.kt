@@ -24,6 +24,9 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import com.kaplanbora.stick2exercise.repository.DbHelper
+import com.kaplanbora.stick2exercise.repository.FirebaseRepository
+import com.kaplanbora.stick2exercise.repository.User
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 import kotlinx.android.synthetic.main.activity_login.*
@@ -37,10 +40,16 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      */
     private var mAuthTask: UserLoginTask? = null
 
+    private var users: MutableList<User> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         // Set up the login form.
+
+//        val dbHelper = DbHelper(applicationContext)
+        FirebaseRepository.getAllRoutines(0)
+
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {

@@ -13,6 +13,12 @@ import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
+import android.graphics.LightingColorFilter
+import android.graphics.ColorFilter
+import android.R.attr.button
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var timerOn = false
@@ -23,6 +29,11 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
+
+        resources.getDrawable(android.R.drawable.ic_media_pause)
+                .colorFilter = LightingColorFilter(Color.BLACK, Color.BLACK)
+        resources.getDrawable(android.R.drawable.ic_media_play)
+                .colorFilter = LightingColorFilter(Color.BLACK, Color.BLACK)
 
         // TODO: Why index?
         val index = intent.extras.getInt("exerciseIndex")
@@ -42,17 +53,20 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             if (timer == null) {
                 timerOn = true
                 timer = createTimer(msDuration)
+                timerButton.toggle()
                 timer!!.start()
-                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause))
+//                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_pause)
             } else if (timerOn) {
                 timerOn = false
+                timerButton.toggle()
                 timer!!.cancel()
-                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play))
+//                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_play)
             } else {
                 timerOn = true
                 timer = createTimer(timerTick)
+                timerButton.toggle()
                 timer!!.start()
-                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause))
+//                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_pause)
             }
         }
 
@@ -81,7 +95,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timerTick = 0
                 timerOn = false
                 timer = null
-                timerButton.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play))
+                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_play)
             }
         }
 

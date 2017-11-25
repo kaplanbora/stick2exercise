@@ -7,14 +7,15 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:background="@drawable/bordered_back"
+            android:padding="16dp"
+            android:textAlignment="center"
             android:textAppearance="@style/VeryLargeText"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -22,60 +23,73 @@
             tools:text="Exercise Name" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/metro"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="26dp"
-            android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:weightSum="2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name">
 
             <TextView
                 android:id="@+id/tempo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bordered_back"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:textAlignment="center"
                 android:textAppearance="@style/LargeText"
                 tools:text="124 BPM" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="26dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name">
 
             <TextView
                 android:id="@+id/subdiv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bordered_back"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:textAlignment="center"
                 android:textAppearance="@style/LargeText"
                 tools:text="4/4" />
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.ohoussein.playpause.PlayPauseView
             android:id="@+id/timerButton"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@android:drawable/ic_media_play"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            app:fill_color="#ffffff"
+            app:pause_bg="@color/pastelRed"
+            app:play_bg="@color/pastelOrange"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@android:drawable/ic_media_play"
+            app:layout_constraintBottom_toTopOf="@id/timer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/blackLight" />
+            app:layout_constraintTop_toBottomOf="@id/metro" />
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/timerButton"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:src="@android:drawable/ic_media_play"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:rippleColor="@color/blackLight" />-->
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/timer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:background="@drawable/bordered_back"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/navig"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
@@ -84,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pastelBlack"
-                android:textSize="36sp"
+                android:textSize="48sp"
                 tools:text="00" />
 
             <TextView
@@ -99,8 +113,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/pastelBlack"
-                android:textSize="36sp"
+                android:textSize="48sp"
                 tools:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <Button
+                android:id="@+id/previousButton"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bordered_back"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_media_previous"
+                android:text="Previous \nExercise" />
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bordered_back"
+                android:layout_weight="1"
+                android:drawableRight="@android:drawable/ic_media_next"
+                android:text="Next \nExercise" />
+
         </LinearLayout>
 
 

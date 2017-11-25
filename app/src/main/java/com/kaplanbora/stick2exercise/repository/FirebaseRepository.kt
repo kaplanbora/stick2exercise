@@ -10,13 +10,40 @@ import com.google.firebase.database.ValueEventListener
 object FirebaseRepository {
     val db = FirebaseDatabase.getInstance().reference
 
+    fun addUser(user: User) {
+        Log.d("FIREBASE_ADD_USER", user.toString())
+        val userPath = db.child("users").child("${user.id}")
+        userPath.child("email").setValue(user.email)
+        userPath.child("password").setValue(user.password)
+        userPath.child("routines").setValue(null)
+    }
+
+    fun getUsers(): MutableList<User> {
+        val users = db.child("users")
+        val list: MutableList<User> = mutableListOf()
+        users.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    list.add(User(
+                            snapshot.key.toLong(),
+                            snapshot.child("email").value.toString(),
+                            snapshot.child("password").value.toString()
+                    ))
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
+        return list
+    }
+
     fun getAllRoutines(userId: Long) {
         val oneUsersRoutines = db.child("users").child("$userId").child("routines")
 
         oneUsersRoutines.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (singleSnapshot in dataSnapshot.children) {
-                   val routine = Routine(
+                    val routine = Routine(
                             singleSnapshot.key.toLong(),
                             singleSnapshot.child("positon").value.toString().toInt(),
                             singleSnapshot.child("name").value.toString()
@@ -46,6 +73,7 @@ object FirebaseRepository {
                     RoutineRepository.routines.add(routine)
                 }
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 // ...
             }

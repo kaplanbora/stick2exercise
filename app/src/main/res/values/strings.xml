@@ -46,4 +46,10 @@
         to create a new exercise.</string>
     <string name="routine_delete_message">Routine has been deleted.</string>
     <string name="exercise_delete_message">Exercise has been deleted.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="incorrect_login">Incorrect login information.</string>
+    <string name="email_used">This email has been used.</string>
 </resources>

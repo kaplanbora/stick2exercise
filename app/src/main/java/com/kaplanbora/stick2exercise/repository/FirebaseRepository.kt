@@ -10,6 +10,31 @@ import com.google.firebase.database.ValueEventListener
 object FirebaseRepository {
     val db = FirebaseDatabase.getInstance().reference
 
+    fun restore(routine: Routine, userId: Long) {
+        addRoutine(routine, userId)
+        val toupdate = RoutineRepository.routines.filter { it.position > routine.position }
+        toupdate.forEach { updateRoutine(it, userId) }
+    }
+
+    fun deleteRoutine(routine: Routine, userId: Long) {
+        val routinePath = db.child("users").child("$userId").child("routines").child("${routine.id}")
+        routinePath.removeValue()
+        val toupdate = RoutineRepository.routines.filter { it.position >= routine.position }
+        toupdate.forEach { updateRoutine(it, userId) }
+    }
+
+    fun addRoutine(routine: Routine, userId: Long) {
+        val routinePath = db.child("users").child("$userId").child("routines").child("${routine.id}")
+        routinePath.child("name").setValue(routine.name)
+        routinePath.child("position").setValue("${routine.position}")
+    }
+
+    fun updateRoutine(routine: Routine, userId: Long) {
+        val routinePath = db.child("users").child("$userId").child("routines").child("${routine.id}")
+        routinePath.child("name").setValue(routine.name)
+        routinePath.child("position").setValue("${routine.position}")
+    }
+
     fun addUser(user: User) {
         Log.d("FIREBASE_ADD_USER", user.toString())
         val userPath = db.child("users").child("${user.id}")
@@ -45,7 +70,7 @@ object FirebaseRepository {
                 for (singleSnapshot in dataSnapshot.children) {
                     val routine = Routine(
                             singleSnapshot.key.toLong(),
-                            singleSnapshot.child("positon").value.toString().toInt(),
+                            singleSnapshot.child("position").value.toString().toInt(),
                             singleSnapshot.child("name").value.toString()
                     )
                     for (snapshot in singleSnapshot.child("exercises").children) {

@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.kaplanbora.stick2exercise.exercise.ExerciseListActivity
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.DbHelper
+import com.kaplanbora.stick2exercise.repository.FirebaseRepository
 import com.kaplanbora.stick2exercise.repository.Routine
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_routine_list.*
@@ -27,7 +28,6 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setSupportActionBar(toolbar)
 
         dbHelper = DbHelper(applicationContext)
-//        RoutineRepository.load(dbHelper!!)
         refreshListView()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseListActivity::class.java)
@@ -50,9 +50,10 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun deleteRoutine(routine: Routine) {
         RoutineRepository.remove(dbHelper!!, routine)
+        FirebaseRepository.deleteRoutine(routine, intent.extras.getLong("userId"))
         refreshListView()
         Snackbar.make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
-                .setAction("UNDO", RestoreRoutine(this, routine, dbHelper!!))
+                .setAction("UNDO", RestoreRoutine(intent.extras.getLong("userId"), this, routine, dbHelper!!))
                 .show()
     }
 
@@ -69,11 +70,14 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         val routine = RoutineRepository.get(id)
         routine.name = name
         RoutineRepository.update(dbHelper!!, routine)
+        refreshListView()
+        FirebaseRepository.updateRoutine(routine, intent.extras.getLong("userId"))
     }
 
     override fun createRoutine(name: String) {
         val routine = Routine(-1, RoutineRepository.nextPosition(), name, mutableListOf())
         val id = RoutineRepository.add(dbHelper!!, routine)
+        FirebaseRepository.addRoutine(routine, intent.extras.getLong("userId"))
         val intent = Intent(applicationContext, ExerciseListActivity::class.java)
         intent.putExtra("routineId", id)
         startActivity(intent)

@@ -24,7 +24,9 @@ class MyLoginActivity : AppCompatActivity() {
             if (success) {
                 val userId = users.first { it.email == emailInput }.id
                 FirebaseRepository.getAllRoutines(userId)
+                Thread.sleep(200)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
+                intent.putExtra("userId", userId)
                 startActivity(intent)
             } else {
                 Toast.makeText(applicationContext, getString(R.string.incorrect_login), Toast.LENGTH_LONG).show()
@@ -40,6 +42,7 @@ class MyLoginActivity : AppCompatActivity() {
                 val newUser = User(users.size + 1L, emailInput, passwordInput)
                 FirebaseRepository.addUser(newUser)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
+                intent.putExtra("userId", newUser.id)
                 startActivity(intent)
             }
         }

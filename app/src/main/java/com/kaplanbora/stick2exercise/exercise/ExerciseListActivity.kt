@@ -12,10 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.kaplanbora.stick2exercise.R
-import com.kaplanbora.stick2exercise.repository.DbHelper
-import com.kaplanbora.stick2exercise.repository.Exercise
-import com.kaplanbora.stick2exercise.repository.ExerciseRepository
-import com.kaplanbora.stick2exercise.repository.RoutineRepository
+import com.kaplanbora.stick2exercise.repository.*
 
 import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.content_exercise_list.*
@@ -63,14 +60,16 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         val intent = Intent(applicationContext, EditExerciseActivity::class.java)
         intent.putExtra("exerciseId", exercise.id)
         intent.putExtra("routineId", exerciseRepository!!.routine.id)
-        startActivity(intent)
+        startActivityForResult(intent, EDIT_EXERCISE)
     }
 
     override fun deleteExercise(exercise: Exercise) {
         exerciseRepository!!.remove(dbHelper!!, exercise)
+        FirebaseRepository.deleteExercise(exercise, intent.extras.getLong("routineId"), intent.extras.getLong("userId"))
         refreshListView()
         Snackbar.make(exerciseListRoot, R.string.exercise_delete_message, Snackbar.LENGTH_LONG)
-                .setAction("UNDO", RestoreExercise(this, exercise, dbHelper!!, exerciseRepository!!))
+//                .setAction("UNDO", RestoreExercise(this, exercise, dbHelper!!, exerciseRepository!!))
+                .setAction("UNDO", RestoreExercise(intent.extras.getLong("routineId"), intent.extras.getLong("userId"), this, exercise, dbHelper!!, exerciseRepository!!))
                 .show()
     }
 
@@ -87,11 +86,12 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         if (requestCode == CREATE_EXERCISE && resultCode == Activity.RESULT_OK) {
             val newExercise = exerciseRepository!!.get(-1)
             exerciseRepository!!.add(dbHelper!!, newExercise)
+            FirebaseRepository.addExercise(newExercise, intent.extras.getLong("routineId"), intent.extras.getLong("userId"))
         }
-
         if (requestCode == EDIT_EXERCISE && resultCode == Activity.RESULT_OK) {
             val exercise = exerciseRepository!!.get(data?.extras!!.getLong("exerciseId"))
             exerciseRepository!!.update(dbHelper!!, exercise)
+            FirebaseRepository.updateExercise(exercise, intent.extras.getLong("routineId"), intent.extras.getLong("userId"))
         }
     }
 

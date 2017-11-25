@@ -30,9 +30,10 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         dbHelper = DbHelper(applicationContext)
         refreshListView()
         routinesListView.setOnItemClickListener { adapterView, view, i, l ->
-            val intent = Intent(applicationContext, ExerciseListActivity::class.java)
-            intent.putExtra("routineId", l)
-            startActivity(intent)
+            val newintent = Intent(applicationContext, ExerciseListActivity::class.java)
+            newintent.putExtra("routineId", l)
+            newintent.putExtra("userId", intent.extras.getLong("userId"))
+            startActivity(newintent)
         }
 
         fab.setOnClickListener { _ ->
@@ -78,8 +79,9 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         val routine = Routine(-1, RoutineRepository.nextPosition(), name, mutableListOf())
         val id = RoutineRepository.add(dbHelper!!, routine)
         FirebaseRepository.addRoutine(routine, intent.extras.getLong("userId"))
-        val intent = Intent(applicationContext, ExerciseListActivity::class.java)
-        intent.putExtra("routineId", id)
+        val newintent = Intent(applicationContext, ExerciseListActivity::class.java)
+        newintent.putExtra("routineId", id)
+        newintent.putExtra("userId", intent.extras.getLong("userId"))
         startActivity(intent)
     }
 

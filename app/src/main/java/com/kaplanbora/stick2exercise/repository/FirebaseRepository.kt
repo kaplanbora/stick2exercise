@@ -10,7 +10,52 @@ import com.google.firebase.database.ValueEventListener
 object FirebaseRepository {
     val db = FirebaseDatabase.getInstance().reference
 
-    fun restore(routine: Routine, userId: Long) {
+    fun restoreExercise(exercise: Exercise, routineId: Long, userId: Long) {
+        addExercise(exercise, routineId, userId)
+        val toupdate = RoutineRepository.get(routineId).exercises.filter { it.position > exercise.position }
+        toupdate.forEach { updateExercise(it, routineId, userId) }
+    }
+
+    fun deleteExercise(exercise: Exercise, routineId: Long, userId: Long) {
+        val exercisePath = db.child("users").child("$userId")
+                .child("routines").child("$routineId")
+                .child("exercises").child("${exercise.id}")
+        exercisePath.removeValue()
+        val toupdate = RoutineRepository.get(routineId).exercises.filter { it.position >= exercise.position }
+        toupdate.forEach { updateExercise(it, routineId, userId) }
+    }
+
+    fun addExercise(exercise: Exercise, routineId: Long, userId: Long) {
+        val exercisePath = db.child("users").child("$userId")
+                .child("routines").child("$routineId")
+                .child("exercises").child("${exercise.id}")
+        exercisePath.child("breakMinutes").setValue("${exercise.breakDuration.minutes}")
+        exercisePath.child("breakSeconds").setValue("${exercise.breakDuration.seconds}")
+        exercisePath.child("name").setValue(exercise.name)
+        exercisePath.child("playMinutes").setValue("${exercise.playDuration.minutes}")
+        exercisePath.child("playSeconds").setValue("${exercise.playDuration.seconds}")
+        exercisePath.child("position").setValue("${exercise.position}")
+        exercisePath.child("subdivDown").setValue("${exercise.metronome.subdivDown}")
+        exercisePath.child("subdivUp").setValue("${exercise.metronome.subdivUp}")
+        exercisePath.child("tempo").setValue("${exercise.metronome.tempo}")
+    }
+
+    fun updateExercise(exercise: Exercise, routineId: Long, userId: Long) {
+        val exercisePath = db.child("users").child("$userId")
+                .child("routines").child("$routineId")
+                .child("exercises").child("${exercise.id}")
+        exercisePath.child("breakMinutes").setValue("${exercise.breakDuration.minutes}")
+        exercisePath.child("breakSeconds").setValue("${exercise.breakDuration.seconds}")
+        exercisePath.child("name").setValue(exercise.name)
+        exercisePath.child("playMinutes").setValue("${exercise.playDuration.minutes}")
+        exercisePath.child("playSeconds").setValue("${exercise.playDuration.seconds}")
+        exercisePath.child("position").setValue("${exercise.position}")
+        exercisePath.child("subdivDown").setValue("${exercise.metronome.subdivDown}")
+        exercisePath.child("subdivUp").setValue("${exercise.metronome.subdivUp}")
+        exercisePath.child("tempo").setValue("${exercise.metronome.tempo}")
+    }
+
+    fun restoreRoutine(routine: Routine, userId: Long) {
         addRoutine(routine, userId)
         val toupdate = RoutineRepository.routines.filter { it.position > routine.position }
         toupdate.forEach { updateRoutine(it, userId) }
@@ -100,7 +145,6 @@ object FirebaseRepository {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // ...
             }
         })
     }

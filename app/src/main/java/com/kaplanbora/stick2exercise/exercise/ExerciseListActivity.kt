@@ -21,10 +21,10 @@ import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.content_exercise_list.*
 
 class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ExerciseActionListener {
-    var exerciseRepository: ExerciseRepository? = null
-    var dbHelper: DbHelper? = null
+    private var exerciseRepository: ExerciseRepository? = null
+    private var dbHelper: DbHelper? = null
     private val CREATE_EXERCISE = 1000
-//    private val RESULT_OK = 9999
+    private val EDIT_EXERCISE = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,8 +85,13 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CREATE_EXERCISE && resultCode == Activity.RESULT_OK) {
-            val newExercise = exerciseRepository!!.all().first{ it.id == -1L }
+            val newExercise = exerciseRepository!!.get(-1)
             exerciseRepository!!.add(dbHelper!!, newExercise)
+        }
+
+        if (requestCode == EDIT_EXERCISE && resultCode == Activity.RESULT_OK) {
+            val exercise = exerciseRepository!!.get(data?.extras!!.getLong("exerciseId"))
+            exerciseRepository!!.update(dbHelper!!, exercise)
         }
     }
 

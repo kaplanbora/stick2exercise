@@ -1,6 +1,7 @@
 package com.kaplanbora.stick2exercise.exercise
 
 import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.kaplanbora.stick2exercise.R
@@ -8,7 +9,6 @@ import com.kaplanbora.stick2exercise.repository.*
 import kotlinx.android.synthetic.main.activity_create_exercise.*
 
 class EditExerciseActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_exercise)
@@ -58,6 +58,9 @@ class EditExerciseActivity : AppCompatActivity() {
                 exercise.playDuration.seconds = playSecond.value.toString().toInt() * 10
                 exercise.breakDuration.minutes = breakMinute.value.toString().toInt()
                 exercise.breakDuration.seconds = breakSecond.value.toString().toInt() * 10
+                val intent = Intent()
+                intent.putExtra("exerciseId", exercise.id)
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
         }

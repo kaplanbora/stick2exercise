@@ -3,9 +3,11 @@ package com.kaplanbora.stick2exercise
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.repository.FirebaseRepository
 import com.kaplanbora.stick2exercise.repository.Repository
+import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import com.kaplanbora.stick2exercise.repository.User
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_my_login.*
@@ -25,6 +27,7 @@ class MyLoginActivity : AppCompatActivity() {
 //            Repository.mode = InternetMode.OFFLINE
 //        }
 
+        RoutineRepository.routines.clear()
         val users = Repository.getUsers()
 
         login.setOnClickListener { _ ->
@@ -37,9 +40,11 @@ class MyLoginActivity : AppCompatActivity() {
             if (success) {
                 val userId = users.first { it.email == emailInput }.id
                 FirebaseRepository.getAllRoutines(userId)
-                Thread.sleep(200)
+                Thread.sleep(1000)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
                 intent.putExtra("userId", userId)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
             } else {
                 Toast.makeText(applicationContext, getString(R.string.incorrect_login), Toast.LENGTH_LONG).show()
@@ -58,6 +63,8 @@ class MyLoginActivity : AppCompatActivity() {
                 val newUser = User(users.size + 1L, emailInput, passwordInput)
                 FirebaseRepository.addUser(newUser)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 intent.putExtra("userId", newUser.id)
                 startActivity(intent)
             }
@@ -83,5 +90,9 @@ class MyLoginActivity : AppCompatActivity() {
             return true
         }
         return false
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

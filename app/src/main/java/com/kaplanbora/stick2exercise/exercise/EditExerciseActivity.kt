@@ -50,6 +50,9 @@ class EditExerciseActivity : AppCompatActivity() {
             if (tempo.text.isEmpty()) {
                 Toast.makeText(applicationContext, getString(R.string.error_empty_tempo), Toast.LENGTH_LONG)
                         .show()
+            } else if (tempo.text.toString().toInt() < 30 || tempo.text.toString().toInt() > 300) {
+                Toast.makeText(applicationContext, getString(R.string.error_tempo_limits), Toast.LENGTH_LONG)
+                        .show()
             } else if (playMinute.value.toString() == "0" && playSecond.value.toString() == "0"){
                 Toast.makeText(applicationContext, getString(R.string.error_zero_duration), Toast.LENGTH_LONG)
                         .show()

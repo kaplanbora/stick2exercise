@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import com.kaplanbora.stick2exercise.MetronomeActivity
+import com.kaplanbora.stick2exercise.MyLoginActivity
 import com.kaplanbora.stick2exercise.exercise.ExerciseListActivity
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.SettingsActivity
@@ -134,28 +136,24 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.nav_routine_list -> {}
+            R.id.nav_metronome -> {
+                val intent = Intent(applicationContext, MetronomeActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_settings -> {
+                val intent = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.nav_logout -> {
+                routinesListView.adapter = RoutineListAdapter(this, applicationContext, mutableListOf())
+                val intent = Intent(applicationContext, MyLoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

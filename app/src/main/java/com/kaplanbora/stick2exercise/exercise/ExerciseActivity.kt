@@ -1,5 +1,6 @@
 package com.kaplanbora.stick2exercise.exercise
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.design.widget.NavigationView
@@ -13,11 +14,10 @@ import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
-import android.graphics.LightingColorFilter
-import android.graphics.ColorFilter
-import android.R.attr.button
-import android.graphics.Color
-import android.graphics.drawable.Drawable
+import com.kaplanbora.stick2exercise.MetronomeActivity
+import com.kaplanbora.stick2exercise.MyLoginActivity
+import com.kaplanbora.stick2exercise.SettingsActivity
+import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,11 +29,6 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
-
-        resources.getDrawable(android.R.drawable.ic_media_pause)
-                .colorFilter = LightingColorFilter(Color.BLACK, Color.BLACK)
-        resources.getDrawable(android.R.drawable.ic_media_play)
-                .colorFilter = LightingColorFilter(Color.BLACK, Color.BLACK)
 
         // TODO: Why index?
         val index = intent.extras.getInt("exerciseIndex")
@@ -95,19 +90,14 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timerTick = 0
                 timerOn = false
                 timer = null
-                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_play)
             }
         }
 
     }
 
-    private fun msToMin(ms: Long): Long {
-        return (ms / 1000) / 60
-    }
+    private fun msToMin(ms: Long): Long = (ms / 1000) / 60
 
-    private fun msToSec(ms: Long): Long {
-        return (ms / 1000) % 60
-    }
+    private fun msToSec(ms: Long): Long = (ms / 1000) % 60
 
     override fun onDestroy() {
         super.onDestroy()
@@ -139,28 +129,26 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.nav_routine_list -> {
+                val intent = Intent(applicationContext, RoutineListActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_metronome -> {
+                val intent = Intent(applicationContext, MetronomeActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_slideshow -> {
-
+            R.id.nav_settings -> {
+                val intent = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.nav_logout -> {
+                val intent = Intent(applicationContext, MyLoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

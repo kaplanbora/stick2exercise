@@ -11,8 +11,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import com.kaplanbora.stick2exercise.MetronomeActivity
+import com.kaplanbora.stick2exercise.MyLoginActivity
 import com.kaplanbora.stick2exercise.R
+import com.kaplanbora.stick2exercise.SettingsActivity
 import com.kaplanbora.stick2exercise.repository.*
+import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.content_exercise_list.*
@@ -130,25 +134,24 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.nav_routine_list -> {
+                val intent = Intent(applicationContext, RoutineListActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_metronome -> {
+                val intent = Intent(applicationContext, MetronomeActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_slideshow -> {
-
+            R.id.nav_settings -> {
+                val intent = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.nav_logout -> {
+                val intent = Intent(applicationContext, MyLoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
         }
 

@@ -133,7 +133,14 @@
     <string name="metronome">Metronome</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
-    <string name="error_tempo_limits">Tempo should be between 30-300.</string>
+    <string name="error_tempo_limits">Tempo should be between 30–300 bpm.</string>
     <string name="new_exercise">New Exercise</string>
     <string name="edit_exercise">Edit Exercise</string>
+    <string name="metronome_settings">Metronome Settings</string>
+    <string name="metronome_sound">Metronome Sound: </string>
+    <string name="exercise_settings">Exercise Settings</string>
+    <string name="settings_next_exercise">Play next exercise automatically: </string>
+    <string name="count_in">Count-in before each exercise: </string>
+    <string name="default_break_duration">Default Break Duration</string>
+    <string name="save">Save</string>
 </resources>

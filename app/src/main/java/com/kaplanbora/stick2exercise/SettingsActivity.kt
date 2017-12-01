@@ -9,12 +9,36 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.content_settings.*
 
 class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         setSupportActionBar(toolbar)
+
+        val minutes = (0..60).map { it.toString() }.toTypedArray()
+        val seconds = (0..50 step 10).map { it.toString() }.toTypedArray()
+        minutePicker.minValue = 0
+        minutePicker.maxValue = minutes.size - 1
+        minutePicker.wrapSelectorWheel = true
+        minutePicker.displayedValues = minutes
+
+        secondPicker.minValue = 0
+        secondPicker.maxValue = seconds.size - 1
+        secondPicker.wrapSelectorWheel = true
+        secondPicker.displayedValues = seconds
+        secondPicker.value = 0
+
+
+
+
+
+
+
+
+
+
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)

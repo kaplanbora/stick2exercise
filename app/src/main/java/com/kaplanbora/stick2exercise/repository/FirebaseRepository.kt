@@ -107,8 +107,9 @@ object FirebaseRepository {
         return list
     }
 
-    fun getAllRoutines(userId: Long) {
+    fun getAllRoutines(userId: Long): MutableList<Routine> {
         val oneUsersRoutines = db.child("users").child("$userId").child("routines")
+        val routines: MutableList<Routine> = mutableListOf()
 
         oneUsersRoutines.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -140,12 +141,14 @@ object FirebaseRepository {
                                 )
                         )
                     }
-                    RoutineRepository.routines.add(routine)
+                    routines.add(routine)
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
+
+        return routines
     }
 }

@@ -13,6 +13,7 @@ import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_my_login.*
 import java.net.InetAddress
 import java.net.UnknownHostException
+import java.util.concurrent.CompletableFuture
 
 class MyLoginActivity : AppCompatActivity() {
 
@@ -39,7 +40,7 @@ class MyLoginActivity : AppCompatActivity() {
             val success = users.any { it.email == emailInput && it.password == passwordInput }
             if (success) {
                 val userId = users.first { it.email == emailInput }.id
-                FirebaseRepository.getAllRoutines(userId)
+                RoutineRepository.routines = FirebaseRepository.getAllRoutines(userId)
                 Thread.sleep(1000)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
                 intent.putExtra("userId", userId)

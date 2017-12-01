@@ -29,8 +29,11 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
         val routineTable = """
             CREATE TABLE routine(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
                 position INTEGER NOT NULL,
-                name TEXT);""".trimIndent()
+                name TEXT,
+                    FOREIGN KEY (user_id) REFERENCES account(id)
+                        ON DELETE CASCADE);""".trimIndent()
 
         val exerciseTable = """
             CREATE TABLE exercise(
@@ -49,8 +52,11 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
                         ON DELETE CASCADE);""".trimIndent()
 
         // TODO: Add example routine and exercises.
+        db?.execSQL(userTable)
         db?.execSQL(routineTable)
         db?.execSQL(exerciseTable)
+        db?.execSQL(tempExercise)
+        db?.execSQL(tempRoutine)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

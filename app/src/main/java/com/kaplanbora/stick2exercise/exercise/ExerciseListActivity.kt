@@ -118,17 +118,23 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.routine_list_menu, menu)
+        menuInflater.inflate(R.menu.exercise_list_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.settings -> {
+                val intent = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.create -> {
+                val intent = Intent(applicationContext, CreateExerciseActivity::class.java)
+                intent.putExtra("routineId", exerciseRepository!!.routine.id)
+                startActivityForResult(intent, CREATE_EXERCISE)
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }

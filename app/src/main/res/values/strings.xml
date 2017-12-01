@@ -134,4 +134,6 @@
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
     <string name="error_tempo_limits">Tempo should be between 30-300.</string>
+    <string name="new_exercise">New Exercise</string>
+    <string name="edit_exercise">Edit Exercise</string>
 </resources>

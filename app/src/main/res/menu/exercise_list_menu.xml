@@ -6,9 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
     <item
-        android:id="@+id/edit"
+        android:id="@+id/create"
         android:orderInCategory="200"
-        android:title="@string/edit_exercise"
+        android:title="@string/new_exercise"
         app:showAsAction="never" />
 </menu>

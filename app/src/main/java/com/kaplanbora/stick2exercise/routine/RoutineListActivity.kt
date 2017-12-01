@@ -79,12 +79,14 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun createRoutine(name: String) {
+        val userId = intent.extras.getLong("userId")
         val routine = Routine(-1, RoutineRepository.nextPosition(), name, mutableListOf())
         val id = RoutineRepository.add(dbHelper!!, routine)
         FirebaseRepository.addRoutine(routine, intent.extras.getLong("userId"))
-        val newintent = Intent(applicationContext, ExerciseListActivity::class.java)
-        newintent.putExtra("routineId", id)
-        newintent.putExtra("userId", intent.extras.getLong("userId"))
+        // TODO: Revisit the decision for switching to new routine
+//        val newintent = Intent(applicationContext, ExerciseListActivity::class.java)
+//        newintent.putExtra("routineId", id)
+//        newintent.putExtra("userId", intent.extras.getLong("userId"))
         startActivity(intent)
     }
 

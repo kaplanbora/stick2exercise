@@ -44,10 +44,12 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/settings"/>
+            android:label="@string/settings"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MetronomeActivity"
-            android:label="@string/metronome"/>
+            android:label="@string/metronome"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

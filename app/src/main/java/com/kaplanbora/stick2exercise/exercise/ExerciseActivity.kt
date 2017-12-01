@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_exercise.*
 import com.kaplanbora.stick2exercise.MetronomeActivity
 import com.kaplanbora.stick2exercise.MyLoginActivity
 import com.kaplanbora.stick2exercise.SettingsActivity
-import com.kaplanbora.stick2exercise.repository.FirebaseRepository
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 

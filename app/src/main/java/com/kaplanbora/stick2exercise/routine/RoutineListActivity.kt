@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.kaplanbora.stick2exercise.exercise.ExerciseListActivity
 import com.kaplanbora.stick2exercise.R
+import com.kaplanbora.stick2exercise.SettingsActivity
 import com.kaplanbora.stick2exercise.repository.DbHelper
 import com.kaplanbora.stick2exercise.repository.FirebaseRepository
 import com.kaplanbora.stick2exercise.repository.Routine
@@ -113,17 +114,21 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.entrance, menu)
+        menuInflater.inflate(R.menu.routine_list_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.settings -> {
+                val intent = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.create -> {
+                CreateRoutineFragment().show(supportFragmentManager, "create_routine")
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }

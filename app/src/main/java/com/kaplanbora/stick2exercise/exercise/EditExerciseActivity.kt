@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.repository.*
 import kotlinx.android.synthetic.main.activity_create_exercise.*
@@ -46,9 +47,12 @@ class EditExerciseActivity : AppCompatActivity() {
         breakMinute.value = exercise.breakDuration.minutes / 10
         breakSecond.value = exercise.breakDuration.seconds / 10
         exerciseCreateButton.setOnClickListener { _ ->
-            // TODO: Another error check should be for 0 minutes 0 seconds play time
             if (tempo.text.isEmpty()) {
-                tempo.error = "Tempo cannot be empty."
+                Toast.makeText(applicationContext, getString(R.string.error_empty_tempo), Toast.LENGTH_LONG)
+                        .show()
+            } else if (playMinute.value.toString() == "0" && playSecond.value.toString() == "0"){
+                Toast.makeText(applicationContext, getString(R.string.error_zero_duration), Toast.LENGTH_LONG)
+                        .show()
             } else {
                 exercise.name = name.text.toString().take(100)
                 exercise.metronome.tempo = tempo.text.toString().toInt()

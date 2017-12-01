@@ -115,7 +115,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.entrance, menu)
+        menuInflater.inflate(R.menu.routine_list_menu, menu)
         return true
     }
 

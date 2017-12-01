@@ -6,6 +6,26 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise", null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
+        val userTable = """
+            CREATE TABLE account(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL);""".trimIndent()
+
+        val tempRoutine = """
+            CREATE TABLE temp_routine(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            routine_id INTEGER NOT NULL,
+                FOREIGN KEY (routine_id) REFERENCES routine(id)
+                    ON DELETE CASCADE);""".trimIndent()
+
+        val tempExercise = """
+            CREATE TABLE temp_exercise(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            exercise_id INTEGER NOT NULL,
+                FOREIGN KEY (exercise_id) REFERENCES exercise(id)
+                    ON DELETE CASCADE);""".trimIndent()
+
         val routineTable = """
             CREATE TABLE routine(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

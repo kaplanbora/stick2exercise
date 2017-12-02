@@ -146,4 +146,6 @@
     <string name="beep">Beep</string>
     <string name="click">Click</string>
     <string name="saved">Saved</string>
+    <string name="start">Start</string>
+    <string name="reset">Reset</string>
 </resources>

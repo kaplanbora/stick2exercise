@@ -13,7 +13,8 @@ class CreateExerciseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_exercise)
-        title = "Create Exercise"
+
+        val prefs = this.getPreferences(android.content.Context.MODE_PRIVATE)
         val minutes = (0..60).map { it.toString() }.toTypedArray()
         val seconds = (0..50 step 10).map { it.toString() }.toTypedArray()
         playMinute.minValue = 0
@@ -31,15 +32,13 @@ class CreateExerciseActivity : AppCompatActivity() {
         breakMinute.maxValue = minutes.size - 1
         breakMinute.wrapSelectorWheel = true
         breakMinute.displayedValues = minutes
-        breakMinute.value = 0
+        breakMinute.value = prefs.getInt("minutePicker", 0)
 
         breakSecond.minValue = 0
         breakSecond.maxValue = seconds.size - 1
         breakSecond.wrapSelectorWheel = true
         breakSecond.displayedValues = seconds
-        breakSecond.value = 0
-
-        name.requestFocus()
+        breakSecond.value = prefs.getInt("secondPicker", 0)
 
         exerciseCreateButton.setOnClickListener { _ ->
             if (tempo.text.isEmpty()) {

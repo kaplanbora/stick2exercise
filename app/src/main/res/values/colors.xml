@@ -11,4 +11,5 @@
     <color name="pastelBlack">#1F2223</color>
     <color name="blackHint">#AAAAAA</color>
     <color name="blackLight">#383838</color>
+    <color name="android_white">#e3e3e2</color>
 </resources>

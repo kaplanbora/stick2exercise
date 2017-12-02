@@ -70,17 +70,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/metro" />
 
-        <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/timerButton"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:src="@android:drawable/ic_media_play"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:rippleColor="@color/blackLight" />-->
-
         <LinearLayout
             android:id="@+id/timer"
             android:layout_width="match_parent"

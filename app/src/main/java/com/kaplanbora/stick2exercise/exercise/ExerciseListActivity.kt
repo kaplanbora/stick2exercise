@@ -38,7 +38,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         title = routine.name
 
         exerciseListView.adapter = ExerciseListAdapter(this, applicationContext, routine.exercises)
-        exerciseListView.setOnItemClickListener{adapterView, view, i, l ->
+        exerciseListView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(applicationContext, ExerciseActivity::class.java)
             intent.putExtra("exerciseId", l)
             intent.putExtra("exerciseIndex", i)
@@ -73,7 +73,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         refreshListView()
         Snackbar.make(exerciseListRoot, R.string.exercise_delete_message, Snackbar.LENGTH_LONG)
 //                .setAction("UNDO", RestoreExercise(this, exercise, dbHelper!!, exerciseRepository!!))
-                .setAction("UNDO", RestoreExercise(intent.extras.getLong("routineId"), intent.extras.getLong("userId"), this, exercise, dbHelper!!, exerciseRepository!!))
+                .setAction(getString(R.string.undo), RestoreExercise(intent.extras.getLong("routineId"), intent.extras.getLong("userId"), this, exercise, dbHelper!!, exerciseRepository!!))
                 .show()
     }
 

@@ -1,6 +1,5 @@
 package com.kaplanbora.stick2exercise
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,13 +13,18 @@ import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_my_login.*
 import java.net.InetAddress
 import java.net.UnknownHostException
-import java.util.concurrent.CompletableFuture
+import java.util.*
 
 class MyLoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_login)
+
+        // English: en_US
+        // Turkish: tr_TR
+        val lang = Locale.getDefault().toString()
+        Log.d("LANG", lang)
 
 //        if (isConnected()) {
 //            Repository.mode = InternetMode.ONLINE

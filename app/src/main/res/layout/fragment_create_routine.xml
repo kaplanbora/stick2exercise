@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/pastelBlack"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/createRoutineOk"
@@ -43,6 +43,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/pastelBlack"
             style="?android:attr/borderlessButtonStyle"
-            android:text="OK" />
+            android:text="@string/ok" />
     </LinearLayout>
 </LinearLayout>

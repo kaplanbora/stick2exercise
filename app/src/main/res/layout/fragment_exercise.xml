@@ -123,7 +123,7 @@
                 android:background="@drawable/bordered_back"
                 android:layout_weight="1"
                 android:drawableLeft="@android:drawable/ic_media_previous"
-                android:text="Previous \nExercise" />
+                android:text="@string/previous_nexercise" />
 
             <Button
                 android:id="@+id/nextButton"
@@ -132,7 +132,7 @@
                 android:background="@drawable/bordered_back"
                 android:layout_weight="1"
                 android:drawableRight="@android:drawable/ic_media_next"
-                android:text="Next \nExercise" />
+                android:text="@string/next_nexercise" />
 
         </LinearLayout>
 

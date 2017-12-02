@@ -1,0 +1,161 @@
+<resources>
+    <string name="app_name">Stick2Exercise</string>
+    <string name="title_activity_login">Giriş yap</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Eposta</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_entrance">Egzersiz Listeleri</string>
+
+    <string name="navigation_drawer_open">Menüyü aç</string>
+    <string name="navigation_drawer_close">Menüyü kapat</string>
+
+    <string name="action_settings">Ayarlar</string>
+    <string name="list_name">Egzersiz Listesi Adı</string>
+    <string name="exercise_name">Egzersiz Adı</string>
+    <string name="title_activity_exercise_list">Egzersiz Listesi</string>
+    <string name="minute">Dakika</string>
+    <string name="seconds">Saniye</string>
+    <string name="create">Ekle</string>
+    <string name="bpm">BPM</string>
+    <string name="exerciseDuration">Egzersiz Süresi</string>
+    <string name="break_duration">Mola Süresi</string>
+    <string name="title_activity_exercise">Egzersiz</string>
+
+    <string name="vertical_ellipsis">&#8942;</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exercise_image">Exercise Image</string>
+    <string name="time_signature">Ölçü</string>
+    <string name="tempo">Tempo</string>
+    <string name="time_left">"Kalan Süre: "</string>
+    <string name="edit">Düzenle</string>
+    <string name="delete">Sil</string>
+    <string name="list_menu">Egzersiz Listesi Menüsü</string>
+    <string name="empty_lists_message">Bir egzersiz listesi oluşturulmamış. Aşağıdaki \'+\' butonuna bas ve yeni liste oluştur.</string>
+    <string name="empty_exercise_message">Bir egzersiz oluşturulmamış. Aşağıdaki \'+\' butonuna bas ve yeni egzersiz oluştur.</string>
+    <string name="list_delete_message">Egzersiz listesi silindi.</string>
+    <string name="exercise_delete_message">Egzersiz silindi.</string>
+    <string name="email">Eposta</string>
+    <string name="password">Parola</string>
+    <string name="login">Giriş Yap</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="incorrect_login">Geçersiz kullanıcı bilgileri.</string>
+    <string name="email_used">Bu eposta uygun değildir.</string>
+    <string name="error_empty_tempo">Tempo boş olamaz.</string>
+    <string name="error_zero_duration">Toplam egzersiz süresi sıfır olamaz.</string>
+    <string name="new_exercise_list">Yeni Egzersiz Listesi</string>
+    <string name="title_activity_settings">Ayarlar</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="dev_email">halil.kaplan@ogr.sakarya.com.tr</string>
+    <string name="exercise_lists">Egzersiz Listeleri</string>
+    <string name="metronome">Metronom</string>
+    <string name="settings">Ayarlar</string>
+    <string name="logout">Çıkış</string>
+    <string name="error_tempo_limits">Tempo 30-300 bpm arasında olmalı.</string>
+    <string name="new_exercise">Yeni Egzersiz</string>
+    <string name="edit_exercise">Egzersizi Düzenle</string>
+    <string name="metronome_settings">Metronom Ayarları</string>
+    <string name="metronome_sound">"Metronom Tonu: "</string>
+    <string name="exercise_settings">Egzersiz Ayarları</string>
+    <string name="settings_next_exercise">Sonraki egzersize otomatik geç.</string>
+    <string name="count_in">Her egzersizden önce 2 bar say.</string>
+    <string name="default_break_duration">Varsayılan Mola Süresi</string>
+    <string name="save">Kaydet</string>
+    <string name="beep">Beep</string>
+    <string name="click">Click</string>
+    <string name="saved">Kaydedildi</string>
+    <string name="start">Başla</string>
+    <string name="reset">Sıfırla</string>
+    <string name="pause">Durdur</string>
+    <string name="text_screen_on">Egzersiz ekranında ekran kararmasın.</string>
+    <string name="menu">Menü</string>
+    <string name="user_options">Kullanıcı Tercihleri</string>
+    <string name="cancel">İptal</string>
+    <string name="ok">Tamam</string>
+    <string name="exercises">Egzersiz</string>
+    <string name="undo">GERİ AL</string>
+    <string name="create_exercise">Egzersiz Oluştur</string>
+    <string name="exercise">Egzersiz</string>
+    <string name="previous_nexercise">Önceki \nEgzersiz</string>
+    <string name="next_nexercise">Sonraki \nEgzersiz</string>
+</resources>

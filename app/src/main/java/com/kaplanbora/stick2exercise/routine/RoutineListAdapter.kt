@@ -33,7 +33,7 @@ class RoutineListAdapter(private val listener: RoutineActionListener, val contex
             popup.show()
         }
         row.routineName.text = routine.name
-        row.routineCount.text = "${routine.exercises.size} exercises"
+        row.routineCount.text = "${routine.exercises.size} ${context.getString(R.string.exercises)}"
         return row
     }
 }

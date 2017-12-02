@@ -128,7 +128,9 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onPause() {
         super.onPause()
-        startButton.callOnClick()
+        if (timerOn){
+            startButton.callOnClick()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

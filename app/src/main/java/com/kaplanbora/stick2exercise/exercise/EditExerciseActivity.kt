@@ -42,9 +42,9 @@ class EditExerciseActivity : AppCompatActivity() {
         exerciseCreateButton.text = getString(R.string.edit)
         name.setText(exercise.name)
         tempo.setText(exercise.metronome.tempo.toString())
-        playMinute.value = exercise.playDuration.minutes / 10
+        playMinute.value = exercise.playDuration.minutes
         playSecond.value = exercise.playDuration.seconds / 10
-        breakMinute.value = exercise.breakDuration.minutes / 10
+        breakMinute.value = exercise.breakDuration.minutes
         breakSecond.value = exercise.breakDuration.seconds / 10
         exerciseCreateButton.setOnClickListener { _ ->
             if (tempo.text.isEmpty()) {

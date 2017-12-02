@@ -103,7 +103,9 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     override fun onPause() {
         super.onPause()
-        timerButton.callOnClick()
+        if (timerOn){
+            timerButton.callOnClick()
+        }
     }
 
     override fun onBackPressed() {

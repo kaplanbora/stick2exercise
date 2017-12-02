@@ -1,6 +1,5 @@
 package com.kaplanbora.stick2exercise.exercise
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -51,18 +50,15 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timer = createTimer(msDuration)
                 timerButton.toggle()
                 timer!!.start()
-//                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_pause)
             } else if (timerOn) {
                 timerOn = false
                 timerButton.toggle()
                 timer!!.cancel()
-//                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_play)
             } else {
                 timerOn = true
                 timer = createTimer(timerTick)
                 timerButton.toggle()
                 timer!!.start()
-//                timerButton.background = resources.getDrawable(android.R.drawable.ic_media_pause)
             }
         }
 
@@ -77,9 +73,8 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     private fun createTimer(duration: Long): CountDownTimer {
         return object : CountDownTimer(duration, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                timerTick = millisUntilFinished
-                Log.d("Tick", timerTick.toString())
+            override fun onTick(msLeft: Long) {
+                timerTick = msLeft
                 timerMinute.text = String.format("%02d", msToMin(timerTick))
                 timerSecond.text = String.format("%02d", msToSec(timerTick))
             }
@@ -91,6 +86,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timerTick = 0
                 timerOn = false
                 timer = null
+                timerButton.toggle()
             }
         }
 
@@ -103,6 +99,11 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onDestroy() {
         super.onDestroy()
         timer?.cancel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timerButton.callOnClick()
     }
 
     override fun onBackPressed() {
@@ -125,14 +126,6 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
                 return true
             }
-//            R.id.edit -> {
-//                val intent = Intent(applicationContext, EditExerciseActivity::class.java)
-//                val routine = RoutineRepository.get(intent.extras.getLong("routineId"))
-//                val exercise = routine.exercises.get(intent.extras.getInt("exerciseIndex"))
-//                intent.putExtra("exerciseId", exercise.id)
-//                intent.putExtra("routineId", routine.id)
-//                startActivityForResult(intent, EDIT_EXERCISE)
-//            }
             else -> return super.onOptionsItemSelected(item)
         }
     }

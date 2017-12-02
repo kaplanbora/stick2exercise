@@ -3,21 +3,57 @@ package com.kaplanbora.stick2exercise
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
-import kotlinx.android.synthetic.main.activity_exercise.*
+import kotlinx.android.synthetic.main.activity_metronome.*
+import kotlinx.android.synthetic.main.content_metronome.*
 
 class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var tempo = 120
+    var timerOn = false
+    var currentMinute = 0
+    var currentSecond = 0
+    var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metronome)
         setSupportActionBar(toolbar)
 
+        val prefs = this.getPreferences(android.content.Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        tempo = prefs.getInt("lastTempo", 120)
+        updateTempo(0)
+
+        startButton.setOnClickListener { _ ->
+            editor.putInt("lastTempo", tempo)
+            editor.apply()
+            if (timer == null) {
+                timerOn = true
+                timer = createTimer(99 * 60 * 1000)
+                startButton.text = getString(R.string.pause)
+                timer!!.start()
+            } else if (timerOn) {
+                timerOn = false
+                startButton.text = getString(R.string.start)
+                timer!!.cancel()
+            } else {
+                timerOn = true
+                timer = createTimer(99 * 60 * 1000)
+                startButton.text = getString(R.string.pause)
+                timer!!.start()
+            }
+        }
+
+        resetButton.setOnClickListener { _ ->
+            endTimer()
+        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -27,12 +63,72 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         nav_view.setNavigationItemSelectedListener(this)
     }
 
+    private fun createTimer(duration: Long): CountDownTimer {
+        return object : CountDownTimer(duration, 1000) {
+            override fun onTick(msLeft: Long) {
+                updateTimer()
+            }
+
+            override fun onFinish() {
+                endTimer()
+            }
+        }
+    }
+
+    private fun endTimer() {
+        timer?.cancel()
+        timerOn = false
+        timer = null
+        currentSecond = 0
+        currentMinute = 0
+        startButton.text = getString(R.string.start)
+        timerMinute.text = "00"
+        timerSecond.text = "00"
+    }
+
+    private fun updateTimer() {
+        if (currentSecond == 59) {
+            currentMinute += 1
+            currentSecond = 0
+        } else {
+            currentSecond += 1
+        }
+        timerMinute.text = String.format("%02d", currentMinute)
+        timerSecond.text = String.format("%02d", currentSecond)
+    }
+
+    fun tempoChange(view: View) {
+        when (view.id) {
+            R.id.minusOneButton -> updateTempo(-1)
+            R.id.minusTenButton -> updateTempo(-10)
+            R.id.plusOneButton -> updateTempo(1)
+            R.id.plusTenButton -> updateTempo(10)
+        }
+    }
+
+    private fun updateTempo(update: Int) {
+        if ((tempo + update) >= 30 && (tempo + update) <= 300) {
+            tempo += update
+            tempoText.text = "${tempo.toString()} BPM"
+        }
+    }
+
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        startButton.callOnClick()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

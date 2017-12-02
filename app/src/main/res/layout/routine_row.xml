@@ -20,13 +20,23 @@
 
     <TextView
         android:id="@+id/routineCount"
-        android:layout_width="280dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/BlackTextSmall"
         android:textColor="@color/pastelBlack"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/routineName"
-        tools:text="Exercise Count" />
+        tools:text="Exercise Count: 5" />
+
+    <TextView
+        android:id="@+id/totalDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BlackTextSmall"
+        app:layout_constraintTop_toBottomOf="@id/routineCount"
+        android:textColor="@color/pastelBlack"
+        tools:text="Total Duration: 5 minutes 30 seconds"
+        />
 
     <Button
         android:id="@+id/routineMenu"

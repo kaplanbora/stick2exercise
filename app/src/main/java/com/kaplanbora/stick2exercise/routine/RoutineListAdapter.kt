@@ -33,7 +33,21 @@ class RoutineListAdapter(private val listener: RoutineActionListener, val contex
             popup.show()
         }
         row.routineName.text = routine.name
-        row.routineCount.text = "${routine.exercises.size} ${context.getString(R.string.exercises)}"
+        if (routine.exercises.isEmpty()) {
+            row.routineCount.text = context.getString(R.string.empty_list)
+            row.totalDuration.text = ""
+        } else {
+            var minuteDuration = routine.exercises.foldRight(0, { exercise, acc ->
+                acc + exercise.playDuration.minutes + exercise.breakDuration.minutes
+            })
+            var secondDuration = routine.exercises.foldRight(0, { exercise, acc ->
+                acc + exercise.playDuration.seconds + exercise.breakDuration.seconds
+            })
+            minuteDuration += secondDuration / 60
+            secondDuration %= 60
+            row.routineCount.text = "${context.getString(R.string.exercise_sayı)} ${routine.exercises.size}"
+            row.totalDuration.text = "${context.getString(R.string.total_duration)} $minuteDuration ${context.getString(R.string.minute)} $secondDuration ${context.getString(R.string.seconds)}"
+        }
         return row
     }
 }

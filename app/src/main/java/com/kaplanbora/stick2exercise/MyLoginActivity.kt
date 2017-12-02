@@ -21,11 +21,6 @@ class MyLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_login)
 
-        // English: en_US
-        // Turkish: tr_TR
-        val lang = Locale.getDefault().toString()
-        Log.d("LANG", lang)
-
 //        if (isConnected()) {
 //            Repository.mode = InternetMode.ONLINE
 //        } else {

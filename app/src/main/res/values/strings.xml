@@ -160,4 +160,7 @@
     <string name="exercise">Exercise</string>
     <string name="previous_nexercise">Previous \nExercise</string>
     <string name="next_nexercise">Next \nExercise</string>
+    <string name="exercise_sayı">Exercise Count:</string>
+    <string name="empty_list">Empty List</string>
+    <string name="total_duration">Total Duration:</string>
 </resources>

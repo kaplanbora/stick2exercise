@@ -158,4 +158,7 @@
     <string name="exercise">Egzersiz</string>
     <string name="previous_nexercise">Önceki \nEgzersiz</string>
     <string name="next_nexercise">Sonraki \nEgzersiz</string>
+    <string name="exercise_sayı">Egzersiz Sayısı:</string>
+    <string name="empty_list">Boş Liste</string>
+    <string name="total_duration">Toplam Süre:</string>
 </resources>

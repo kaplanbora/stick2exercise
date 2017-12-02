@@ -10,6 +10,6 @@
     <item
         android:id="@+id/create"
         android:orderInCategory="200"
-        android:title="@string/new_routine"
+        android:title="@string/new_exercise_list"
         app:showAsAction="never" />
 </menu>

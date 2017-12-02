@@ -52,6 +52,7 @@ class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             soundPopup.show()
         }
 
+        screenSwitch.isChecked = prefs.getBoolean("screenSwitch", false)
         autoSwitch.isChecked = prefs.getBoolean("autoSwitch", true)
         countInSwitch.isChecked = prefs.getBoolean("countInSwitch", false)
 

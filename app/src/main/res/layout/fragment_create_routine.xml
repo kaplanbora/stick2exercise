@@ -14,7 +14,7 @@
         android:textSize="22sp"
         android:gravity="left"
         android:textColor="@color/pastelBlack"
-        android:text="@string/routine_name" />
+        android:text="@string/list_name" />
 
     <EditText
         android:id="@+id/createRoutineInput"

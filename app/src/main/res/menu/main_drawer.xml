@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_routine_list"
             android:icon="?android:attr/actionModeSelectAllDrawable"
-            android:title="@string/routine_list" />
+            android:title="@string/exercise_lists" />
         <item
             android:id="@+id/nav_metronome"
             android:icon="@android:drawable/ic_lock_idle_alarm"

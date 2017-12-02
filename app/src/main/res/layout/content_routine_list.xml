@@ -19,7 +19,7 @@
         android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_routine_message"
+        android:text="@string/empty_lists_message"
         android:textSize="22sp"
         android:textAlignment="center"
         android:textColor="#aaaaaa"

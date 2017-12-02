@@ -48,7 +48,7 @@
         android:textStyle="bold"
         android:textColor="@color/pastelBlack"
         style="?android:attr/borderlessButtonStyle"
-        android:contentDescription="@string/routine_menu"
+        android:contentDescription="@string/list_menu"
         android:text="@string/vertical_ellipsis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

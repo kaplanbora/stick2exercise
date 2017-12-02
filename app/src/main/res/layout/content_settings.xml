@@ -102,6 +102,26 @@
         app:layout_constraintTop_toBottomOf="@id/nextExercise"
         />
 
+        <TextView
+        android:id="@+id/screenOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BlackText"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countIn"
+        android:text="@string/text_screen_on"
+        />
+
+    <Switch
+        android:id="@+id/screenSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countIn"
+        />
+
     <TextView
         android:id="@+id/defaultDuration"
         android:layout_width="wrap_content"
@@ -109,7 +129,7 @@
         android:textAppearance="@style/BlackText"
         android:layout_marginTop="36dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countIn"
+        app:layout_constraintTop_toBottomOf="@id/screenOn"
         android:text="@string/default_break_duration"
         />
 

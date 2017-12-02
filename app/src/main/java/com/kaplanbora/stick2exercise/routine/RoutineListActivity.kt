@@ -56,7 +56,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         RoutineRepository.remove(dbHelper!!, routine)
         FirebaseRepository.deleteRoutine(routine, intent.extras.getLong("userId"))
         refreshListView()
-        Snackbar.make(routinesListRoot, R.string.routine_delete_message, Snackbar.LENGTH_LONG)
+        Snackbar.make(routinesListRoot, R.string.list_delete_message, Snackbar.LENGTH_LONG)
                 .setAction("UNDO", RestoreRoutine(intent.extras.getLong("userId"), this, routine, dbHelper!!))
                 .show()
     }

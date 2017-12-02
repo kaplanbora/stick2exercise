@@ -14,13 +14,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_entrance">Routines</string>
+    <string name="title_activity_entrance">Exercise Lists</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="routine_name">Routine Name</string>
+    <string name="list_name">Exercise List Name</string>
     <string name="exercise_name">Exercise Name</string>
     <string name="title_activity_exercise_list">ExerciseList</string>
     <string name="minute">Minutes</string>
@@ -39,12 +39,12 @@
     <string name="time_left">Time Left: </string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="routine_menu">Routine Menu</string>
-    <string name="empty_routine_message">You don\'t have any routines.\nClick \'+\' button below
-        to create a new exercise routine.</string>
+    <string name="list_menu">Exercise List Menu</string>
+    <string name="empty_lists_message">You don\'t have any exercise lists.\nClick \'+\' button below
+        to create a new list.</string>
     <string name="empty_exercise_message">You don\'t have any exercises.\nClick \'+\' button below
         to create a new exercise.</string>
-    <string name="routine_delete_message">Routine has been deleted.</string>
+    <string name="list_delete_message">Exercise list has been deleted.</string>
     <string name="exercise_delete_message">Exercise has been deleted.</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -54,7 +54,7 @@
     <string name="email_used">This email has been used.</string>
     <string name="error_empty_tempo">Tempo cannot be empty.</string>
     <string name="error_zero_duration">Total play duration cannot be zero.</string>
-    <string name="new_routine">New Routine</string>
+    <string name="new_exercise_list">New Exercise List</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -129,7 +129,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="dev_email">halil.kaplan@ogr.sakarya.com.tr</string>
-    <string name="routine_list">Routine List</string>
+    <string name="exercise_lists">Exercise Lists</string>
     <string name="metronome">Metronome</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
@@ -149,4 +149,5 @@
     <string name="start">Start</string>
     <string name="reset">Reset</string>
     <string name="pause">Pause</string>
+    <string name="text_screen_on">Keep screen on while playing:</string>
 </resources>

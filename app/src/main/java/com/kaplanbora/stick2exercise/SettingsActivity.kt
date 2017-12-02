@@ -1,5 +1,6 @@
 package com.kaplanbora.stick2exercise
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.widget.PopupMenu
+import android.widget.Toast
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.content_settings.*
@@ -17,28 +20,51 @@ class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.activity_settings)
         setSupportActionBar(toolbar)
 
+        val prefs = this.getPreferences(Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+
         val minutes = (0..60).map { it.toString() }.toTypedArray()
         val seconds = (0..50 step 10).map { it.toString() }.toTypedArray()
         minutePicker.minValue = 0
         minutePicker.maxValue = minutes.size - 1
         minutePicker.wrapSelectorWheel = true
         minutePicker.displayedValues = minutes
+        minutePicker.value = prefs.getInt("minutePicker", 0)
 
         secondPicker.minValue = 0
         secondPicker.maxValue = seconds.size - 1
         secondPicker.wrapSelectorWheel = true
         secondPicker.displayedValues = seconds
-        secondPicker.value = 0
+        secondPicker.value = prefs.getInt("secondPicker", 0)
 
+        val soundPopup = PopupMenu(applicationContext, metronomeSound)
+        soundPopup.menuInflater.inflate(R.menu.metronome_sounds, soundPopup.menu)
+        soundPopup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.soundBeep -> metronomeSound.text = "Beep"
+                R.id.soundClick -> metronomeSound.text = "Click"
+            }
+            true
+        }
 
+        metronomeSound.text = prefs.getString("metronomeSound", "Beep")
+        metronomeSound.setOnClickListener { _ ->
+            soundPopup.show()
+        }
 
+        autoSwitch.isChecked = prefs.getBoolean("autoSwitch", true)
+        countInSwitch.isChecked = prefs.getBoolean("countInSwitch", false)
 
-
-
-
-
-
-
+        saveButton.setOnClickListener { _ ->
+            editor.putString("metronomeSound", metronomeSound.text.toString())
+            editor.putBoolean("autoSwitch", autoSwitch.isChecked)
+            editor.putBoolean("countInSwitch", countInSwitch.isChecked)
+            editor.putInt("minutePicker", minutePicker.value)
+            editor.putInt("secondPicker", secondPicker.value)
+            editor.apply()
+            Toast.makeText(applicationContext, getString(R.string.saved), Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)

@@ -46,7 +46,7 @@ class RoutineListAdapter(private val listener: RoutineActionListener, val contex
             minuteDuration += secondDuration / 60
             secondDuration %= 60
             row.routineCount.text = "${context.getString(R.string.exercise_sayı)} ${routine.exercises.size}"
-            row.totalDuration.text = "${context.getString(R.string.total_duration)} $minuteDuration ${context.getString(R.string.minute)} $secondDuration ${context.getString(R.string.seconds)}"
+            row.totalDuration.text = "${context.getString(R.string.total_duration)} $minuteDuration ${context.getString(R.string.minutes)} $secondDuration ${context.getString(R.string.seconds)}"
         }
         return row
     }

@@ -2,54 +2,74 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
     <TextView
-        android:textColor="@color/pastelBlack"
         android:id="@+id/exerciseName"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        tools:text="#. Exercise Name"
-        android:textAppearance="@style/BlackText"
         android:paddingBottom="10dp"
+        android:textAppearance="@style/BlackText"
+        android:textColor="@color/pastelBlack"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="#. Exercise Name" />
 
     <TextView
-        android:textColor="@color/pastelBlack"
-        android:layout_marginStart="86dp"
         android:id="@+id/exerciseDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="5m 30s"
         android:textAppearance="@style/BlackTextSmall"
+        android:textColor="@color/pastelBlack"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exerciseName" />
+        app:layout_constraintTop_toBottomOf="@id/exerciseName"
+        tools:text="Play Duration: 5 minutes 30 seconds" />
 
     <TextView
+        android:id="@+id/breakDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BlackTextSmall"
         android:textColor="@color/pastelBlack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exerciseDuration"
+        tools:text="Break Duration: 3 minutes 20 seconds" />
+
+    <TextView
         android:id="@+id/exerciseTempo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="170 BPM"
+        android:layout_marginEnd="16dp"
         android:textAppearance="@style/BlackTextSmall"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exerciseName" />
+        android:textColor="@color/pastelBlack"
+        app:layout_constraintRight_toLeftOf="@id/exerciseMenu"
+        app:layout_constraintTop_toBottomOf="@id/exerciseName"
+        tools:text="170 BPM" />
+
+    <TextView
+        android:id="@+id/exerciseSignature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/BlackTextSmall"
+        android:textColor="@color/pastelBlack"
+        app:layout_constraintRight_toLeftOf="@id/exerciseMenu"
+        app:layout_constraintTop_toBottomOf="@id/exerciseTempo"
+        tools:text="4 / 4" />
 
     <Button
         android:id="@+id/exerciseMenu"
-        android:focusable="false"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="36dp"
         android:layout_height="46dp"
+        android:contentDescription="@string/list_menu"
+        android:focusable="false"
+        android:text="@string/vertical_ellipsis"
+        android:textColor="@color/pastelBlack"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/pastelBlack"
-        style="?android:attr/borderlessButtonStyle"
-        android:contentDescription="@string/list_menu"
-        android:text="@string/vertical_ellipsis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

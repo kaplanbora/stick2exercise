@@ -23,12 +23,13 @@
     <string name="list_name">Exercise List Name</string>
     <string name="exercise_name">Exercise Name</string>
     <string name="title_activity_exercise_list">Exercise List</string>
-    <string name="minute">Minutes</string>
+    <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
     <string name="create">Create</string>
     <string name="bpm">BPM</string>
     <string name="exerciseDuration">Exercise Duration</string>
     <string name="break_duration">Break Duration</string>
+    <string name="play_duration">Play Duration</string>
     <string name="title_activity_exercise">Exercise</string>
 
     <string name="vertical_ellipsis">&#8942;</string>

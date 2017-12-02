@@ -23,12 +23,13 @@
     <string name="list_name">Egzersiz Listesi Adı</string>
     <string name="exercise_name">Egzersiz Adı</string>
     <string name="title_activity_exercise_list">Egzersiz Listesi</string>
-    <string name="minute">Dakika</string>
+    <string name="minutes">Dakika</string>
     <string name="seconds">Saniye</string>
     <string name="create">Ekle</string>
     <string name="bpm">BPM</string>
     <string name="exerciseDuration">Egzersiz Süresi</string>
     <string name="break_duration">Mola Süresi</string>
+    <string name="play_duration">Egzersiz Süresi</string>
     <string name="title_activity_exercise">Egzersiz</string>
 
     <string name="vertical_ellipsis">&#8942;</string>

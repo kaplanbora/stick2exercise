@@ -23,12 +23,26 @@ class ExerciseListAdapter(private val listener: ExerciseActionListener, val cont
         val row = inflater.inflate(R.layout.exercise_row, parent, false)
         val exercise = getItem(position) as Exercise
         row.exerciseName.text = "${position + 1}. ${exercise.name}"
+
         if (exercise.playDuration.seconds == 0) {
-            row.exerciseDuration.text = "${exercise.playDuration.minutes} Minutes"
+            row.exerciseDuration.text = "${context.getString(R.string.play_duration)}: ${exercise.playDuration.minutes} ${context.getString(R.string.minutes)}"
+        } else if (exercise.playDuration.minutes == 0) {
+            row.exerciseDuration.text = "${context.getString(R.string.play_duration)}: ${exercise.playDuration.seconds} ${context.getString(R.string.seconds)}"
         } else {
-            row.exerciseDuration.text = "${exercise.playDuration.minutes} Minutes ${exercise.playDuration.seconds} Seconds"
+            row.exerciseDuration.text = "${context.getString(R.string.play_duration)}: ${exercise.playDuration.minutes} ${context.getString(R.string.minutes)} ${exercise.playDuration.seconds} ${context.getString(R.string.seconds)}"
         }
+
+        if (exercise.breakDuration.seconds == 0) {
+            row.breakDuration.text = "${context.getString(R.string.break_duration)}: ${exercise.breakDuration.minutes} ${context.getString(R.string.minutes)}"
+        } else if (exercise.breakDuration.minutes == 0) {
+            row.breakDuration.text = "${context.getString(R.string.break_duration)}: ${exercise.breakDuration.seconds} ${context.getString(R.string.seconds)}"
+        } else {
+            row.breakDuration.text = "${context.getString(R.string.break_duration)}: ${exercise.breakDuration.minutes} ${context.getString(R.string.minutes)} ${exercise.breakDuration.seconds} ${context.getString(R.string.seconds)}"
+        }
+
         row.exerciseTempo.text = "${exercise.metronome.tempo} BPM"
+        row.exerciseSignature.text = "${exercise.metronome.subdivUp} / ${exercise.metronome.subdivDown}"
+
         val popup = PopupMenu(context, row.exerciseMenu)
         popup.menuInflater.inflate(R.menu.exercise_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem ->

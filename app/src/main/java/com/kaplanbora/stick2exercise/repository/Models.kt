@@ -1,5 +1,16 @@
 package com.kaplanbora.stick2exercise.repository
 
+data class Settings(
+        var id: Long = 0,
+        var onlineMode: Boolean = false,
+        var metronomeSound: String = "Beep",
+        var screenOn: Boolean = false,
+        var autoSwitch: Boolean = true,
+        var countInSwitch: Boolean = false,
+        var defaultMinute: Int = 1,
+        var defaultSecond: Int = 0
+)
+
 data class User(
         var id: Long,
         var email: String,

@@ -1,17 +1,20 @@
 package com.kaplanbora.stick2exercise.repository
 
-enum class InternetMode {
-    ONLINE,
-    OFFLINE
-}
 
 object Repository {
-    var mode: InternetMode = InternetMode.ONLINE
+    var settings = Settings()
 
-    fun isOnline(): Boolean = mode == InternetMode.ONLINE
+    fun readSettings(dbHelper: DbHelper): Settings {
+        settings = SettingsDatabase.get(dbHelper)
+        return settings
+    }
+
+    fun saveSettings(dbHelper: DbHelper) {
+        SettingsDatabase.update(dbHelper, settings)
+    }
 
     fun getUsers(): MutableList<User> {
-        if (isOnline()) {
+        if (true) {
             return FirebaseRepository.getUsers()
         } else {
             // TODO: Replace with local database

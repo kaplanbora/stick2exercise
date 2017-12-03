@@ -10,6 +10,10 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
             INSERT INTO settings (id,is_initiated,online_mode,metronome_sound,screen_on,auto_switch,countin_switch,default_minute,default_second)
             VALUES (1, 0, 0, 'Beep', 0, 1, 0, 1, 0);""".trimIndent()
 
+        val defaultUser = """
+            INSERT INTO account (id,email,password)
+            VALUES (-1, 'none', 'none');""".trimIndent()
+
         val settingsTable = """
             CREATE TABLE settings(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,6 +77,7 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
         db?.execSQL(routineTable)
         db?.execSQL(exerciseTable)
         db?.execSQL(defaultSettings)
+        db?.execSQL(defaultUser)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

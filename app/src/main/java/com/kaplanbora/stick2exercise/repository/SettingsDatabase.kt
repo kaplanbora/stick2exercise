@@ -6,6 +6,7 @@ object SettingsDatabase {
     private val TABLE = "settings"
     private val TABLE_COLUMNS = arrayOf(
             "id",
+            "is_initiated",
             "online_mode",
             "metronome_sound",
             "screen_on",

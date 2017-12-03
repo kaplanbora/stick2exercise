@@ -19,6 +19,7 @@ object SettingsDatabase {
 
     private fun Settings.toContentValue(): ContentValues {
         val content = ContentValues()
+        content.put("is_initiated", this.isInitiated.toInt())
         content.put("online_mode", this.onlineMode.toInt())
         content.put("metronome_sound", this.metronomeSound)
         content.put("screen_on", this.screenOn.toInt())
@@ -35,6 +36,7 @@ object SettingsDatabase {
         val settings = Settings()
         while (cursor.moveToNext()) {
             settings.id = cursor.getLong(cursor.getColumnIndex("id"))
+            settings.isInitiated = cursor.getInt(cursor.getColumnIndex("is_initiated")) == 1
             settings.onlineMode = cursor.getInt(cursor.getColumnIndex("online_mode")) == 1
             settings.metronomeSound = cursor.getString(cursor.getColumnIndex("metronome_sound"))
             settings.screenOn = cursor.getInt(cursor.getColumnIndex("screen_on")) == 1

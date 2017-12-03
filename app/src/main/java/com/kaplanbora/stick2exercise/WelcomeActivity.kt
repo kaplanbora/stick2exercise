@@ -15,13 +15,11 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        val prefs = this.getPreferences(android.content.Context.MODE_PRIVATE)
         dbHelper = DbHelper(applicationContext)
-        val settings = Repository.readSettings(dbHelper!!)
+        Repository.readSettings(dbHelper!!)
 
-        val isInitiated = prefs.getBoolean("isInitiated", false)
-        if (isInitiated) {
-            if (settings.onlineMode) {
+        if (Repository.settings.isInitiated) {
+            if (Repository.settings.onlineMode) {
                 Repository.loadUsers()
                 val intent = Intent(applicationContext, MyLoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -36,9 +34,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         noButton.setOnClickListener { _ ->
-            val editor = prefs.edit()
-            editor.putBoolean("isInitiated", true)
-            editor.apply()
+            Repository.settings.isInitiated = true
             Repository.settings.onlineMode = false
             Repository.saveSettings(dbHelper!!)
             val intent = Intent(applicationContext, RoutineListActivity::class.java)
@@ -48,9 +44,7 @@ class WelcomeActivity : AppCompatActivity() {
          }
 
         yesButton.setOnClickListener { _ ->
-            val editor = prefs.edit()
-            editor.putBoolean("isInitiated", true)
-            editor.apply()
+            Repository.settings.isInitiated = true
             Repository.settings.onlineMode = true
             Repository.saveSettings(dbHelper!!)
             val intent = Intent(applicationContext, MyLoginActivity::class.java)

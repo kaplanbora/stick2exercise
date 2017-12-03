@@ -2,6 +2,7 @@ package com.kaplanbora.stick2exercise.repository
 
 data class Settings(
         var id: Long = 0,
+        var isInitiated: Boolean = false,
         var onlineMode: Boolean = false,
         var metronomeSound: String = "Beep",
         var screenOn: Boolean = false,

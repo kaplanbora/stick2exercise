@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper
 class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise", null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
         val defaultSettings = """
-            INSERT INTO settings (id,online_mode,metronome_sound,screen_on,auto_switch,countin_switch,default_minute,default_second)
-            VALUES (1, 0, 'Beep', 0, 1, 0, 1, 0);""".trimIndent()
+            INSERT INTO settings (id,is_initiated,online_mode,metronome_sound,screen_on,auto_switch,countin_switch,default_minute,default_second)
+            VALUES (1, 0, 0, 'Beep', 0, 1, 0, 1, 0);""".trimIndent()
 
         val settingsTable = """
             CREATE TABLE settings(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                is_initiated INTEGER NOT NULL,
                 online_mode INTEGER NOT NULL,
                 metronome_sound TEXT NOT NULL,
                 screen_on INTEGER NOT NULL,

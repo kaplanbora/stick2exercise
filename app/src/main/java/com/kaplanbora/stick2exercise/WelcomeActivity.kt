@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.kaplanbora.stick2exercise.repository.DbHelper
+import com.kaplanbora.stick2exercise.repository.FirebaseRepository
 import com.kaplanbora.stick2exercise.repository.Repository
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
@@ -17,11 +18,11 @@ class WelcomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_welcome)
 
         dbHelper = DbHelper(applicationContext)
-        Repository.readSettings(dbHelper!!)
+        Repository.loadSettings(dbHelper!!)
 
         if (Repository.settings.isInitiated) {
             if (Repository.settings.onlineMode) {
-                Repository.loadUsers()
+                FirebaseRepository.loadUsers()
                 val intent = Intent(applicationContext, MyLoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

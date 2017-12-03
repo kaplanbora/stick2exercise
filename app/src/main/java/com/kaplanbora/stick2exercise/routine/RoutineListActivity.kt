@@ -28,7 +28,7 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        userId = intent.extras.getLong("userId", -1)
+        userId = intent.getLongExtra("userId", -1)
         dbHelper = DbHelper(applicationContext)
         refreshListView()
         routinesListView.setOnItemClickListener { _, _, _, l ->

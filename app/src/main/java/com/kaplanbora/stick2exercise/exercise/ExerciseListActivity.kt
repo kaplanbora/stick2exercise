@@ -37,7 +37,7 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         exerciseRepository = ExerciseRepository(routine)
         dbHelper = DbHelper(applicationContext)
         title = routine.name
-        userId = intent.extras.getLong("routineId", -1)
+        userId = intent.getLongExtra("routineId", -1)
 
         exerciseListView.adapter = ExerciseListAdapter(this, applicationContext, routine.exercises)
         exerciseListView.setOnItemClickListener { adapterView, view, i, l ->

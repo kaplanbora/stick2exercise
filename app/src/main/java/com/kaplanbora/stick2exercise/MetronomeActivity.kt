@@ -1,6 +1,8 @@
 package com.kaplanbora.stick2exercise
 
 import android.content.Intent
+import android.media.MediaPlayer
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,12 +12,13 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.kaplanbora.stick2exercise.repository.Metronome
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_metronome.*
 import kotlinx.android.synthetic.main.content_metronome.*
 
 class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    var tempo = 120
+    val metronome = Metronome(120, 4, 4)
     var timerOn = false
     var currentMinute = 0
     var currentSecond = 0
@@ -26,13 +29,18 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_metronome)
         setSupportActionBar(toolbar)
 
+        val player1 = MediaPlayer.create(applicationContext, R.raw.metro_1)
+        val player2 = MediaPlayer.create(applicationContext, R.raw.metro_other)
         val prefs = this.getPreferences(android.content.Context.MODE_PRIVATE)
         val editor = prefs.edit()
-        tempo = prefs.getInt("lastTempo", 120)
+        metronome.tempo = prefs.getInt("lastTempo", 120)
+        metronome.subdivUp = subdivUp.text.toString().toInt()
+        metronome.subdivDown = subdivDown.text.toString().toInt()
         updateTempo(0)
 
         startButton.setOnClickListener { _ ->
-            editor.putInt("lastTempo", tempo)
+            player1.start()
+            editor.putInt("lastTempo", metronome.tempo)
             editor.apply()
             if (timer == null) {
                 timerOn = true
@@ -61,6 +69,12 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    fun playMetronome(player1: MediaPlayer, player2: MediaPlayer) {
+        val currentTick = 0
+
+
     }
 
     private fun createTimer(duration: Long): CountDownTimer {
@@ -107,9 +121,9 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     private fun updateTempo(update: Int) {
-        if ((tempo + update) >= 30 && (tempo + update) <= 300) {
-            tempo += update
-            tempoText.text = "${tempo.toString()} BPM"
+        if ((metronome.tempo + update) >= 30 && (metronome.tempo + update) <= 300) {
+            metronome.tempo += update
+            tempoText.text = "${metronome.tempo.toString()} BPM"
         }
     }
 

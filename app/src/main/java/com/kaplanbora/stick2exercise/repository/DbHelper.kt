@@ -6,6 +6,17 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise", null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
+        val settingsTable = """
+            CREATE TABLE settings(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                online_mode INTEGER NOT NULL,
+                metronome_sound TEXT NOT NULL,
+                screen_on INTEGER NOT NULL,
+                auto_switch INTEGER NOT NULL,
+                countin_switch INTEGER NOT NULL,
+                default_minute INTEGER NOT NULL,
+                default_second INTEGER NOT NULL);""".trimIndent()
+
         val userTable = """
             CREATE TABLE account(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,11 +63,10 @@ class DbHelper(val context: Context) : SQLiteOpenHelper(context, "Stick2Exercise
                         ON DELETE CASCADE);""".trimIndent()
 
         // TODO: Add example routine and exercises.
+        db?.execSQL(settingsTable)
         db?.execSQL(userTable)
         db?.execSQL(routineTable)
         db?.execSQL(exerciseTable)
-        db?.execSQL(tempExercise)
-        db?.execSQL(tempRoutine)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

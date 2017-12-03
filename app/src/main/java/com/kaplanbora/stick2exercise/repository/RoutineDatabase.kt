@@ -10,6 +10,7 @@ object RoutineDatabase {
     fun insert(helper: DbHelper, routine: Routine): Long {
         val db = helper.writableDatabase
         val content = ContentValues()
+        content.put("user_id", routine.userId)
         content.put("position", routine.position)
         content.put("name", routine.name)
         val id = db.insert(TABLE, null, content)
@@ -17,15 +18,16 @@ object RoutineDatabase {
         return id
     }
 
-    fun selectAll(helper: DbHelper): MutableList<Routine> {
+    fun selectAll(helper: DbHelper, ownerId: Long): MutableList<Routine> {
         val db = helper.readableDatabase
-        val cursor = db.query(TABLE, TABLE_COLUMNS, null, null, null, null, null)
+        val cursor = db.query(TABLE, TABLE_COLUMNS, "user_id = ?", arrayOf("$ownerId"), null, null, null)
         val routines: MutableList<Routine> = mutableListOf()
         while (cursor.moveToNext()) {
             var id = cursor.getLong(cursor.getColumnIndex("id"))
+            var userId = cursor.getLong(cursor.getColumnIndex("user_id"))
             var order = cursor.getInt(cursor.getColumnIndex("position"))
             var name = cursor.getString(cursor.getColumnIndex("name"))
-            routines.add(Routine(id, order, name))
+            routines.add(Routine(id, userId, order, name))
         }
         cursor.close()
         return routines

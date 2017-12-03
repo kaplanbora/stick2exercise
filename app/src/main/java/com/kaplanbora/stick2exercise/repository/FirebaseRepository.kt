@@ -116,6 +116,7 @@ object FirebaseRepository {
                 for (singleSnapshot in dataSnapshot.children) {
                     val routine = Routine(
                             singleSnapshot.key.toLong(),
+                            singleSnapshot.child("userId").value.toString().toLong(),
                             singleSnapshot.child("position").value.toString().toInt(),
                             singleSnapshot.child("name").value.toString()
                     )

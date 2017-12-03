@@ -16,6 +16,7 @@ data class Exercise(
 
 data class Routine(
         var id: Long,
+        var userId: Long,
         var position: Int,
         var name: String,
         val exercises: MutableList<Exercise> = mutableListOf())

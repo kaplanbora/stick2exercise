@@ -29,13 +29,13 @@ class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         minutePicker.maxValue = minutes.size - 1
         minutePicker.wrapSelectorWheel = true
         minutePicker.displayedValues = minutes
-        minutePicker.value = prefs.getInt("minutePicker", 0)
+        minutePicker.value = prefs.getInt("defaultMinute", 0)
 
         secondPicker.minValue = 0
         secondPicker.maxValue = seconds.size - 1
         secondPicker.wrapSelectorWheel = true
         secondPicker.displayedValues = seconds
-        secondPicker.value = prefs.getInt("secondPicker", 0)
+        secondPicker.value = prefs.getInt("defaultSecond", 0)
 
         val soundPopup = PopupMenu(applicationContext, metronomeSound)
         soundPopup.menuInflater.inflate(R.menu.metronome_sounds, soundPopup.menu)
@@ -60,8 +60,8 @@ class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             editor.putString("metronomeSound", metronomeSound.text.toString())
             editor.putBoolean("autoSwitch", autoSwitch.isChecked)
             editor.putBoolean("countInSwitch", countInSwitch.isChecked)
-            editor.putInt("minutePicker", minutePicker.value)
-            editor.putInt("secondPicker", secondPicker.value)
+            editor.putInt("defaultMinute", minutePicker.value)
+            editor.putInt("defaultSecond", secondPicker.value)
             editor.apply()
             Toast.makeText(applicationContext, getString(R.string.saved), Toast.LENGTH_SHORT).show()
             finish()

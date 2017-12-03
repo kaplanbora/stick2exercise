@@ -79,9 +79,10 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
     override fun createRoutine(name: String) {
-        val routine = Routine(-1, RoutineRepository.nextPosition(), name, mutableListOf())
+        val userId = intent.extras.getLong("userId")
+        val routine = Routine(-1, userId, RoutineRepository.nextPosition(), name, mutableListOf())
         RoutineRepository.add(dbHelper!!, routine)
-        FirebaseRepository.addRoutine(routine, intent.extras.getLong("userId"))
+        FirebaseRepository.addRoutine(routine, userId)
         refreshListView()
     }
 

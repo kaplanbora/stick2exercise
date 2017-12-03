@@ -32,13 +32,13 @@ class CreateExerciseActivity : AppCompatActivity() {
         breakMinute.maxValue = minutes.size - 1
         breakMinute.wrapSelectorWheel = true
         breakMinute.displayedValues = minutes
-        breakMinute.value = prefs.getInt("defaultMinute", 0)
+        breakMinute.value = Repository.settings.defaultMinute
 
         breakSecond.minValue = 0
         breakSecond.maxValue = seconds.size - 1
         breakSecond.wrapSelectorWheel = true
         breakSecond.displayedValues = seconds
-        breakSecond.value = prefs.getInt("defaultSecond", 0)
+        breakSecond.value = Repository.settings.defaultSecond
 
         exerciseCreateButton.setOnClickListener { _ ->
             if (tempo.text.isEmpty()) {

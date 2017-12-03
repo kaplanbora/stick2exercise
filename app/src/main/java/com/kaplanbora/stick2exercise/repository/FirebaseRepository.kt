@@ -71,6 +71,7 @@ object FirebaseRepository {
     fun addRoutine(routine: Routine, userId: Long) {
         val routinePath = db.child("users").child("$userId").child("routines").child("${routine.id}")
         routinePath.child("name").setValue(routine.name)
+        routinePath.child("userId").setValue(routine.userId)
         routinePath.child("position").setValue("${routine.position}")
     }
 

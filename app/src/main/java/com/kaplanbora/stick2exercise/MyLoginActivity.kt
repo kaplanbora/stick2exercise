@@ -37,7 +37,12 @@ class MyLoginActivity : AppCompatActivity() {
             val success = Repository.users.any { it.email == emailInput && it.password == passwordInput }
             if (success) {
                 val userId = Repository.users.first { it.email == emailInput }.id
-                RoutineRepository.routines = FirebaseRepository.getAllRoutines(userId)
+                if (isConnected()) {
+                    RoutineRepository.routines = FirebaseRepository.getAllRoutines(userId)
+                } else {
+                    RoutineRepository.userId = userId
+                    RoutineRepository.load(dbHelper!!)
+                }
                 Thread.sleep(1000)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
                 intent.putExtra("userId", userId)

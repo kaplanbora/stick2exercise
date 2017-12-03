@@ -24,10 +24,9 @@ object RoutineDatabase {
         val routines: MutableList<Routine> = mutableListOf()
         while (cursor.moveToNext()) {
             var id = cursor.getLong(cursor.getColumnIndex("id"))
-            var userId = cursor.getLong(cursor.getColumnIndex("user_id"))
             var order = cursor.getInt(cursor.getColumnIndex("position"))
             var name = cursor.getString(cursor.getColumnIndex("name"))
-            routines.add(Routine(id, userId, order, name))
+            routines.add(Routine(id, ownerId, order, name))
         }
         cursor.close()
         return routines

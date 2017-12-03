@@ -15,7 +15,7 @@ object Repository {
     }
 
     fun loadUsers(): MutableList<User> {
-        users = FirebaseRepository.getUsers()
+        users = FirebaseRepository.loadUsers()
         return users
     }
 }

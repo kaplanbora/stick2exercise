@@ -88,13 +88,12 @@ object FirebaseRepository {
         userPath.child("routines").setValue(null)
     }
 
-    fun getUsers(): MutableList<User> {
+    fun loadUsers() {
         val users = db.child("users")
-        val list: MutableList<User> = mutableListOf()
         users.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
-                    list.add(User(
+                    Repository.users.add(User(
                             snapshot.key.toLong(),
                             snapshot.child("email").value.toString(),
                             snapshot.child("password").value.toString()
@@ -104,7 +103,6 @@ object FirebaseRepository {
             override fun onCancelled(p0: DatabaseError) {
             }
         })
-        return list
     }
 
     fun getAllRoutines(userId: Long): MutableList<Routine> {

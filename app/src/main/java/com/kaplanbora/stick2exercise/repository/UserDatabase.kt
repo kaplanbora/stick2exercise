@@ -36,5 +36,4 @@ object UserDatabase {
         user.id = id
         Repository.users.add(user)
     }
-
 }

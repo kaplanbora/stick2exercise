@@ -1,33 +1,32 @@
 package com.kaplanbora.stick2exercise
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.kaplanbora.stick2exercise.repository.FirebaseRepository
-import com.kaplanbora.stick2exercise.repository.Repository
-import com.kaplanbora.stick2exercise.repository.RoutineRepository
-import com.kaplanbora.stick2exercise.repository.User
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_my_login.*
-import java.net.InetAddress
-import java.net.UnknownHostException
+import android.net.ConnectivityManager
+import com.kaplanbora.stick2exercise.repository.*
+
 
 class MyLoginActivity : AppCompatActivity() {
+    var dbHelper: DbHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_login)
 
-//        if (isConnected()) {
-//            Repository.mode = InternetMode.ONLINE
-//        } else {
-//            Log.d("CONNECTION_MODE", "No internet connection detected. Switching to offline mode.")
-//            Repository.mode = InternetMode.OFFLINE
-//        }
+        dbHelper = DbHelper(applicationContext)
+
+        if (isConnected()) {
+            FirebaseRepository.loadUsers()
+        } else {
+            UserDatabase.loadUsers(dbHelper!!)
+        }
 
         RoutineRepository.routines.clear()
-        val users = Repository.loadUsers()
 
         login.setOnClickListener { _ ->
             if (areFieldsEmpty()) {
@@ -35,9 +34,9 @@ class MyLoginActivity : AppCompatActivity() {
             }
             val emailInput = email.text.toString()
             val passwordInput = password.text.toString()
-            val success = users.any { it.email == emailInput && it.password == passwordInput }
+            val success = Repository.users.any { it.email == emailInput && it.password == passwordInput }
             if (success) {
-                val userId = users.first { it.email == emailInput }.id
+                val userId = Repository.users.first { it.email == emailInput }.id
                 RoutineRepository.routines = FirebaseRepository.getAllRoutines(userId)
                 Thread.sleep(1000)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
@@ -51,15 +50,16 @@ class MyLoginActivity : AppCompatActivity() {
         }
 
         register.setOnClickListener { _ ->
-            if (areFieldsEmpty()) {
+            if (areFieldsEmpty() || !isConnected()) {
                 return@setOnClickListener
             }
             val emailInput = email.text.toString()
             val passwordInput = password.text.toString()
-            if (users.any { it.email == emailInput }) {
+            if (Repository.users.any { it.email == emailInput }) {
                 email.error = getString(R.string.email_used)
             } else {
-                val newUser = User(users.size + 1L, emailInput, passwordInput)
+                val newUser = User(-1, emailInput, passwordInput)
+                UserDatabase.add(dbHelper!!, newUser)
                 FirebaseRepository.addUser(newUser)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -70,13 +70,9 @@ class MyLoginActivity : AppCompatActivity() {
         }
     }
 
-    fun isConnected(): Boolean {
-        try {
-            val result = InetAddress.getByName("www.google.com")
-            return !result.equals("")
-        } catch (e: UnknownHostException) {
-            return false;
-        }
+    private fun isConnected(): Boolean {
+        val connectivity = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return connectivity.activeNetworkInfo != null
     }
 
     fun areFieldsEmpty(): Boolean {
@@ -90,7 +86,8 @@ class MyLoginActivity : AppCompatActivity() {
         return false
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun onDestroy() {
+        dbHelper?.close()
+        super.onDestroy()
     }
 }

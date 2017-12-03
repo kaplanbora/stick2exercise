@@ -18,19 +18,24 @@ import kotlinx.android.synthetic.main.activity_metronome.*
 import kotlinx.android.synthetic.main.content_metronome.*
 
 class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var currentBeat = 1
+    var metronomeTick = 0L
     val metronome = Metronome(120, 4, 4)
     var timerOn = false
     var currentMinute = 0
     var currentSecond = 0
     var timer: CountDownTimer? = null
+    var metronomePlayer: CountDownTimer? = null
+    var player1: MediaPlayer? = null
+    var player2: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_metronome)
         setSupportActionBar(toolbar)
 
-        val player1 = MediaPlayer.create(applicationContext, R.raw.metro_1)
-        val player2 = MediaPlayer.create(applicationContext, R.raw.metro_other)
+        player1 = MediaPlayer.create(applicationContext, R.raw.metro_1)
+        player2 = MediaPlayer.create(applicationContext, R.raw.metro_other)
         val prefs = this.getPreferences(android.content.Context.MODE_PRIVATE)
         val editor = prefs.edit()
         metronome.tempo = prefs.getInt("lastTempo", 120)
@@ -39,28 +44,34 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         updateTempo(0)
 
         startButton.setOnClickListener { _ ->
-            player1.start()
             editor.putInt("lastTempo", metronome.tempo)
             editor.apply()
             if (timer == null) {
                 timerOn = true
+                metronomePlayer = playMetronome(99 * 60 * 1000)
                 timer = createTimer(99 * 60 * 1000)
                 startButton.text = getString(R.string.pause)
                 timer!!.start()
+                metronomePlayer!!.start()
             } else if (timerOn) {
                 timerOn = false
                 startButton.text = getString(R.string.start)
                 timer!!.cancel()
+                metronomePlayer!!.cancel()
             } else {
                 timerOn = true
                 timer = createTimer(99 * 60 * 1000)
                 startButton.text = getString(R.string.pause)
                 timer!!.start()
+                metronomePlayer!!.start()
             }
         }
 
         resetButton.setOnClickListener { _ ->
             endTimer()
+            metronomePlayer?.cancel()
+            currentBeat = 1
+            beat.text = "0"
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -71,10 +82,27 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         nav_view.setNavigationItemSelectedListener(this)
     }
 
-    fun playMetronome(player1: MediaPlayer, player2: MediaPlayer) {
-        val currentTick = 0
+    fun playMetronome(duration: Long): CountDownTimer {
+        return object : CountDownTimer(duration, Math.floor(60 * 1000 / metronome.tempo.toDouble()).toLong()) {
+            override fun onTick(msLeft: Long) {
+                beat.text = "$currentBeat"
+                if (currentBeat == 1) {
+                    player1!!.start()
+                    currentBeat += 1
+                } else if (currentBeat == metronome.subdivUp) {
+                    player2!!.start()
+                    currentBeat = 1
+                } else {
+                    player2!!.start()
+                    currentBeat += 1
+                }
+            }
 
-
+            override fun onFinish() {
+                currentBeat = 0
+                beat.text = "$currentBeat"
+            }
+        }
     }
 
     private fun createTimer(duration: Long): CountDownTimer {
@@ -138,6 +166,7 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onDestroy() {
         super.onDestroy()
         timer?.cancel()
+        metronomePlayer?.cancel()
     }
 
     override fun onPause() {

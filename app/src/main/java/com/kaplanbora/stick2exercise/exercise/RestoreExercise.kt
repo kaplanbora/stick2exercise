@@ -13,7 +13,9 @@ class RestoreExercise(
 ) : View.OnClickListener {
     override fun onClick(v: View) {
         repository.restore(dbHelper, exercise)
-        FirebaseRepository.restoreExercise(exercise, routineId, userId)
+        if (Repository.settings.onlineMode) {
+            FirebaseRepository.restoreExercise(exercise, routineId, userId)
+        }
         listener.refreshListView()
     }
 }

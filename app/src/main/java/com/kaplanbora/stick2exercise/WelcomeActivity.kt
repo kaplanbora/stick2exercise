@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.kaplanbora.stick2exercise.repository.DbHelper
 import com.kaplanbora.stick2exercise.repository.Repository
+import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_welcome.*
 
@@ -26,6 +27,7 @@ class WelcomeActivity : AppCompatActivity() {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
             } else {
+                RoutineRepository.load(dbHelper!!)
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

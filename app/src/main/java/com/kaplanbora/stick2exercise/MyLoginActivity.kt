@@ -3,7 +3,6 @@ package com.kaplanbora.stick2exercise
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.repository.FirebaseRepository
 import com.kaplanbora.stick2exercise.repository.Repository
@@ -13,7 +12,6 @@ import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_my_login.*
 import java.net.InetAddress
 import java.net.UnknownHostException
-import java.util.*
 
 class MyLoginActivity : AppCompatActivity() {
 
@@ -29,7 +27,7 @@ class MyLoginActivity : AppCompatActivity() {
 //        }
 
         RoutineRepository.routines.clear()
-        val users = Repository.getUsers()
+        val users = Repository.loadUsers()
 
         login.setOnClickListener { _ ->
             if (areFieldsEmpty()) {

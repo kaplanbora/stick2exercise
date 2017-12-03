@@ -23,11 +23,11 @@
             android:label="@string/title_activity_exercise_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:label="@string/create_exercise"
-            android:name=".exercise.CreateExerciseActivity" />
+            android:name=".exercise.CreateExerciseActivity"
+            android:label="@string/create_exercise" />
         <activity
-            android:label="@string/edit_exercise"
-            android:name=".exercise.EditExerciseActivity" />
+            android:name=".exercise.EditExerciseActivity"
+            android:label="@string/edit_exercise" />
         <activity
             android:name=".exercise.ExerciseActivity"
             android:label="@string/title_activity_exercise"
@@ -39,13 +39,7 @@
 
         <activity
             android:name=".MyLoginActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
@@ -54,6 +48,16 @@
             android:name=".MetronomeActivity"
             android:label="@string/metronome"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -164,4 +164,8 @@
     <string name="exercise_sayı">Exercise Count:</string>
     <string name="empty_list">Empty List</string>
     <string name="total_duration">Total Duration:</string>
+    <string name="welcome_text">Welcome to Stick2Exercise!</string>
+    <string name="welcome_info">Would you like to create an account to store your information to cloud?</string>
+    <string name="welcome_yes">Yes, take me to registration page</string>
+    <string name="welcome_no">No, store my information only locally</string>
 </resources>

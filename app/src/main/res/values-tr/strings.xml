@@ -162,4 +162,8 @@
     <string name="exercise_sayı">Egzersiz Sayısı:</string>
     <string name="empty_list">Boş Liste</string>
     <string name="total_duration">Toplam Süre:</string>
+    <string name="welcome_text">Stick2Exercise\'a Hoşgeldin!</string>
+    <string name="welcome_info">Bilgilerini bulutta saklamak üzere bir hesap oluşturmak istermisin?</string>
+    <string name="welcome_yes">Evet, hesap oluşturma sayfasına git</string>
+    <string name="welcome_no">Hayır, bilgilerimi telefonda sakla</string>
 </resources>

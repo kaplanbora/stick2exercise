@@ -2,7 +2,6 @@ package com.kaplanbora.stick2exercise
 
 import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -92,7 +91,7 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             editor.apply()
             if (timer == null) {
                 timerOn = true
-                metronomePlayer = playMetronome(99 * 60 * 1000)
+                metronomePlayer = createMetronome(99 * 60 * 1000)
                 timer = createTimer(99 * 60 * 1000)
                 startButton.text = getString(R.string.pause)
                 timer!!.start()
@@ -126,7 +125,7 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         nav_view.setNavigationItemSelectedListener(this)
     }
 
-    fun playMetronome(duration: Long): CountDownTimer {
+    fun createMetronome(duration: Long): CountDownTimer {
         return object : CountDownTimer(duration, calculateInterval()) {
             override fun onTick(msLeft: Long) {
                 beat.text = "$currentBeat"

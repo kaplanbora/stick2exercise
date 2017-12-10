@@ -26,6 +26,7 @@ object FirebaseRepository {
     }
 
     fun addExercise(exercise: Exercise, routineId: Long, userId: Long) {
+        Log.d("FIREBASE_ADD_EXERCISE", exercise.toString())
         val exercisePath = db.child("users").child("$userId")
                 .child("routines").child("$routineId")
                 .child("exercises").child("${exercise.id}")
@@ -71,8 +72,8 @@ object FirebaseRepository {
     fun addRoutine(routine: Routine, userId: Long) {
         val routinePath = db.child("users").child("$userId").child("routines").child("${routine.id}")
         routinePath.child("name").setValue(routine.name)
-        routinePath.child("userId").setValue(routine.userId)
         routinePath.child("position").setValue("${routine.position}")
+        routinePath.child("exercises").setValue(null)
     }
 
     fun updateRoutine(routine: Routine, userId: Long) {
@@ -115,7 +116,7 @@ object FirebaseRepository {
                 for (singleSnapshot in dataSnapshot.children) {
                     val routine = Routine(
                             singleSnapshot.key.toLong(),
-                            singleSnapshot.child("userId").value.toString().toLong(),
+                            userId,
                             singleSnapshot.child("position").value.toString().toInt(),
                             singleSnapshot.child("name").value.toString()
                     )

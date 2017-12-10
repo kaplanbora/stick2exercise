@@ -53,6 +53,51 @@
         app:layout_constraintLeft_toRightOf="@id/tempo" />
 
     <TextView
+        android:id="@+id/timeSigLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_signature"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="64dp"
+        android:textAppearance="@style/BlackText"
+        app:layout_constraintLeft_toRightOf="@id/exerciseTempoLabel"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        />
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/timeSigLabel"
+        app:layout_constraintLeft_toRightOf="@+id/exerciseTempoLabel"
+        android:layout_marginStart="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/subdivUp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="4"
+            android:textAppearance="@style/BlackText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginStart="6dp"
+            android:text="/"
+            android:textAppearance="@style/BlackText" />
+
+        <Button
+            android:id="@+id/subdivDown"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="4"
+            android:textAppearance="@style/BlackText" />
+
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/durationPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

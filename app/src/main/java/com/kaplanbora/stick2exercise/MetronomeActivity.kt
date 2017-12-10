@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
 import com.kaplanbora.stick2exercise.repository.Metronome
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_metronome.*
@@ -42,6 +43,49 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         metronome.subdivUp = subdivUp.text.toString().toInt()
         metronome.subdivDown = subdivDown.text.toString().toInt()
         updateTempo(0)
+
+        val subdivUpPopup = PopupMenu(applicationContext, subdivUp)
+        subdivUpPopup.menuInflater.inflate(R.menu.subdivup_menu, subdivUpPopup.menu)
+        subdivUpPopup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.up1 -> setSubdivUp("1")
+                R.id.up2 -> setSubdivUp("2")
+                R.id.up3 -> setSubdivUp("3")
+                R.id.up4 -> setSubdivUp("4")
+                R.id.up5 -> setSubdivUp("5")
+                R.id.up6 -> setSubdivUp("6")
+                R.id.up7 -> setSubdivUp("7")
+                R.id.up8 -> setSubdivUp("8")
+                R.id.up9 -> setSubdivUp("9")
+                R.id.up10 -> setSubdivUp("10")
+                R.id.up11 -> setSubdivUp("11")
+                R.id.up12 -> setSubdivUp("12")
+                R.id.up13 -> setSubdivUp("13")
+                R.id.up14 -> setSubdivUp("14")
+                R.id.up15 -> setSubdivUp("15")
+                R.id.up16 -> setSubdivUp("16")
+                else -> false
+            }
+        }
+
+        subdivUp.setOnClickListener { _ ->
+            subdivUpPopup.show()
+        }
+
+        val subdivDownPopup = PopupMenu(applicationContext, subdivDown)
+        subdivDownPopup.menuInflater.inflate(R.menu.subdivdown_menu, subdivDownPopup.menu)
+        subdivDownPopup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.down4 -> setSubdivDown("4")
+                R.id.down8 -> setSubdivDown("8")
+                R.id.down16 -> setSubdivDown("16")
+                else -> false
+            }
+        }
+
+        subdivDown.setOnClickListener { _ ->
+            subdivDownPopup.show()
+        }
 
         startButton.setOnClickListener { _ ->
             editor.putInt("lastTempo", metronome.tempo)
@@ -83,7 +127,7 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     fun playMetronome(duration: Long): CountDownTimer {
-        return object : CountDownTimer(duration, Math.floor(60 * 1000 / metronome.tempo.toDouble()).toLong()) {
+        return object : CountDownTimer(duration, calculateInterval()) {
             override fun onTick(msLeft: Long) {
                 beat.text = "$currentBeat"
                 if (currentBeat == 1) {
@@ -103,6 +147,12 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 beat.text = "$currentBeat"
             }
         }
+    }
+
+    fun calculateInterval(): Long {
+        val tempo = (60 * 1000 / metronome.tempo.toDouble())
+        val signature = (metronome.subdivUp.toDouble() / metronome.subdivDown.toDouble())
+        return (tempo * signature).toLong()
     }
 
     private fun createTimer(duration: Long): CountDownTimer {
@@ -171,9 +221,21 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onPause() {
         super.onPause()
-        if (timerOn){
+        if (timerOn) {
             startButton.callOnClick()
         }
+    }
+
+    fun setSubdivUp(note: String): Boolean {
+        metronome.subdivUp = note.toInt()
+        subdivUp.text = note
+        return true
+    }
+
+    fun setSubdivDown(note: String): Boolean {
+        metronome.subdivDown = note.toInt()
+        subdivDown.text = note
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

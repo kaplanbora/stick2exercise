@@ -44,6 +44,10 @@ class MyLoginActivity : AppCompatActivity() {
                     RoutineRepository.load(dbHelper!!)
                 }
                 Thread.sleep(1000)
+                if (RoutineRepository.routines.isEmpty()) {
+                    RoutineRepository.userId = userId
+                    RoutineRepository.load(dbHelper!!)
+                }
                 val intent = Intent(applicationContext, RoutineListActivity::class.java)
                 intent.putExtra("userId", userId)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -1,6 +1,7 @@
 package com.kaplanbora.stick2exercise.exercise
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.design.widget.NavigationView
@@ -11,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.*
+import com.kaplanbora.stick2exercise.repository.Metronome
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
@@ -18,20 +20,29 @@ import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var currentBeat = 1
+    val metronome = Metronome(120, 4, 4)
     var isPlaying = false
     var timerOn = false
     var timerTick = 0L
     var timer: CountDownTimer? = null
+    var metronomePlayer: CountDownTimer? = null
+    var player1: MediaPlayer? = null
+    var player2: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
 
-        // TODO: Why index?
+        player1 = MediaPlayer.create(applicationContext, R.raw.metro_1)
+        player2 = MediaPlayer.create(applicationContext, R.raw.metro_other)
         val index = intent.extras.getInt("exerciseIndex")
         val routineId = intent.extras.getLong("routineId")
         val exercise = RoutineRepository.get(routineId).exercises[index]
+        metronome.tempo = exercise.metronome.tempo
+        metronome.subdivUp = exercise.metronome.subdivUp
+        metronome.subdivDown = exercise.metronome.subdivDown
         isPlaying = intent.extras.getBoolean("isPlaying", false)
 
         title = "${getString(R.string.exercise)} ${exercise.position}"
@@ -48,31 +59,37 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             if (timer == null) {
                 isPlaying = true
                 timerOn = true
+                metronomePlayer = createMetronome(99 * 60 * 1000)
                 timer = createTimer(msDuration, index, routineId)
                 timerButton.toggle()
                 timer!!.start()
+                metronomePlayer!!.start()
             } else if (timerOn) {
                 isPlaying = false
                 timerOn = false
                 timerButton.toggle()
                 timer!!.cancel()
+                metronomePlayer!!.cancel()
             } else {
                 isPlaying = true
                 timerOn = true
                 timer = createTimer(timerTick, index, routineId)
                 timerButton.toggle()
                 timer!!.start()
+                metronomePlayer!!.start()
             }
         }
 
         nextButton.setOnClickListener { _ ->
-            timer?.cancel()
             nextExercise(index, routineId)
+            timer?.cancel()
+            metronomePlayer?.cancel()
         }
 
         previousButton.setOnClickListener { _ ->
-            timer?.cancel()
             previousExercise(index, routineId)
+            timer?.cancel()
+            metronomePlayer?.cancel()
         }
 
         if (isPlaying) {
@@ -112,6 +129,33 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    private fun createMetronome(duration: Long): CountDownTimer {
+        return object : CountDownTimer(duration, calculateInterval()) {
+            override fun onTick(msLeft: Long) {
+                if (currentBeat == 1) {
+                    player1!!.start()
+                    currentBeat += 1
+                } else if (currentBeat == metronome.subdivUp) {
+                    player2!!.start()
+                    currentBeat = 1
+                } else {
+                    player2!!.start()
+                    currentBeat += 1
+                }
+            }
+
+            override fun onFinish() {
+                currentBeat = 0
+            }
+        }
+    }
+
+    fun calculateInterval(): Long {
+        val tempo = (60.0 * 1000.0 / metronome.tempo.toDouble())
+        val signature = (4.0 / metronome.subdivDown.toDouble())
+        return (tempo * signature).toLong()
+    }
+
     private fun createTimer(duration: Long, currentIndex: Int, routineId: Long): CountDownTimer {
         return object : CountDownTimer(duration, 1000) {
             override fun onTick(msLeft: Long) {
@@ -123,7 +167,8 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             override fun onFinish() {
                 timerMinute.text = "00"
                 timerSecond.text = "00"
-                timer!!.cancel()
+                timer?.cancel()
+                metronomePlayer?.cancel()
                 timerTick = 0
                 timerOn = false
                 timer = null
@@ -141,6 +186,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onDestroy() {
         super.onDestroy()
         timer?.cancel()
+        metronomePlayer?.cancel()
     }
 
     override fun onPause() {

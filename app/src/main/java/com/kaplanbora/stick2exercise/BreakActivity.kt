@@ -10,6 +10,7 @@ import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_break.*
 
 class BreakActivity : AppCompatActivity() {
+    var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +20,7 @@ class BreakActivity : AppCompatActivity() {
         val nextExercise = RoutineRepository.get(routineId).exercises[nextIndex]
         val isPlaying = intent.extras.getBoolean("isPlaying", false)
         val msDuration = ((nextExercise.breakDuration.minutes * 60) + nextExercise.breakDuration.seconds).toLong() * 1000
-        val timer = object : CountDownTimer(msDuration, 1000) {
+        timer = object : CountDownTimer(msDuration, 1000) {
             override fun onTick(msLeft: Long) {
                 timerMinute.text = String.format("%02d", msToMin(msLeft))
                 timerSecond.text = String.format("%02d", msToSec(msLeft))
@@ -42,7 +43,7 @@ class BreakActivity : AppCompatActivity() {
             }
         }
 
-        timer.start()
+        timer!!.start()
 
         exerciseName.text = nextExercise.name
 
@@ -59,6 +60,11 @@ class BreakActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
     }
 
     private fun msToMin(ms: Long): Long = (ms / 1000) / 60

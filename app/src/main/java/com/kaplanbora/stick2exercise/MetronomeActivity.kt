@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.content_metronome.*
 
 class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var currentBeat = 1
-    var metronomeTick = 0L
     val metronome = Metronome(120, 4, 4)
     var timerOn = false
     var currentMinute = 0
@@ -125,7 +124,7 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         nav_view.setNavigationItemSelectedListener(this)
     }
 
-    fun createMetronome(duration: Long): CountDownTimer {
+    private fun createMetronome(duration: Long): CountDownTimer {
         return object : CountDownTimer(duration, calculateInterval()) {
             override fun onTick(msLeft: Long) {
                 beat.text = "$currentBeat"
@@ -149,8 +148,8 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     fun calculateInterval(): Long {
-        val tempo = (60 * 1000 / metronome.tempo.toDouble())
-        val signature = (metronome.subdivUp.toDouble() / metronome.subdivDown.toDouble())
+        val tempo = (60.0 * 1000.0 / metronome.tempo.toDouble())
+        val signature = (4.0 / metronome.subdivDown.toDouble())
         return (tempo * signature).toLong()
     }
 

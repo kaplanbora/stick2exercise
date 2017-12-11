@@ -166,4 +166,6 @@
     <string name="welcome_info">Bilgilerini bulutta saklamak üzere bir hesap oluşturmak istermisin?</string>
     <string name="welcome_yes">Evet, hesap oluşturma sayfasına git</string>
     <string name="welcome_no">Hayır, bilgilerimi telefonda sakla</string>
+    <string name="next_exercise">Sıradaki Egzersiz</string>
+    <string name="skip">Molayı Geç</string>
 </resources>

@@ -58,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=":"
+            android:textColor="@color/android_white"
             android:textSize="32sp" />
 
         <TextView

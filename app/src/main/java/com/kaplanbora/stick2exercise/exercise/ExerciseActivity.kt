@@ -7,16 +7,12 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.kaplanbora.stick2exercise.R
+import com.kaplanbora.stick2exercise.*
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
-import com.kaplanbora.stick2exercise.MetronomeActivity
-import com.kaplanbora.stick2exercise.MyLoginActivity
-import com.kaplanbora.stick2exercise.SettingsActivity
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 
@@ -32,7 +28,8 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         // TODO: Why index?
         val index = intent.extras.getInt("exerciseIndex")
-        val exercise = RoutineRepository.get(intent.extras.getLong("routineId")).exercises[index]
+        val routineId = intent.extras.getLong("routineId")
+        val exercise = RoutineRepository.get(routineId).exercises[index]
 
 
         title = "${getString(R.string.exercise)} ${exercise.position}"
@@ -48,7 +45,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         timerButton.setOnClickListener { _ ->
             if (timer == null) {
                 timerOn = true
-                timer = createTimer(msDuration)
+                timer = createTimer(msDuration, index, routineId)
                 timerButton.toggle()
                 timer!!.start()
             } else if (timerOn) {
@@ -57,10 +54,20 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timer!!.cancel()
             } else {
                 timerOn = true
-                timer = createTimer(timerTick)
+                timer = createTimer(timerTick, index, routineId)
                 timerButton.toggle()
                 timer!!.start()
             }
+        }
+
+        nextButton.setOnClickListener { _ ->
+            timer?.cancel()
+            nextExercise(index, routineId)
+        }
+
+        previousButton.setOnClickListener { _ ->
+            timer?.cancel()
+            previousExercise(index, routineId)
         }
 
 
@@ -72,7 +79,28 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         nav_view.setNavigationItemSelectedListener(this)
     }
 
-    private fun createTimer(duration: Long): CountDownTimer {
+    private fun nextExercise(currentIndex: Int, routineId: Long) {
+        if (RoutineRepository.get(routineId).exercises.size > currentIndex + 1) {
+            val intent = Intent(applicationContext, BreakActivity::class.java)
+            intent.putExtra("nextExerciseIndex", currentIndex + 1)
+            intent.putExtra("routineId", routineId)
+            startActivity(intent)
+            finish()
+
+        }
+    }
+
+    private fun previousExercise(currentIndex: Int, routineId: Long) {
+        if (currentIndex > 0) {
+            val intent = Intent(applicationContext, ExerciseActivity::class.java)
+            intent.putExtra("nextExerciseIndex", currentIndex - 1)
+            intent.putExtra("routineId", routineId)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun createTimer(duration: Long, currentIndex: Int, routineId: Long): CountDownTimer {
         return object : CountDownTimer(duration, 1000) {
             override fun onTick(msLeft: Long) {
                 timerTick = msLeft
@@ -88,6 +116,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timerOn = false
                 timer = null
                 timerButton.toggle()
+                nextExercise(currentIndex, routineId)
             }
         }
 
@@ -104,7 +133,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     override fun onPause() {
         super.onPause()
-        if (timerOn){
+        if (timerOn) {
             timerButton.callOnClick()
         }
     }

@@ -168,4 +168,6 @@
     <string name="welcome_info">Would you like to create an account to store your information to cloud?</string>
     <string name="welcome_yes">Yes, take me to registration page</string>
     <string name="welcome_no">No, store my information only locally</string>
+    <string name="next_exercise">Next Exercise</string>
+    <string name="skip">Skip</string>
 </resources>

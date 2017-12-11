@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.kaplanbora.stick2exercise.*
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
@@ -17,6 +18,7 @@ import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 
 
 class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var isPlaying = false
     var timerOn = false
     var timerTick = 0L
     var timer: CountDownTimer? = null
@@ -30,7 +32,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         val index = intent.extras.getInt("exerciseIndex")
         val routineId = intent.extras.getLong("routineId")
         val exercise = RoutineRepository.get(routineId).exercises[index]
-
+        isPlaying = intent.extras.getBoolean("isPlaying", false)
 
         title = "${getString(R.string.exercise)} ${exercise.position}"
 
@@ -44,15 +46,18 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         timerButton.setOnClickListener { _ ->
             if (timer == null) {
+                isPlaying = true
                 timerOn = true
                 timer = createTimer(msDuration, index, routineId)
                 timerButton.toggle()
                 timer!!.start()
             } else if (timerOn) {
+                isPlaying = false
                 timerOn = false
                 timerButton.toggle()
                 timer!!.cancel()
             } else {
+                isPlaying = true
                 timerOn = true
                 timer = createTimer(timerTick, index, routineId)
                 timerButton.toggle()
@@ -70,6 +75,9 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             previousExercise(index, routineId)
         }
 
+        if (isPlaying) {
+            timerButton.callOnClick()
+        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -84,17 +92,21 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             val intent = Intent(applicationContext, BreakActivity::class.java)
             intent.putExtra("nextExerciseIndex", currentIndex + 1)
             intent.putExtra("routineId", routineId)
+            intent.putExtra("isPlaying", isPlaying)
             startActivity(intent)
             finish()
-
+        } else {
+            Toast.makeText(applicationContext, "Finished exercise routine!", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
     private fun previousExercise(currentIndex: Int, routineId: Long) {
         if (currentIndex > 0) {
             val intent = Intent(applicationContext, ExerciseActivity::class.java)
-            intent.putExtra("nextExerciseIndex", currentIndex - 1)
+            intent.putExtra("exerciseIndex", currentIndex - 1)
             intent.putExtra("routineId", routineId)
+            intent.putExtra("isPlaying", isPlaying)
             startActivity(intent)
             finish()
         }

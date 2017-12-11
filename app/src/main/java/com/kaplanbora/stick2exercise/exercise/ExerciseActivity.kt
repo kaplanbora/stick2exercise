@@ -10,9 +10,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.*
 import com.kaplanbora.stick2exercise.repository.Metronome
+import com.kaplanbora.stick2exercise.repository.Repository
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
@@ -34,6 +36,9 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
+        if (Repository.settings.screenOn) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
         player1 = MediaPlayer.create(applicationContext, R.raw.metro_1)
         player2 = MediaPlayer.create(applicationContext, R.raw.metro_other)
@@ -173,7 +178,12 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timerOn = false
                 timer = null
                 timerButton.toggle()
-                nextExercise(currentIndex, routineId)
+                if (Repository.settings.autoSwitch) {
+                    isPlaying = true
+                    nextExercise(currentIndex, routineId)
+                } else {
+                    isPlaying = false
+                }
             }
         }
 

@@ -75,7 +75,7 @@
 
         <Button
             android:id="@+id/subdivUp"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="40dp"
             android:text="4"
             android:textAppearance="@style/BlackText" />
@@ -90,7 +90,7 @@
 
         <Button
             android:id="@+id/subdivDown"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="40dp"
             android:text="4"
             android:textAppearance="@style/BlackText" />

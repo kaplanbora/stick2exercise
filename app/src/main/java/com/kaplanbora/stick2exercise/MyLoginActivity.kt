@@ -84,7 +84,7 @@ class MyLoginActivity : AppCompatActivity() {
         return connectivity.activeNetworkInfo != null
     }
 
-    fun areFieldsEmpty(): Boolean {
+    private fun areFieldsEmpty(): Boolean {
         if (email.text.toString() == "") {
             Toast.makeText(applicationContext, "Email cannot be empty.", Toast.LENGTH_LONG).show()
             return true

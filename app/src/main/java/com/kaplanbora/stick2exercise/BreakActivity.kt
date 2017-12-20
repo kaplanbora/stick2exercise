@@ -7,7 +7,7 @@ import android.os.CountDownTimer
 import android.view.WindowManager
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.exercise.ExerciseActivity
-import com.kaplanbora.stick2exercise.repository.Repository
+import com.kaplanbora.stick2exercise.repository.SettingsRepository
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_break.*
 
@@ -17,7 +17,7 @@ class BreakActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_break)
-        if (Repository.settings.screenOn) {
+        if (SettingsRepository.settings.screenOn) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 

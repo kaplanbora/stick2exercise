@@ -10,7 +10,7 @@ import android.view.MenuItem
 import android.widget.PopupMenu
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.repository.DbHelper
-import com.kaplanbora.stick2exercise.repository.Repository
+import com.kaplanbora.stick2exercise.repository.SettingsRepository
 import com.kaplanbora.stick2exercise.routine.RoutineListActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.content_settings.*
@@ -24,7 +24,7 @@ class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setSupportActionBar(toolbar)
 
         dbHelper = DbHelper(applicationContext)
-        val settings = Repository.loadSettings(dbHelper!!)
+        val settings = SettingsRepository.loadSettings(dbHelper!!)
 
         val minutes = (0..60).map { it.toString() }.toTypedArray()
         val seconds = (0..50 step 10).map { it.toString() }.toTypedArray()
@@ -65,7 +65,7 @@ class SettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             settings.countInSwitch = countInSwitch.isChecked
             settings.defaultMinute = minutePicker.value
             settings.defaultSecond = secondPicker.value
-            Repository.saveSettings(dbHelper!!)
+            SettingsRepository.saveSettings(dbHelper!!)
             Toast.makeText(applicationContext, getString(R.string.saved), Toast.LENGTH_SHORT).show()
             finish()
         }

@@ -1,7 +1,7 @@
 package com.kaplanbora.stick2exercise.repository
 
 
-object Repository {
+object SettingsRepository {
     var settings = Settings()
 
     fun loadSettings(dbHelper: DbHelper): Settings {

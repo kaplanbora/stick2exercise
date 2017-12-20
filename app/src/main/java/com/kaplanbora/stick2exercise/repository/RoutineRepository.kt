@@ -1,8 +1,7 @@
 package com.kaplanbora.stick2exercise.repository
 
 object RoutineRepository {
-    // Public to use easily with firebase. Change back to private when done.
-    var routines: MutableList<Routine> = mutableListOf()
+    private var routines: MutableList<Routine> = mutableListOf()
 
     fun get(id: Long): Routine = routines.first { it.id == id }
 

@@ -32,13 +32,13 @@ class CreateExerciseActivity : AppCompatActivity() {
         breakMinute.maxValue = minutes.size - 1
         breakMinute.wrapSelectorWheel = true
         breakMinute.displayedValues = minutes
-        breakMinute.value = Repository.settings.defaultMinute
+        breakMinute.value = SettingsRepository.settings.defaultMinute
 
         breakSecond.minValue = 0
         breakSecond.maxValue = seconds.size - 1
         breakSecond.wrapSelectorWheel = true
         breakSecond.displayedValues = seconds
-        breakSecond.value = Repository.settings.defaultSecond
+        breakSecond.value = SettingsRepository.settings.defaultSecond
 
         val subdivUpPopup = PopupMenu(applicationContext, subdivUp)
         subdivUpPopup.menuInflater.inflate(R.menu.subdivup_menu, subdivUpPopup.menu)

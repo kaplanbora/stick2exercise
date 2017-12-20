@@ -14,7 +14,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.kaplanbora.stick2exercise.*
 import com.kaplanbora.stick2exercise.repository.Metronome
-import com.kaplanbora.stick2exercise.repository.Repository
+import com.kaplanbora.stick2exercise.repository.SettingsRepository
 import com.kaplanbora.stick2exercise.repository.RoutineRepository
 import kotlinx.android.synthetic.main.activity_exercise.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
@@ -36,7 +36,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
         setSupportActionBar(toolbar)
-        if (Repository.settings.screenOn) {
+        if (SettingsRepository.settings.screenOn) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
@@ -178,7 +178,7 @@ class ExerciseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 timerOn = false
                 timer = null
                 timerButton.toggle()
-                if (Repository.settings.autoSwitch) {
+                if (SettingsRepository.settings.autoSwitch) {
                     isPlaying = true
                     nextExercise(currentIndex, routineId)
                 } else {

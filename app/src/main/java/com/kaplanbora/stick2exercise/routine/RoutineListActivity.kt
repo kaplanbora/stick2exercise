@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.kaplanbora.stick2exercise.MetronomeActivity
-import com.kaplanbora.stick2exercise.MyLoginActivity
 import com.kaplanbora.stick2exercise.exercise.ExerciseListActivity
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.SettingsActivity
@@ -21,20 +20,17 @@ import kotlinx.android.synthetic.main.content_routine_list.*
 
 class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, RoutineActionListener {
     private var dbHelper: DbHelper? = null
-    private var userId = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine_list)
         setSupportActionBar(toolbar)
 
-        userId = intent.getLongExtra("userId", -1)
         dbHelper = DbHelper(applicationContext)
         refreshListView()
         routinesListView.setOnItemClickListener { _, _, _, l ->
             val newintent = Intent(applicationContext, ExerciseListActivity::class.java)
             newintent.putExtra("routineId", l)
-            newintent.putExtra("userId", userId)
             startActivity(newintent)
         }
 
@@ -53,12 +49,9 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun deleteRoutine(routine: Routine) {
         RoutineRepository.remove(dbHelper!!, routine)
-        if (Repository.settings.onlineMode) {
-            FirebaseRepository.deleteRoutine(routine, userId)
-        }
         refreshListView()
         Snackbar.make(routinesListRoot, R.string.list_delete_message, Snackbar.LENGTH_LONG)
-                .setAction("UNDO", RestoreRoutine(userId, this, routine, dbHelper!!))
+                .setAction("UNDO", RestoreRoutine(this, routine, dbHelper!!))
                 .show()
     }
 
@@ -75,18 +68,12 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         val routine = RoutineRepository.get(id)
         routine.name = name
         RoutineRepository.update(dbHelper!!, routine)
-        if (Repository.settings.onlineMode) {
-            FirebaseRepository.updateRoutine(routine, userId)
-        }
         refreshListView()
     }
 
     override fun createRoutine(name: String) {
-        val routine = Routine(-1, userId, RoutineRepository.nextPosition(), name, mutableListOf())
+        val routine = Routine(-1, RoutineRepository.nextPosition(), name, mutableListOf())
         RoutineRepository.add(dbHelper!!, routine)
-        if (Repository.settings.onlineMode) {
-            FirebaseRepository.addRoutine(routine, userId)
-        }
         refreshListView()
     }
 
@@ -147,13 +134,6 @@ class RoutineListActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             }
             R.id.nav_settings -> {
                 val intent = Intent(applicationContext, SettingsActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.nav_logout -> {
-                routinesListView.adapter = RoutineListAdapter(this, applicationContext, mutableListOf())
-                val intent = Intent(applicationContext, MyLoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
             }
         }

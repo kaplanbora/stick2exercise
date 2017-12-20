@@ -12,7 +12,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import com.kaplanbora.stick2exercise.MetronomeActivity
-import com.kaplanbora.stick2exercise.MyLoginActivity
 import com.kaplanbora.stick2exercise.R
 import com.kaplanbora.stick2exercise.SettingsActivity
 import com.kaplanbora.stick2exercise.repository.*
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.content_exercise_list.*
 class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ExerciseActionListener {
     private var exerciseRepository: ExerciseRepository? = null
     private var dbHelper: DbHelper? = null
-    private var userId = -1L
     private val CREATE_EXERCISE = 1000
     private val EDIT_EXERCISE = 2000
 
@@ -37,7 +35,6 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         exerciseRepository = ExerciseRepository(routine)
         dbHelper = DbHelper(applicationContext)
         title = routine.name
-        userId = intent.getLongExtra("userId", -1)
 
         exerciseListView.adapter = ExerciseListAdapter(this, applicationContext, routine.exercises)
         exerciseListView.setOnItemClickListener { adapterView, view, i, l ->
@@ -71,13 +68,9 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun deleteExercise(exercise: Exercise) {
         exerciseRepository!!.remove(dbHelper!!, exercise)
-        if (Repository.settings.onlineMode) {
-            FirebaseRepository.deleteExercise(exercise, intent.extras.getLong("routineId"), userId)
-        }
         refreshListView()
         Snackbar.make(exerciseListRoot, R.string.exercise_delete_message, Snackbar.LENGTH_LONG)
-//                .setAction("UNDO", RestoreExercise(this, exercise, dbHelper!!, exerciseRepository!!))
-                .setAction(getString(R.string.undo), RestoreExercise(intent.extras.getLong("routineId"), userId, this, exercise, dbHelper!!, exerciseRepository!!))
+                .setAction("UNDO", RestoreExercise(this, exercise, dbHelper!!, exerciseRepository!!))
                 .show()
     }
 
@@ -94,16 +87,10 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         if (requestCode == CREATE_EXERCISE && resultCode == Activity.RESULT_OK) {
             val newExercise = exerciseRepository!!.get(-1)
             exerciseRepository!!.add(dbHelper!!, newExercise)
-            if (Repository.settings.onlineMode) {
-                FirebaseRepository.addExercise(newExercise, intent.extras.getLong("routineId"), userId)
-            }
         }
         if (requestCode == EDIT_EXERCISE && resultCode == Activity.RESULT_OK) {
             val exercise = exerciseRepository!!.get(data?.extras!!.getLong("exerciseId"))
             exerciseRepository!!.update(dbHelper!!, exercise)
-            if (Repository.settings.onlineMode) {
-                FirebaseRepository.updateExercise(exercise, intent.extras.getLong("routineId"), userId)
-            }
         }
     }
 
@@ -159,12 +146,6 @@ class ExerciseListActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
             R.id.nav_settings -> {
                 val intent = Intent(applicationContext, SettingsActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.nav_logout -> {
-                val intent = Intent(applicationContext, MyLoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
             }
         }

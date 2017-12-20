@@ -12,12 +12,6 @@ data class Settings(
         var defaultSecond: Int = 0
 )
 
-data class User(
-        var id: Long,
-        var email: String,
-        var password: String
-)
-
 data class Exercise(
         var id: Long,
         var position: Int,
@@ -28,7 +22,6 @@ data class Exercise(
 
 data class Routine(
         var id: Long,
-        var userId: Long,
         var position: Int,
         var name: String,
         val exercises: MutableList<Exercise> = mutableListOf())

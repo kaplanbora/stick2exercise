@@ -264,12 +264,6 @@ class MetronomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(applicationContext, SettingsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_logout -> {
-                val intent = Intent(applicationContext, MyLoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-            }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true

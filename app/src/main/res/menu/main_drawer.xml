@@ -3,29 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <item android:title="@string/menu">
-    <menu>
-        <item
-            android:id="@+id/nav_routine_list"
-            android:icon="?android:attr/actionModeSelectAllDrawable"
-            android:title="@string/exercise_lists" />
-        <item
-            android:id="@+id/nav_metronome"
-            android:icon="@android:drawable/ic_lock_idle_alarm"
-            android:title="@string/metronome" />
-    </menu>
-    </item>
-
-    <item android:title="@string/user_options">
         <menu>
+            <item
+                android:id="@+id/nav_routine_list"
+                android:icon="?android:attr/actionModeSelectAllDrawable"
+                android:title="@string/exercise_lists" />
+            <item
+                android:id="@+id/nav_metronome"
+                android:icon="@android:drawable/ic_lock_idle_alarm"
+                android:title="@string/metronome" />
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/settings" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@android:drawable/ic_lock_power_off"
-                android:title="@string/logout" />
         </menu>
     </item>
-
 </menu>

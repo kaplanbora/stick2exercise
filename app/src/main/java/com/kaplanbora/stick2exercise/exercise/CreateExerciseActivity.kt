@@ -15,7 +15,6 @@ class CreateExerciseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_exercise)
 
-        val prefs = this.getPreferences(android.content.Context.MODE_PRIVATE)
         val minutes = (0..60).map { it.toString() }.toTypedArray()
         val seconds = (0..50 step 10).map { it.toString() }.toTypedArray()
         playMinute.minValue = 0

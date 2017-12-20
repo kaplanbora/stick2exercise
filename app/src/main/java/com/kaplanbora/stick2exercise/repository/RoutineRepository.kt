@@ -3,7 +3,6 @@ package com.kaplanbora.stick2exercise.repository
 object RoutineRepository {
     // Public to use easily with firebase. Change back to private when done.
     var routines: MutableList<Routine> = mutableListOf()
-    var userId = -1L
 
     fun get(id: Long): Routine = routines.first { it.id == id }
 
@@ -29,7 +28,7 @@ object RoutineRepository {
     }
 
     fun load(dbHelper: DbHelper) {
-        routines = RoutineDatabase.selectAll(dbHelper, userId)
+        routines = RoutineDatabase.selectAll(dbHelper)
         routines.forEach { ExerciseDatabase.selectAll(dbHelper, it) }
     }
 

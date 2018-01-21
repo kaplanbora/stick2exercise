@@ -8,7 +8,7 @@ exercises you can start exercising and follow the applications metronome and let
 </p>
 <p align="center">
   <img width="360" height="640" src="https://raw.githubusercontent.com/kaplanbora/stick2exercise/master/screenshots/exercises.png">
-  <img width="360" height="640" src="https://raw.githubusercontent.com/kaplanbora/stick2exercise/master/screenshots/create-exercises.png">
+  <img width="360" height="640" src="https://raw.githubusercontent.com/kaplanbora/stick2exercise/master/screenshots/create-exercise.png">
 </p>
 <p align="center">
   <img width="360" height="640" src="https://raw.githubusercontent.com/kaplanbora/stick2exercise/master/screenshots/exercise-playing.png">
